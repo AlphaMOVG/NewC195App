@@ -1,4 +1,4 @@
-package DAO;
+package helper;
 
 import Main.JDBC;
 import Models.Appointments;

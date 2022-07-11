@@ -1,9 +1,5 @@
 package Controllers;
-import DAO.AppointmentDBA;
-import DAO.ContactDBA;
-import DAO.CustomerDBA;
-import DAO.UserDBA;
-import Main.JDBC;
+import helper.AppointmentDBA;
 import Models.Appointments;
 import Models.Contacts;
 import Models.Customers;
@@ -21,10 +17,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.*;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AppController implements Initializable {
@@ -106,8 +100,9 @@ public class AppController implements Initializable {
     @Override
     public void initialize(java.net.URL url, ResourceBundle resourceBundle) {
 
-        ObservableList<Appointments> allAppointmentsList = null;
-        appointmentsTableView.setItems(allAppointmentsList);
+
+            ObservableList<Appointments> allAppointments = FXCollections.observableArrayList();
+            appointmentsTableView.setItems(allAppointments);
 
         appointmentIdCol.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
         titleCol.setCellValueFactory(new PropertyValueFactory<>("appointmentTitle"));
@@ -119,6 +114,7 @@ public class AppController implements Initializable {
         customerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         contactCol.setCellValueFactory(new PropertyValueFactory<>("contact"));
         userIdCol.setCellValueFactory(new PropertyValueFactory<>("userID"));
+
 
 
     }
@@ -148,7 +144,7 @@ public class AppController implements Initializable {
     /**
      * When radio button for "Month" is selected.
      *
-     * @throws SQLException
+     * @throws //SQLException
      */
     @FXML
     void onActionMonths(ActionEvent event) throws SQLException {
@@ -201,18 +197,65 @@ public class AppController implements Initializable {
                 });
         } catch (Exception e) {
             e.printStackTrace();
+
         }
+    }
+
+
+
+    @FXML
+    void onActionLocationCombo(ActionEvent event) {
+
+    }
+
+
+    @FXML
+    void onActionContactCombo(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onActionStartDatePicker(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onActionStartTimeCombo(ActionEvent event) {
+
+    }
+
+
+    @FXML
+    void onActionEndDatePicker(ActionEvent event) {
+
+    }
+
+    @FXML
+    void onActionEndTimeCombo(ActionEvent event) {
+
+    }
+
+
+    @FXML
+    void onActionCustomerIDCombo(ActionEvent event) {
+
+    }
+
+
+    @FXML
+    void onActionUserIDCombo(ActionEvent event) {
+
     }
 
 
     @FXML
     void onActionAdd(ActionEvent event) throws SQLException, IOException {
+        try{
 
-        Connection connection = JDBC.startConnection();
-
-        if (!titleTxt.getText().isEmpty() && !descriptionTxt.getText().isEmpty() && !locationTxt.getText().isEmpty() && !typeTxt.getText().isEmpty() && startDatePicker.getValue() != null && endDatePicker.getValue() != null && !sTimeCombo.getValue().isEmpty() && !eTimeCombo.getValue().isEmpty()) {
-            customerIDCombo.getValue();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
 
     }
 
@@ -231,39 +274,24 @@ public class AppController implements Initializable {
 
     @FXML
     void onActionDelete(ActionEvent event) {
-        try {
-            Connection connection = JDBC.startConnection();
-            int deleteAppointmentID = appointmentsTableView.getSelectionModel().getSelectedItem().getAppointmentID();
-            String deleteAppointmentType = appointmentsTableView.getSelectionModel().getSelectedItem().getAppointmentType();
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Delete the selected appointment with appointment id: " + deleteAppointmentID + " and appointment type " + deleteAppointmentType);
-            Optional<ButtonType> confirmation = alert.showAndWait();
-            if (confirmation.isPresent() && confirmation.get() == ButtonType.OK) {
-                AppointmentDBA.deleteAppointment(deleteAppointmentID, connection);
+        try{
 
-                ObservableList<Appointments> allAppointmentsList = AppointmentDBA.getAllAppointments();
-                appointmentsTableView.setItems(allAppointmentsList);
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
     }
 
 
     @FXML
     void onActionSave(ActionEvent event) {
+        try{
 
-        try {
-
-            Connection connection = JDBC.startConnection();
-
-            if (!titleTxt.getText().isEmpty() && !descriptionTxt.getText().isEmpty() && !locationTxt.getText().isEmpty() && !typeTxt.getText().isEmpty() && startDatePicker.getValue() != null && endDatePicker.getValue() != null && !sTimeCombo.getValue().isEmpty() && !eTimeCombo.getValue().isEmpty()) {
-                customerIDCombo.getValue();
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
     }
 
 
@@ -277,17 +305,13 @@ public class AppController implements Initializable {
 
     @FXML
     void onActionUpdate(ActionEvent event) {
+        try{
 
-        Connection connection = JDBC.startConnection();
-
-        if (!titleTxt.getText().isEmpty() && !descriptionTxt.getText().isEmpty() && !locationTxt.getText().isEmpty() && !typeTxt.getText().isEmpty() && startDatePicker.getValue() != null && endDatePicker.getValue() != null && !sTimeCombo.getValue().isEmpty() && !eTimeCombo.getValue().isEmpty()) {
-            customerIDCombo.getValue();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
 
     }
-
-
-
 
 }

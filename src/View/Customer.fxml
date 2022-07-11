@@ -25,8 +25,8 @@
         <Label layoutX="344.0" layoutY="128.0" text="Division" />
         <TextField fx:id="customerIdTxt" editable="false" layoutX="117.0" layoutY="86.0" promptText="Auto Generated" />
         <TextField fx:id="customerNameTxt" layoutX="116.0" layoutY="124.0" />
-        <ComboBox fx:id="divisionCombo" layoutX="399.0" layoutY="124.0" prefWidth="150.0" />
-        <ComboBox fx:id="countryCombo" layoutX="399.0" layoutY="86.0" prefWidth="150.0" />
+        <ComboBox fx:id="divisionCombo" layoutX="399.0" layoutY="124.0" onAction="#onActionDivisionCombo" prefWidth="150.0" />
+        <ComboBox fx:id="countryCombo" layoutX="399.0" layoutY="86.0" onAction="#onActionCountryCombo" prefWidth="150.0" />
         <TextField fx:id="phoneNumberTxt" layoutX="116.0" layoutY="167.0" />
         <TableView fx:id="customerTableView" layoutX="21.0" layoutY="360.0" prefHeight="312.0" prefWidth="630.0">
             <columns>

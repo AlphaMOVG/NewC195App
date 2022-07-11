@@ -1,13 +1,11 @@
-package DAO;
+package helper;
 
 import Main.JDBC;
 import Models.Appointments;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+
+import java.sql.*;
 import java.time.LocalDateTime;
 
 public class AppointmentDBA {
@@ -42,6 +40,42 @@ public class AppointmentDBA {
         return appointmentsList;
     }
 
+
+public static void createAppointment(int appointmentID, String appointmentTitle, String appointmentDescription, String appointmentLocation, String appointmentType, Timestamp start, Timestamp end, int customerID, int userID, int contactID){
+        try{
+            String sql = "INSERT INTO appointments VALUES(NULL,?,?,?,?,?,?,?,?,?)";
+
+            PreparedStatement ps = JDBC.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            ps.setInt(1, appointmentID);
+            ps.setString(2, appointmentTitle);
+            ps.setString(3, appointmentDescription);
+            ps.setString(4, appointmentLocation);
+            ps.setString(5, appointmentType);
+            ps.setTimestamp(6, start);
+            ps.setTimestamp(7, end);
+            ps.setInt(8, customerID);
+            ps.setInt(9, userID);
+            ps.setInt(10, contactID);
+
+
+            ps.execute();
+
+            ResultSet rs = ps.getGeneratedKeys();
+            rs.next();
+            int appID = rs.getInt("1");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+}
+    public static void updateAppointment(int appointmentID, String appointmentTitle, String appointmentDescription, String appointmentLocation, String appointmentType, Timestamp start, Timestamp end, int customerID, int userID, int contactID){
+        try {
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * Method that deletes appointment
      * based on appointment ID.
@@ -51,7 +85,7 @@ public class AppointmentDBA {
      * @return result
      * @throws //SQLException
      */
-    public static int deleteAppointment(int customer, Connection connection) throws SQLException {
+    public static  int deleteAppointment(int customer, Connection connection) throws SQLException {
         String query = "DELETE FROM appointments WHERE Appointment_ID=?";
         PreparedStatement ps = connection.prepareStatement(query);
         ps.setInt(1, customer);
@@ -60,12 +94,5 @@ public class AppointmentDBA {
         return result;
     }
 
-    public static int insertAppointment (int customer, Connection connection) throws SQLException {
-        String query = "INSERT INTO appointments WHERE Appointment_ID=?";
-        PreparedStatement ps = connection.prepareStatement(query);
-        ps.setInt(1, customer);
-        int result = ps.executeUpdate();
-        ps.close();
-        return result;
-    }
+
 }

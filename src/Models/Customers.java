@@ -15,10 +15,11 @@ public class Customers {
     private String customerPostalCode;
     private String customerPhoneNumber;
     private int divisionID;
+    private int countryID;
 
 
     public Customers(int customerID, String customerName, String customerAddress, String customerPostalCode,
-                     String customerPhoneNumber, int divisionID) {
+                     String customerPhoneNumber, int divisionID, int coutnryID) {
 
         this.customerID = customerID;
         this.customerName = customerName;
@@ -26,6 +27,7 @@ public class Customers {
         this.customerPostalCode = customerPostalCode;
         this.customerPhoneNumber = customerPhoneNumber;
         this.divisionID = divisionID;
+        this.countryID = countryID;
 
 
     }
@@ -92,6 +94,15 @@ public class Customers {
     public Integer getCustomerDivisionID() {
 
         return divisionID;
+    }
+
+    /**
+     *
+     * @return countryID
+     */
+    public Integer getCountryID( ){
+
+        return countryID;
     }
 
 

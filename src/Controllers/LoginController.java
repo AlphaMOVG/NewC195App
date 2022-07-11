@@ -1,7 +1,7 @@
 package Controllers;
 
-import DAO.AppointmentDBA;
-import DAO.UserDBA;
+import helper.AppointmentDBA;
+import helper.UserDBA;
 import Models.Appointments;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;

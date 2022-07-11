@@ -1,8 +1,8 @@
 package Controllers;
 
-import DAO.AppointmentDBA;
-import DAO.ContactDBA;
-import DAO.ReportsDBA;
+import helper.AppointmentDBA;
+import helper.ContactDBA;
+import helper.ReportsDBA;
 import Models.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
