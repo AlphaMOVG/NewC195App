@@ -20,7 +20,7 @@ public class CountryHelper extends Country {
      * @return countriesObservableList
      * @throws SQLException
      */
-    public static ObservableList<CountryHelper> getCountries() throws SQLException {
+    public static ObservableList<CountryHelper> getAllCountries() throws SQLException {
         ObservableList<CountryHelper> countriesObservableList = FXCollections.observableArrayList();
         String sql = "SELECT * FROM countries";
         PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);

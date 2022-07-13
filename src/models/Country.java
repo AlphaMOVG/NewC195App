@@ -26,10 +26,11 @@ public class Country {
     }
 
     public static int getCountryID(){
+
         return countryID;
     }
 
     public String toString(){
-        return "#"+ Integer.toString(Integer.parseInt(countryName));
+        return "#"+ Integer.toString(Integer.parseInt(countryName, countryID));
     }
 }

@@ -45,4 +45,7 @@ public class Divisions {
         return countryID;
     }
 
+    public String toString(){
+        return "#"+ Integer.toString(Integer.parseInt(divisionName, countryID));
+    }
 }

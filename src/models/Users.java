@@ -40,4 +40,9 @@ public class Users {
 
         return userPassword;
     }
+
+    public String toString(){
+        return "#"+ Integer.toString(Integer.parseInt(userName, userID));
+    }
 }
+

@@ -19,7 +19,7 @@ public class Customers {
 
 
     public Customers(int customerID, String customerName, String customerAddress, String customerPostalCode,
-                     String customerPhoneNumber, int divisionID, int coutnryID) {
+                     String customerPhoneNumber, int divisionID, int countryID) {
 
         this.customerID = customerID;
         this.customerName = customerName;

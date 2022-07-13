@@ -1,5 +1,8 @@
 package controllers;
 
+import helperClasses.CountryHelper;
+import helperClasses.DivisionsHelper;
+import javafx.scene.control.cell.PropertyValueFactory;
 import models.Customers;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,6 +17,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import models.Divisions;
+
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -46,9 +51,9 @@ public class CustomerController implements Initializable {
     @FXML
     private TextField postalCodeTxt;
     @FXML
-    private ComboBox<String> divisionCombo;
+    private ComboBox<Divisions> divisionCombo;
     @FXML
-    private ComboBox<String> countryCombo;
+    private ComboBox<CountryHelper> countryCombo;
     @FXML
     private TextField addressTxt;
 
@@ -73,14 +78,23 @@ public class CustomerController implements Initializable {
 
 
     @FXML
-    void onActionCountryCombo(ActionEvent event) {
+    void onActionCountryCombo(ActionEvent event) throws SQLException {
+        ObservableList<CountryHelper> countries = CountryHelper.getAllCountries();
+        countryCombo.setItems(countries);
+        countryCombo.setVisibleRowCount(5);
+        countryCombo.setPromptText("- Choose A Country -");
+
+
 
     }
 
 
     @FXML
-    void onActionDivisionCombo(ActionEvent event) {
-
+    void onActionDivisionCombo(ActionEvent event) throws SQLException {
+        ObservableList<Divisions> divisions = DivisionsHelper.getAllDivisions();
+        divisionCombo.setItems(divisions);
+        divisionCombo.setVisibleRowCount(5);
+        divisionCombo.setPromptText("- Choose A Division -");
     }
 
 
@@ -169,6 +183,14 @@ public class CustomerController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         ObservableList<Customers> tableCustomerFillerList = FXCollections.observableArrayList();
         customerTableView.setItems(tableCustomerFillerList);
+
+        customerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
+        customerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
+        phoneNumberCol.setCellValueFactory(new PropertyValueFactory<>("customerPhoneNumber"));
+        postalCodeCol.setCellValueFactory(new PropertyValueFactory<>("customerPostalCode"));
+        addressCol.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
+        divisionCol.setCellValueFactory(new PropertyValueFactory<>("divisionID"));
+        countryCol.setCellValueFactory(new PropertyValueFactory<>("countryID"));
 
     }
 
