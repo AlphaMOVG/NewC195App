@@ -189,7 +189,6 @@ public class AppController implements Initializable {
             if (allAppointmentsList != null)
 
 
-
                 allAppointmentsList.forEach(appointment -> {
                     if (appointment.getEnd().isAfter(weekStart) && appointment.getEnd().isBefore(weekEnd)) {
                         appointmentsWeek.add(appointment);
