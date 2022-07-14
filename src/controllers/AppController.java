@@ -221,20 +221,20 @@ public class AppController implements Initializable {
 
     @FXML
     void onActionStartDatePicker(ActionEvent event) {
-        localDateTime startDate = localDateTime;
+       // localDateTime startDate = localDateTime;
 
 
     }
 
     @FXML
     void onActionStartTimeCombo(ActionEvent event) {
-        localTime start = localTime.of(8, 0);
-        localTime end = localTime.of(18, 0);
-        while(start.isBefore(end.plusSeconds(1))){
-            sTimeCombo.getItems().add(start);
-            start = start.plusMinutes(30);
-        }
-        sTimeCombo.getSelectionModel().select(localTime.of(8,0));
+      //  localTime start = localTime.of(8, 0);
+     //   localTime end = localTime.of(18, 0);
+       // while(start.isBefore(end.plusSeconds(1))){
+        //   sTimeCombo.getItems().add(start);
+        //   start = start.plusMinutes(30);
+    //    }
+      //  sTimeCombo.getSelectionModel().select(localTime.of(8,0));
 
     }
 
@@ -246,7 +246,7 @@ public class AppController implements Initializable {
 
     @FXML
     void onActionEndTimeCombo(ActionEvent event) {
-        localTime end = localTime.of(18, 0);
+     //   localTime end = localTime.of(18, 0);
     }
 
 

@@ -2,6 +2,7 @@ package helperClasses;
 
 import main.JDBC;
 import models.Appointments;
+import models.Customers;
 import models.Reports;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -10,10 +11,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
-public class ReportsHelper extends Appointments {
-
-    public ReportsHelper(int appointmentID, String appointmentTitle, String appointmentDescription, String appointmentLocation, String appointmentType, LocalDateTime start, LocalDateTime end, int customerID, int userID, int contactID) {
-        super(appointmentID, appointmentTitle, appointmentDescription, appointmentLocation, appointmentTitle, start, end, customerID, userID, customerID);
+public class ReportsHelper  {
+//take a look at this code to edit
+    public ReportsHelper() throws SQLException {
+        ObservableList<Appointments> appointments = AppointmentHelper.getAllAppointments();
     }
 
     /**
@@ -23,7 +24,7 @@ public class ReportsHelper extends Appointments {
      */
     public static ObservableList<Reports> getCountries() throws SQLException {
         ObservableList<Reports> countriesObservableList = FXCollections.observableArrayList();
-        String sql = "select countries.Country, count(*) as countryCount from customers inner join first_level_divisions on customers.Division_ID = first_level_divisions.Division_ID inner join countries on countries.Country_ID = first_level_divisions.Country_ID where  customers.Division_ID = first_level_divisions.Division_ID group by first_level_divisions.Country_ID order by count(*) desc";
+        String sql = "select countries.Country, count(customers.Customer_ID) as countryCount from customers inner join first_level_divisions on customers.Division_ID = first_level_divisions.Division_ID inner join countries on countries.Country_ID = first_level_divisions.Country_ID group by countries.Country, count(customers.Customer_ID) order by count(customers.Customer_ID) desc";
         PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {

@@ -20,7 +20,7 @@ public class CustomerHelper {
         ObservableList<Customers> customersObservableList = FXCollections.observableArrayList();
 
         try {
-            String query = "SELECT * FROM customers, Division_ID WHERE customers.Division_ID = first_level_divisions.Division_ID, countries WHERE customers.Country_ID = countries.Country_ID";
+            String query = "SELECT * FROM customers";
 
             PreparedStatement ps = JDBC.getConnection().prepareStatement(query);
             ResultSet rs = ps.executeQuery();

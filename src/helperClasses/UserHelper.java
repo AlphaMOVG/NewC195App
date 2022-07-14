@@ -22,7 +22,7 @@ public class UserHelper {
      */
     public static int validateUser(String username, String password) {
         try {
-            String sqlQuery = "SELECT * FROM users WHERE user_name = '" + username + "' AND password = '" + password + "'";
+            String sqlQuery = "SELECT * FROM users ";
 
             PreparedStatement ps = JDBC.getConnection().prepareStatement(sqlQuery);
 

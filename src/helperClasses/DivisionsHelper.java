@@ -22,7 +22,7 @@ public class DivisionsHelper extends Divisions {
      */
     public static ObservableList<Divisions> getAllDivisions() throws SQLException {
         ObservableList<Divisions> DivisionsObservableList = FXCollections.observableArrayList();
-        String sql = "SELECT * from first_level_divisions, Country_ID WHERE first_level_divisions.Country_ID = countries.CountryID ";
+        String sql = "SELECT * from first_level_divisions";
         PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {

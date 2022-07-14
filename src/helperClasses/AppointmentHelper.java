@@ -18,7 +18,7 @@ public class AppointmentHelper {
     public static ObservableList<Appointments> getAllAppointments() throws SQLException {
         ObservableList<Appointments> appointmentsList = FXCollections.observableArrayList();
 
-        String sql = "SELECT * from appointments, Customer_ID WHERE appointments.Customer_ID = customers.Customer_ID, User_ID WHERE appointments.User_ID = users.User_ID, Contact_ID WHERE appointments.Contact_ID = contacts.Contact_ID";
+        String sql = "SELECT * FROM appointments";
         PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
 
@@ -71,7 +71,7 @@ public class AppointmentHelper {
 
     public static void updateAppointment(int appointmentID, String appointmentTitle, String appointmentDescription, String appointmentLocation, String appointmentType, Timestamp start, Timestamp end, int customerID, int userID, int contactID) {
         try {
-            String sql  = "UPDATE appointments set Appointment_ID = ?, Title = ?, Address = ?, Description = ? ,  Location = ?, Type = ?, Start = ?, End = ? WHERE Customer_ID = ? AND User_ID = ? AND Contact_ID = ? ";
+            String sql  = "UPDATE appointments SET Appointment_ID = ?, Title = ?, Address = ?, Description = ? ,  Location = ?, Type = ?, Start = ?, End = ? WHERE Customer_ID = ? AND User_ID = ? AND Contact_ID = ? ";
             PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
             ps.setInt(1, appointmentID);
             ps.setString(2, appointmentTitle);
@@ -92,16 +92,8 @@ public class AppointmentHelper {
         }
     }
 
-    /**
-     * Method that deletes appointment
-     * based on appointment ID.
-     *
-     * @param //customer
-     * @param
-     * @return result
-     * @throws //SQLException
-     */
-    public static void deleteAppointment(int appointmentID, int customerID) throws SQLException {
+
+    public static void deleteAppointment(int appointmentID) throws SQLException {
         try {
             String sql = "DELETE FROM appointments WHERE Appointment_ID = ?";
             PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);

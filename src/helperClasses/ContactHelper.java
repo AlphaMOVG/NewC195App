@@ -34,20 +34,5 @@ public class ContactHelper {
         return contactsObservableList;
     }
 
-    /**
-     * Retrieves contact ID given contact name.
-     *
-     * @param contactID
-     * @return contactID
-     * @throws SQLException
-     */
-    public static String retrieveContactID(String contactID) throws SQLException {
-        PreparedStatement ps = JDBC.getConnection().prepareStatement("SELECT * FROM contacts WHERE Contact_Name = ?");
-        ps.setString(1, contactID);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            contactID = rs.getString("Contact_ID");
-        }
-        return contactID;
-    }
+
 }
