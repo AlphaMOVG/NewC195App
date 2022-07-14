@@ -19,7 +19,7 @@ public class AppointmentHelper {
         ObservableList<Appointments> appointmentsList = FXCollections.observableArrayList();
 
         String sql = "SELECT * FROM appointments";
-        PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
 
         while (rs.next()) {
@@ -45,7 +45,7 @@ public class AppointmentHelper {
         try {
             String sql = "INSERT INTO appointments VALUES(NULL,?,?,?,?,?,?,?,?,?)";
 
-            PreparedStatement ps = JDBC.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, appointmentID);
             ps.setString(2, appointmentTitle);
             ps.setString(3, appointmentDescription);
@@ -72,7 +72,7 @@ public class AppointmentHelper {
     public static void updateAppointment(int appointmentID, String appointmentTitle, String appointmentDescription, String appointmentLocation, String appointmentType, Timestamp start, Timestamp end, int customerID, int userID, int contactID) {
         try {
             String sql  = "UPDATE appointments SET Appointment_ID = ?, Title = ?, Address = ?, Description = ? ,  Location = ?, Type = ?, Start = ?, End = ? WHERE Customer_ID = ? AND User_ID = ? AND Contact_ID = ? ";
-            PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
             ps.setInt(1, appointmentID);
             ps.setString(2, appointmentTitle);
             ps.setString(3, appointmentDescription);
@@ -96,7 +96,7 @@ public class AppointmentHelper {
     public static void deleteAppointment(int appointmentID) throws SQLException {
         try {
             String sql = "DELETE FROM appointments WHERE Appointment_ID = ?";
-            PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
             ps.setInt(1, appointmentID);
             ps.executeUpdate();
 

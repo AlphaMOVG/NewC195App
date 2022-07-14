@@ -22,7 +22,7 @@ public class CustomerHelper {
         try {
             String query = "SELECT * FROM customers";
 
-            PreparedStatement ps = JDBC.getConnection().prepareStatement(query);
+            PreparedStatement ps = JDBC.connection.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
 
 
@@ -51,7 +51,7 @@ public class CustomerHelper {
         try {
             String sql = "INSERT INTO customers VALUES(NULL,?,?,?,?,?,?)";
 
-            PreparedStatement ps = JDBC.getConnection().prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setInt(1, customerID);
             ps.setString(2, customerName);
             ps.setString(3, customerAddress);
@@ -77,7 +77,7 @@ public class CustomerHelper {
     public static void updateCustomer(int customerID, String customerName, String customerAddress, String customerPostalCode, String customerPhone, int divisionID, int countryID){
         try {
         String sql  = "UPDATE customers set Customer_ID = ?, Customer_Name = ?, Address = ?, Postal_Code = ? ,  Phone = ?, WHERE Division_ID = ? AND Country_ID = ? ";
-            PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
             ps.setInt(1, customerID);
             ps.setString(2, customerName);
             ps.setString(3, customerAddress);
@@ -99,12 +99,12 @@ public class CustomerHelper {
 
             String sql = "DELETE from appointments WHERE Appointment_ID = ?";
 
-            PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
             ps.setInt(1, appointmentID);
             ps.execute();
 
             String sqlTwo = "DELETE from customers WHERE Customer_ID = ?";
-            PreparedStatement psTwo = JDBC.getConnection().prepareStatement(sqlTwo);
+            PreparedStatement psTwo = JDBC.connection.prepareStatement(sqlTwo);
             ps.setInt(1, customerID);
             ps.execute();
 

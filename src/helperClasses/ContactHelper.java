@@ -21,7 +21,7 @@ public class ContactHelper {
 
         String sql = "SELECT * from contacts";
 
-        PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
 
         ResultSet rs = ps.executeQuery();
 

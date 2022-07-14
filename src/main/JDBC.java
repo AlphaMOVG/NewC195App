@@ -13,10 +13,10 @@ public class JDBC {
     private static final String driver = "com.mysql.cj.jdbc.Driver"; // Driver reference
     private static final String userName = "sqlUser"; // Username
     private static String password = "Passw0rd!"; // Password
-    private static Connection connection;  // Connection Interface
-    private static PreparedStatement preparedStatement;
+    public static Connection connection;  // Connection Interface
 
-    public static Connection startConnection() {
+
+    public static void  startConnection() {
 
         try {
             Class.forName(driver); // Locate Driver
@@ -24,20 +24,18 @@ public class JDBC {
             connection = DriverManager.getConnection(jdbcUrl, userName, password); // reference Connection object
             System.out.println("Connection successful!");
         }
-        catch(ClassNotFoundException e) {
+        catch (SQLException e) {
+            e.printStackTrace();
             System.out.println("Error:" + e.getMessage());
         }
-        catch(SQLException e) {
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
             System.out.println("Error:" + e.getMessage());
         }
-        return null;
+
+
     }
 
-    public static Connection getConnection() {
-
-
-        return connection;
-    }
 
 
     public static void closeConnection() {
@@ -45,7 +43,7 @@ public class JDBC {
             connection.close();
             System.out.println("Connection closed!");
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Error:" + e.getMessage());
         }
     }
 

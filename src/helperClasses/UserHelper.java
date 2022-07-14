@@ -24,7 +24,7 @@ public class UserHelper {
         try {
             String sqlQuery = "SELECT * FROM users ";
 
-            PreparedStatement ps = JDBC.getConnection().prepareStatement(sqlQuery);
+            PreparedStatement ps = JDBC.connection.prepareStatement(sqlQuery);
 
             ResultSet rs = ps.executeQuery();
 
@@ -53,7 +53,7 @@ public class UserHelper {
 
         String sql = "SELECT * from users, ";
 
-        PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
 
         ResultSet rs = ps.executeQuery();
 

@@ -25,7 +25,7 @@ public class ReportsHelper  {
     public static ObservableList<Reports> getCountries() throws SQLException {
         ObservableList<Reports> countriesObservableList = FXCollections.observableArrayList();
         String sql = "select countries.Country, count(customers.Customer_ID) as countryCount from customers inner join first_level_divisions on customers.Division_ID = first_level_divisions.Division_ID inner join countries on countries.Country_ID = first_level_divisions.Country_ID group by countries.Country, count(customers.Customer_ID) order by count(customers.Customer_ID) desc";
-        PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
 
