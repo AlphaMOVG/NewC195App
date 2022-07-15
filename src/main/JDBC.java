@@ -20,7 +20,7 @@ public class JDBC {
 
         try {
             Class.forName(driver); // Locate Driver
-            //password = Details.getPassword(); // Assign password
+           // password = Details.getPassword(); // Assign password
             connection = DriverManager.getConnection(jdbcUrl, userName, password); // reference Connection object
             System.out.println("Connection successful!");
         }

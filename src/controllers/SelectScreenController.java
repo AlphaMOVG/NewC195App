@@ -40,7 +40,7 @@ public class SelectScreenController implements Initializable {
     @FXML
     void onActionCustomerScreen(ActionEvent event) throws IOException {
 
-        Parent parent = FXMLLoader.load(getClass().getResource("../view/Customers.fxml"));
+        Parent parent = FXMLLoader.load(getClass().getResource("/view/Customer.fxml"));
         Scene scene = new Scene(parent);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);

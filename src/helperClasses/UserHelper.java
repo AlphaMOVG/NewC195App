@@ -28,12 +28,13 @@ public class UserHelper {
 
             ResultSet rs = ps.executeQuery();
 
-            rs.next();
+            while(rs.next()) {
 
-            if (rs.getString("User_Name").equals(username)) {
-                if (rs.getString("Password").equals(password)) {
-                    return rs.getInt("User_ID");
+                if (rs.getString("User_Name").equals(username)) {
+                    if (rs.getString("Password").equals(password)) {
+                        return rs.getInt("User_ID");
 
+                    }
                 }
             }
         } catch (SQLException e) {

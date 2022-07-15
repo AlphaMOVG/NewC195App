@@ -3,7 +3,7 @@ package models;
 public class Country {
 
     private String countryName;
-    private static int countryID;
+    private int countryID;
 
     /**
      *
@@ -25,12 +25,13 @@ public class Country {
         return countryName;
     }
 
-    public static int getCountryID(){
+    public int getCountryID(){
 
         return countryID;
     }
-
-    public String toString(){
-        return "#"+ Integer.toString(Integer.parseInt(countryName, countryID));
+@Override
+    public String toString() {
+        return countryID + " - " + countryName;
     }
+
 }

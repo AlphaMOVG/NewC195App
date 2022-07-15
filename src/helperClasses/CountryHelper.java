@@ -18,20 +18,24 @@ public class CountryHelper extends Country {
      * ObservableList that queries Country_ID and Country from the country's database table.
      *
      * @return countriesObservableList
-     * @throws SQLException
      */
-    public static ObservableList<CountryHelper> getAllCountries() throws SQLException {
+    public static ObservableList<CountryHelper> getAllCountries() {
         ObservableList<CountryHelper> countriesObservableList = FXCollections.observableArrayList();
-        String sql = "SELECT * FROM countries";
-        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
-        while (rs.next()) {
-            int countryID = rs.getInt("Country_ID");
-            String countryName = rs.getString("Country");
-            CountryHelper country = new CountryHelper(countryID, countryName);
-            countriesObservableList.add(country);
+        try {
+            String sql = "SELECT * FROM countries";
+            PreparedStatement ps = JDBC.getConnection().prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int countryID = rs.getInt("Country_ID");
+                String countryName = rs.getString("Country");
+                CountryHelper country = new CountryHelper(countryID, countryName);
+                countriesObservableList.add(country);
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
         return countriesObservableList;
     }
+
 
 }

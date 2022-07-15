@@ -72,7 +72,7 @@ public class LoginController implements Initializable {
             LocalDateTime displayTime = null;
             boolean appointmentWithin15Min = false;
 
-            ResourceBundle rb = ResourceBundle.getBundle("languageRBs", Locale.getDefault());
+            ResourceBundle rb = ResourceBundle.getBundle("languageRBs/RB", Locale.getDefault());
 
             String username = usernameTxt.getText();
             String password = passwordTxt.getText();
@@ -83,7 +83,7 @@ public class LoginController implements Initializable {
 
             if (userId > 0) {
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("/views/SelectScreen.fxml"));
+                loader.setLocation(getClass().getResource("/view/SelectScreen.fxml"));
                 Parent root = loader.load();
                 Stage stage = (Stage) loginBtn.getScene().getWindow();
                 Scene scene = new Scene(root);
@@ -114,7 +114,7 @@ public class LoginController implements Initializable {
             } else if (userId < 0) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle(rb.getString("Error"));
-                alert.setContentText(rb.getString("Incorrect user ID"));
+                alert.setContentText(rb.getString("Incorrect"));
                 alert.show();
 
                 //log the failed login attempt
@@ -141,7 +141,7 @@ public class LoginController implements Initializable {
 
             languageBox.setText(String.valueOf(zone));
 
-            rb = ResourceBundle.getBundle("languageRBs", Locale.getDefault());
+            rb = ResourceBundle.getBundle("languageRBs/RB", Locale.getDefault());
 
             clearBtn.setText(rb.getString("Clear"));
             usernameTxt.setText(rb.getString("Username"));
