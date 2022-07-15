@@ -42,7 +42,7 @@ public class Users {
     }
 
     public String toString(){
-        return "#"+ Integer.toString(Integer.parseInt(userName, userID));
+        return userID + "-" + userName;
     }
 }
 
