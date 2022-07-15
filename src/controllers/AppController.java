@@ -328,4 +328,9 @@ public class AppController implements Initializable {
 
     }
 
+    @FXML
+    void onActionClear(ActionEvent event) {
+
+    }
+
 }

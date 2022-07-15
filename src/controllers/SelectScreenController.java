@@ -29,7 +29,8 @@ public class SelectScreenController implements Initializable {
     @FXML
     void onActionAppointmentScreen(ActionEvent event) throws IOException {
 
-        Parent parent = FXMLLoader.load(getClass().getResource("../view/Apps.fxml"));
+        Parent parent;
+        parent = FXMLLoader.load(getClass().getResource("../view/Apps.fxml"));
         Scene scene = new Scene(parent);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
@@ -41,7 +42,7 @@ public class SelectScreenController implements Initializable {
     void onActionCustomerScreen(ActionEvent event) throws IOException {
 
         Parent parent;
-        parent = FXMLLoader.load(getClass().getResource("/view/Customer.fxml"));
+        parent = FXMLLoader.load(getClass().getResource("../view/Customer.fxml"));
         Scene scene = new Scene(parent);
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
         stage.setScene(scene);
