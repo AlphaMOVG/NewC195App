@@ -1,3 +1,6 @@
 user: Username failed login attempt at: 2022-07-14 13:19:43.2154858
 user: Username failed login attempt at: 2022-07-14 13:19:50.3448457
 User: test successfully logged in at: 2022-07-14 19:09:40.4738227
+User: admin successfully logged in at: 2022-07-14 19:27:38.2411019
+User: admin successfully logged in at: 2022-07-14 19:35:24.6573049
+User: admin successfully logged in at: 2022-07-14 19:39:52.760921
