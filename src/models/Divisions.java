@@ -2,8 +2,8 @@ package models;
 
 public class Divisions {
     private int divisionID;
-    private static String divisionName;
-    public static int countryID;
+    private String divisionName;
+    public int countryID;
 
 
     /**
@@ -31,7 +31,7 @@ public class Divisions {
      *
      * @return divisionName
      */
-    public static String getDivisionName() {
+    public String getDivisionName() {
 
         return divisionName;
     }
@@ -40,12 +40,14 @@ public class Divisions {
      *
      * @return country_ID
      */
-    public static int getCountryID() {
+    public int getCountryID() {
 
         return countryID;
     }
 
+
+
     public String toString(){
-        return "#"+ Integer.toString(Integer.parseInt(divisionName, countryID));
-    }
+        return countryID + "-" + divisionName;
+}
 }

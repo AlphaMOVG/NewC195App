@@ -1,6 +1,8 @@
 package controllers;
 
+
 import helperClasses.CountryHelper;
+import helperClasses.CustomerHelper;
 import helperClasses.DivisionsHelper;
 import javafx.scene.control.cell.PropertyValueFactory;
 import models.Customers;
@@ -61,19 +63,19 @@ public class CustomerController implements Initializable {
     @FXML
     private TableView<Customers> customerTableView;
     @FXML
-    private TableColumn<?, ?> customerIdCol;
+    private TableColumn<CustomerHelper, Integer> customerIdCol;
     @FXML
-    private TableColumn<?, ?> customerNameCol;
+    private TableColumn<CustomerHelper, String> customerNameCol;
     @FXML
-    private TableColumn<?, ?> phoneNumberCol;
+    private TableColumn<CustomerHelper, String> phoneNumberCol;
     @FXML
-    private TableColumn<?, ?> postalCodeCol;
+    private TableColumn<CustomerHelper, String> postalCodeCol;
     @FXML
-    private TableColumn<?, ?> divisionCol;
+    private TableColumn<CustomerHelper, Integer> divisionCol;
     @FXML
-    private TableColumn<?, ?> countryCol;
+    private TableColumn<CustomerHelper, Integer> countryCol;
     @FXML
-    private TableColumn<?, ?> addressCol;
+    private TableColumn<CustomerHelper, String> addressCol;
 
 
 
@@ -119,6 +121,7 @@ public class CustomerController implements Initializable {
     @FXML
     void onActionDelete(ActionEvent event) throws SQLException {
         try{
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -189,6 +192,17 @@ public class CustomerController implements Initializable {
         countryCombo.setItems(countries);
         countryCombo.setVisibleRowCount(5);
         countryCombo.setPromptText("- Choose A Country -");
+
+        ObservableList<Divisions> divisions = null;
+        try {
+            divisions = DivisionsHelper.getAllDivisions();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        divisionCombo.setItems(divisions);
+        divisionCombo.setVisibleRowCount(5);
+        divisionCombo.setPromptText("- Choose A Division -");
+
     }
 
 

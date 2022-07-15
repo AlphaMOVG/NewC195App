@@ -16,7 +16,7 @@ public class CustomerHelper {
      * @return customersObservableList
      * @throws SQLException
      */
-    public static ObservableList<Customers> getAllCustomers(Connection connection) throws SQLException {
+    public static ObservableList<Customers> getAllCustomers() throws SQLException {
         ObservableList<Customers> customersObservableList = FXCollections.observableArrayList();
 
         try {
