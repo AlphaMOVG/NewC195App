@@ -202,7 +202,7 @@ public class ReportsController {
     @FXML
     public void backToMainMenu (ActionEvent event) throws IOException {
 
-        Parent root = FXMLLoader.load(getClass().getResource("../views/SelectScreen.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("../view/SelectScreen.fxml"));
         Scene scene = new Scene(root);
         Stage MainScreenReturn = (Stage)((Node)event.getSource()).getScene().getWindow();
         MainScreenReturn.setScene(scene);

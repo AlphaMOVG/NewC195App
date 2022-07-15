@@ -79,20 +79,16 @@ public class CustomerController implements Initializable {
 
     @FXML
     void onActionCountryCombo(ActionEvent event) throws SQLException {
-
-
-
-
-    }
-
-
-    @FXML
-    void onActionDivisionCombo(ActionEvent event) throws SQLException {
         ObservableList<Divisions> divisions = DivisionsHelper.getAllDivisions();
         divisionCombo.setItems(divisions);
         divisionCombo.setVisibleRowCount(5);
         divisionCombo.setPromptText("- Choose A Division -");
+
+
+
+
     }
+
 
 
 
