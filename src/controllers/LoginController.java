@@ -45,7 +45,6 @@ public class LoginController implements Initializable {
 
     @FXML
     void onActionClear(ActionEvent event) {
-        languageBox.clear();
         passwordTxt.clear();
         usernameTxt.clear();
 
@@ -105,11 +104,11 @@ public class LoginController implements Initializable {
                 if (appointmentWithin15Min != false) {
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Appointment within 15 minutes: " + getAppointmentID + " and appointment start time of: " + displayTime);
                     Optional<ButtonType> confirmation = alert.showAndWait();
-                    System.out.println(rb.getString("There is an appointment within 15 minutes"));
+                    System.out.println(rb.getString("Appointment"));
                 } else {
                     Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "No upcoming appointments.");
                     Optional<ButtonType> confirmation = alert.showAndWait();
-                    System.out.println(rb.getString("no upcoming appointments"));
+                    System.out.println(rb.getString("None"));
                 }
             } else if (userId < 0) {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
