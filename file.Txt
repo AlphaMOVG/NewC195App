@@ -13,3 +13,13 @@ User: admin successfully logged in at: 2022-07-14 21:24:41.4837937
 User: admin successfully logged in at: 2022-07-14 21:26:28.6024543
 User: admin successfully logged in at: 2022-07-14 21:27:57.4981983
 User: admin successfully logged in at: 2022-07-14 21:32:46.3300529
+User: test successfully logged in at: 2022-07-17 15:29:22.4216475
+User: test successfully logged in at: 2022-07-17 15:39:58.2158263
+User: test successfully logged in at: 2022-07-17 15:41:45.0037116
+User: test successfully logged in at: 2022-07-17 15:43:00.4615082
+user: test failed login attempt at: 2022-07-17 15:44:04.1898191
+User: test successfully logged in at: 2022-07-17 15:44:08.1428329
+User: test successfully logged in at: 2022-07-17 15:45:37.6985822
+User: test successfully logged in at: 2022-07-17 15:48:37.570671
+User: test successfully logged in at: 2022-07-17 15:52:23.9800655
+User: test successfully logged in at: 2022-07-17 15:58:42.1758864

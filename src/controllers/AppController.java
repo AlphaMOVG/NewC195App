@@ -65,9 +65,7 @@ public class AppController implements Initializable {
     @FXML
     private ComboBox<String> eTimeCombo;
     @FXML
-    private DatePicker startDatePicker;
-    @FXML
-    private DatePicker endDatePicker;
+    private DatePicker datePicker;
     @FXML
     private ComboBox<Users> userIDCombo;
     @FXML
@@ -85,9 +83,9 @@ public class AppController implements Initializable {
     @FXML
     private TableColumn<?, ?> locationCol;
     @FXML
-    private TableColumn<?, ?> startCol;
+    private TableColumn<?, ?> dateCol;
     @FXML
-    private TableColumn<?, ?> endCol;
+    private TableColumn<?, ?> timeCol;
     @FXML
     private TableColumn<?, ?> typeCol;
     @FXML
@@ -102,16 +100,21 @@ public class AppController implements Initializable {
     public void initialize(java.net.URL url, ResourceBundle resourceBundle) {
 
 
-            ObservableList<Appointments> allAppointments = FXCollections.observableArrayList();
-            appointmentsTableView.setItems(allAppointments);
+        ObservableList<Appointments> allAppointments = null;
+        try {
+            allAppointments = AppointmentHelper.getAllAppointments();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        appointmentsTableView.setItems(allAppointments);
 
         appointmentIdCol.setCellValueFactory(new PropertyValueFactory<>("appointmentID"));
         titleCol.setCellValueFactory(new PropertyValueFactory<>("appointmentTitle"));
         descriptionCol.setCellValueFactory(new PropertyValueFactory<>("appointmentDescription"));
         locationCol.setCellValueFactory(new PropertyValueFactory<>("appointmentLocation"));
         typeCol.setCellValueFactory(new PropertyValueFactory<>("appointmentType"));
-        startCol.setCellValueFactory(new PropertyValueFactory<>("start"));
-        endCol.setCellValueFactory(new PropertyValueFactory<>("end"));
+        timeCol.setCellValueFactory(new PropertyValueFactory<>("start"));
+        dateCol.setCellValueFactory(new PropertyValueFactory<>("end"));
         customerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         contactCol.setCellValueFactory(new PropertyValueFactory<>("contact"));
         userIdCol.setCellValueFactory(new PropertyValueFactory<>("userID"));
@@ -220,7 +223,7 @@ public class AppController implements Initializable {
     }
 
     @FXML
-    void onActionStartDatePicker(ActionEvent event) {
+    void onActionDatePicker(ActionEvent event) {
        // localDateTime startDate = localDateTime;
 
 
@@ -239,10 +242,6 @@ public class AppController implements Initializable {
     }
 
 
-    @FXML
-    void onActionEndDatePicker(ActionEvent event) {
-
-    }
 
     @FXML
     void onActionEndTimeCombo(ActionEvent event) {

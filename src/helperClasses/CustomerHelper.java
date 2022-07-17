@@ -17,10 +17,10 @@ public class CustomerHelper {
      * @throws SQLException
      */
     public static ObservableList<Customers> getAllCustomers() throws SQLException {
-        ObservableList<Customers> customersObservableList = FXCollections.observableArrayList();
 
+        ObservableList<Customers> customersObservableList = FXCollections.observableArrayList();
         try {
-            String query = "SELECT * FROM customers";
+            String query = "SELECT * FROM customers INNER JOIN countries ON countries.Country_ID = countries.Country_ID";
 
             PreparedStatement ps = JDBC.connection.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
@@ -44,8 +44,6 @@ public class CustomerHelper {
         return customersObservableList;
     }
 
-    public CustomerHelper() {
-    }
 
     public static void createCustomer(int customerID, String customerName, String customerAddress, String customerPostalCode, String customerPhone, int divisionID, int countryID) {
         try {

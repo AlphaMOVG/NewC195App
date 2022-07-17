@@ -81,11 +81,6 @@ public class CustomerController implements Initializable {
 
     @FXML
     void onActionCountryCombo(ActionEvent event) throws SQLException {
-        ObservableList<Divisions> divisions = DivisionsHelper.getAllDivisions();
-        divisionCombo.setItems(divisions);
-        divisionCombo.setVisibleRowCount(5);
-        divisionCombo.setPromptText("- Choose A Division -");
-
 
 
 
@@ -177,8 +172,13 @@ public class CustomerController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        ObservableList<Customers> tableCustomerFillerList = FXCollections.observableArrayList();
-        customerTableView.setItems(tableCustomerFillerList);
+        ObservableList<Customers> allCustomers = null;
+        try {
+            allCustomers = CustomerHelper.getAllCustomers();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        customerTableView.setItems(allCustomers);
 
         customerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         customerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
