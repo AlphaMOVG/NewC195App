@@ -19,8 +19,9 @@ public class DivisionsHelper extends Divisions {
      *
      * @return firstLevelDivisionsObservableList
      * @throws SQLException
+     * @param value
      */
-    public static ObservableList<Divisions> getAllDivisions() throws SQLException {
+    public static ObservableList<Divisions> getAllDivisions( ) throws SQLException {
         ObservableList<Divisions> DivisionsObservableList = FXCollections.observableArrayList();
         try {
             String sql = "SELECT * from first_level_divisions";

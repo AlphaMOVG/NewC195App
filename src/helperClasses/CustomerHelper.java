@@ -74,7 +74,7 @@ public class CustomerHelper {
 
     public static void updateCustomer(int customerID, String customerName, String customerAddress, String customerPostalCode, String customerPhone, int divisionID, int countryID){
         try {
-        String sql  = "UPDATE customers set Customer_ID = ?, Customer_Name = ?, Address = ?, Postal_Code = ? ,  Phone = ?, WHERE Division_ID = ? AND Country_ID = ? ";
+        String sql  = "UPDATE customers set Customer_ID = ?, Customer_Name = ?, Address = ?, Postal_Code = ? ,  Phone = ?, Division_ID = ?, Country_ID = ? ";
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
             ps.setInt(1, customerID);
             ps.setString(2, customerName);

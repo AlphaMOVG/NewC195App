@@ -5,8 +5,8 @@ import helperClasses.CountryHelper;
 import helperClasses.CustomerHelper;
 import helperClasses.DivisionsHelper;
 import javafx.scene.control.cell.PropertyValueFactory;
+import models.Country;
 import models.Customers;
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -24,6 +24,7 @@ import models.Divisions;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class CustomerController implements Initializable {
@@ -189,7 +190,7 @@ public class CustomerController implements Initializable {
         countryCol.setCellValueFactory(new PropertyValueFactory<>("countryID"));
 
         ObservableList<CountryHelper> countries = CountryHelper.getAllCountries();
-        countryCombo.setItems(countries);
+        countryCombo.setItems(CountryHelper.getAllCountries());
         countryCombo.setVisibleRowCount(5);
         countryCombo.setPromptText("- Choose A Country -");
 
@@ -199,11 +200,19 @@ public class CustomerController implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        divisionCombo.setItems(divisions);
+        try {
+            divisionCombo.setItems(DivisionsHelper.getAllDivisions());
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         divisionCombo.setVisibleRowCount(5);
         divisionCombo.setPromptText("- Choose A Division -");
 
+
+
     }
+
+
 
 
 
