@@ -82,6 +82,7 @@ public class CustomerController implements Initializable {
 
     @FXML
     void onActionCountryCombo(ActionEvent event) throws SQLException {
+        countryCombo.getSelectionModel().sel
 
 
 

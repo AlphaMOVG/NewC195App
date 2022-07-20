@@ -23,13 +23,9 @@ public class UserHelper {
     public static int validateUser(String username, String password) {
         try {
             String sqlQuery = "SELECT * FROM users ";
-
             PreparedStatement ps = JDBC.connection.prepareStatement(sqlQuery);
-
             ResultSet rs = ps.executeQuery();
-
             while(rs.next()) {
-
                 if (rs.getString("User_Name").equals(username)) {
                     if (rs.getString("Password").equals(password)) {
                         return rs.getInt("User_ID");
@@ -53,11 +49,8 @@ public class UserHelper {
         ObservableList<Users> usersObservableList = FXCollections.observableArrayList();
 
         String sql = "SELECT * from users, ";
-
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-
         ResultSet rs = ps.executeQuery();
-
         while (rs.next()) {
             int userID = rs.getInt("User_ID");
             String userName = rs.getString("User_Name");

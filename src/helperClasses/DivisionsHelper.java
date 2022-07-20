@@ -19,7 +19,7 @@ public class DivisionsHelper extends Divisions {
      *
      * @return firstLevelDivisionsObservableList
      * @throws SQLException
-     * @param value
+     *
      */
     public static ObservableList<Divisions> getAllDivisions( ) throws SQLException {
         ObservableList<Divisions> DivisionsObservableList = FXCollections.observableArrayList();
@@ -38,6 +38,25 @@ public class DivisionsHelper extends Divisions {
             throwables.printStackTrace();
         }
         return DivisionsObservableList;
+    }
+
+    public static ObservableList<Divisions> getAllFilteredDivisions() throws SQLException {
+        ObservableList<Divisions> filteredDivisionsObservableList = FXCollections.observableArrayList();
+
+        try {
+            String sql = "SELECT * from first_level_divisions WHERE Country_ID = ?";
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                int divisionID = rs.getInt("Division_ID");
+                String divisionName = rs.getString("Division");
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        return filteredDivisionsObservableList;
+
+
     }
 
 }

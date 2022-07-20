@@ -80,7 +80,7 @@ public class Customers {
      *
      * @return customerPhoneNumber
      */
-    public String getCustomerPhone() {
+    public String getCustomerPhoneNumber() {
 
         return customerPhoneNumber;
     }
@@ -91,7 +91,7 @@ public class Customers {
      *
      * @return divisionID
      */
-    public Integer getCustomerDivisionID() {
+    public Integer getDivisionID() {
 
         return divisionID;
     }
