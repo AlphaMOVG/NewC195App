@@ -82,7 +82,11 @@ public class CustomerController implements Initializable {
 
     @FXML
     void onActionCountryCombo(ActionEvent event) throws SQLException {
-        countryCombo.getSelectionModel().sel
+        countryCombo.getSelectionModel().getSelectedItem();
+
+
+
+
 
 
 
@@ -195,12 +199,13 @@ public class CustomerController implements Initializable {
         countryCombo.setVisibleRowCount(5);
         countryCombo.setPromptText("- Choose A Country -");
 
-        ObservableList<Divisions> divisions = null;
+
         try {
-            divisions = DivisionsHelper.getAllDivisions();
+            ObservableList<Divisions> divisions = DivisionsHelper.getAllDivisions();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
+
         try {
             divisionCombo.setItems(DivisionsHelper.getAllDivisions());
         } catch (SQLException throwables) {
