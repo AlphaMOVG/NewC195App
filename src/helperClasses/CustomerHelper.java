@@ -21,9 +21,9 @@ public class CustomerHelper {
         ObservableList<Customers> customersObservableList = FXCollections.observableArrayList();
         try {
             String query = "SELECT c.Customer_ID, c.Customer_Name, c.Address, c.Postal_code, c.Phone, c.Division_ID, cn.Country_ID "+
-                    " FROM customers AS C " +
-                    " INNER JOIN first_level_divisions AS F ON c.Division_ID = f.Division_ID" +
-                    " INNER JOIN countries AS CN ON CN.Country_ID = F.Country_ID";
+                    " FROM customers AS c " +
+                    " INNER JOIN first_level_divisions AS f ON c.Division_ID = f.Division_ID" +
+                    " INNER JOIN countries AS cn ON cn.Country_ID = f.Country_ID";
 
             PreparedStatement ps = JDBC.connection.prepareStatement(query);
             ResultSet rs = ps.executeQuery();
@@ -77,7 +77,7 @@ public class CustomerHelper {
 
     public static void updateCustomer(int customerID, String customerName, String customerAddress, String customerPostalCode, String customerPhone, int divisionID, int countryID){
         try {
-        String sql  = "UPDATE customers set Customer_ID = ?, Customer_Name = ?, Address = ?, Postal_Code = ? ,  Phone = ?, Division_ID = ?, Country_ID = ? ";
+        String sql  = "UPDATE customers SET Customer_ID = ?, Customer_Name = ?, Address = ?, Postal_Code = ? ,  Phone = ?, Division_ID = ?, Country_ID = ? ";
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
             ps.setInt(1, customerID);
             ps.setString(2, customerName);

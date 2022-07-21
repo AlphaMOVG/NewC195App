@@ -83,9 +83,9 @@ public class AppController implements Initializable {
     @FXML
     private TableColumn<?, ?> locationCol;
     @FXML
-    private TableColumn<?, ?> dateCol;
+    private TableColumn<?, ?> startCol;
     @FXML
-    private TableColumn<?, ?> timeCol;
+    private TableColumn<?, ?> endCol;
     @FXML
     private TableColumn<?, ?> typeCol;
     @FXML
@@ -113,8 +113,8 @@ public class AppController implements Initializable {
         descriptionCol.setCellValueFactory(new PropertyValueFactory<>("appointmentDescription"));
         locationCol.setCellValueFactory(new PropertyValueFactory<>("appointmentLocation"));
         typeCol.setCellValueFactory(new PropertyValueFactory<>("appointmentType"));
-        timeCol.setCellValueFactory(new PropertyValueFactory<>("start"));
-        dateCol.setCellValueFactory(new PropertyValueFactory<>("end"));
+        startCol.setCellValueFactory(new PropertyValueFactory<>("start"));
+        endCol.setCellValueFactory(new PropertyValueFactory<>("end"));
         customerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         contactCol.setCellValueFactory(new PropertyValueFactory<>("contact"));
         userIdCol.setCellValueFactory(new PropertyValueFactory<>("userID"));

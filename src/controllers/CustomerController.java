@@ -86,19 +86,7 @@ public class CustomerController implements Initializable {
        Country c = countryCombo.getValue();
        divisionCombo.setItems(DivisionsHelper.getAllFilteredDivisions(c.getCountryID()));
 
-
-
-
-
-
-
-
     }
-
-
-
-
-
 
     @FXML
     void onActionAdd(ActionEvent event) {
@@ -107,7 +95,6 @@ public class CustomerController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
 
     }
 
