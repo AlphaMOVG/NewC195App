@@ -9,17 +9,17 @@ package models;
 public class Customers {
 
     private String divisionName;
-    private int customerID;
+    private String customerID;
     private String customerName;
     private String customerAddress;
     private String customerPostalCode;
     private String customerPhoneNumber;
-    private int divisionID;
-    private int countryID;
+    private String divisionID;
+    private String countryID;
 
 
-    public Customers(int customerID, String customerName, String customerAddress, String customerPostalCode,
-                     String customerPhoneNumber, int divisionID, int countryID) {
+    public Customers(String customerID, String customerName, String customerAddress, String customerPostalCode,
+                     String customerPhoneNumber, String divisionID, String countryID) {
 
         this.customerID = customerID;
         this.customerName = customerName;
@@ -33,19 +33,16 @@ public class Customers {
     }
 
 
-
     /**
-     *
      * @return customerID
      */
-    public Integer getCustomerID() {
+    public String getCustomerID() {
 
         return customerID;
     }
 
 
     /**
-     *
      * @return customerName
      */
     public String getCustomerName() {
@@ -54,9 +51,7 @@ public class Customers {
     }
 
 
-
     /**
-     *
      * @return customerAddress
      */
     public String getCustomerAddress() {
@@ -65,9 +60,7 @@ public class Customers {
     }
 
 
-
     /**
-     *
      * @return customerPostalCode
      */
     public String getCustomerPostalCode() {
@@ -77,7 +70,6 @@ public class Customers {
 
 
     /**
-     *
      * @return customerPhoneNumber
      */
     public String getCustomerPhoneNumber() {
@@ -86,28 +78,23 @@ public class Customers {
     }
 
 
-
     /**
-     *
      * @return divisionID
      */
-    public Integer getDivisionID() {
+    public String getDivisionID() {
 
         return divisionID;
     }
 
     /**
-     *
      * @return countryID
      */
-    public Integer getCountryID( ){
+    public String getCountryID() {
 
         return countryID;
     }
-
-
-
-    public String toString(){
-        return "#"+ Integer.toString(customerID) + "" + "["+ customerName + "]";
-    }
 }
+
+
+
+
