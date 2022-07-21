@@ -40,16 +40,20 @@ public class DivisionsHelper extends Divisions {
         return DivisionsObservableList;
     }
 
-    public static ObservableList<Divisions> getAllFilteredDivisions() throws SQLException {
+    public static ObservableList<Divisions> getAllFilteredDivisions(int countryID) throws SQLException {
         ObservableList<Divisions> filteredDivisionsObservableList = FXCollections.observableArrayList();
 
         try {
             String sql = "SELECT * from first_level_divisions WHERE Country_ID = ?";
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+            ps.setInt(1, countryID);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 int divisionID = rs.getInt("Division_ID");
                 String divisionName = rs.getString("Division");
+                int country_ID = rs.getInt("Country_ID");
+                Divisions divisions = new Divisions(divisionID, divisionName, country_ID);
+                filteredDivisionsObservableList.add(divisions);
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();

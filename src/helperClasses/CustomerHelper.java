@@ -20,7 +20,10 @@ public class CustomerHelper {
 
         ObservableList<Customers> customersObservableList = FXCollections.observableArrayList();
         try {
-            String query = "SELECT * FROM customers INNER JOIN countries ON countries.Country_ID = countries.Country_ID";
+            String query = "SELECT c.Customer_ID, c.Customer_Name, c.Address, c.Postal_code, c.Phone, c.Division_ID, cn.Country_ID "+
+                    " FROM customers AS C " +
+                    " INNER JOIN first_level_divisions AS F ON c.Division_ID = f.Division_ID" +
+                    " INNER JOIN countries AS CN ON CN.Country_ID = F.Country_ID";
 
             PreparedStatement ps = JDBC.connection.prepareStatement(query);
             ResultSet rs = ps.executeQuery();

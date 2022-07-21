@@ -48,6 +48,6 @@ public class Divisions {
 
 
     public String toString(){
-        return countryID + "-" + divisionName;
+        return divisionID + "-" + divisionName;
 }
 }
