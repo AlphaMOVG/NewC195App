@@ -102,7 +102,18 @@ public class CustomerController implements Initializable {
            if(!addCustomerID.isEmpty() && !addCustomerName.isEmpty() && !addPhoneNumber.isEmpty() && !addPhoneNumber.isEmpty() && !addPostalCode.isEmpty() && !addDivisionID.isEmpty() && !addCountryID.isEmpty() && !addAddress.isEmpty() ){
 
              CustomerHelper.createCustomer(addCustomerID, addCustomerName,addAddress, addPostalCode, addPhoneNumber, addDivisionID, addCountryID);
+               Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+               alert.setTitle("Alert");
+               alert.setContentText("Customer added successfully");
+               Optional<ButtonType> result = alert.showAndWait();
             }
+           else {
+               if(addCustomerName.isEmpty()Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+               alert.setTitle("Alert");
+               alert.setContentText("Please add a customer name");
+               Optional<ButtonType> result = alert.showAndWait();
+
+           }
 
         } catch (Exception e) {
             e.printStackTrace();
