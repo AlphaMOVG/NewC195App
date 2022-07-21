@@ -91,6 +91,18 @@ public class CustomerController implements Initializable {
     @FXML
     void onActionAdd(ActionEvent event) {
         try{
+            String addCustomerID = customerIdTxt.getText();
+            String  addCustomerName = customerNameTxt.getText();
+            String addPhoneNumber = phoneNumberCol.getText();
+            String addPostalCode = postalCodeTxt.getText();
+            Divisions addDivisionID = divisionCombo.getValue();
+            CountryHelper addCountryID = countryCombo.getValue();
+            String addAddress = addressTxt.getText();
+
+            if(!addCustomerID.isEmpty() && !addCustomerName.isEmpty() && !addPhoneNumber.isEmpty() && !addPhoneNumber.isEmpty() && !addPostalCode.isEmpty() && !addDivisionID.isEmpty() && !addCountryID.isEmpty() && !addAddress.isEmpty() ){
+
+              CustomerHelper.createCustomer(addCustomerID, addCustomerName,addAddress, addPostalCode, addPhoneNumber, addDivisionID, addCountryID);
+            }
 
         } catch (Exception e) {
             e.printStackTrace();
