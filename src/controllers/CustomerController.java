@@ -96,17 +96,29 @@ public class CustomerController implements Initializable {
                 return;
             }
             String  addCustomerName = customerNameTxt.getText();
+
             if(phoneNumberTxt.getText().isEmpty()){
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a phone number");Optional<ButtonType> result = alert.showAndWait();
                 return;
             }
             String addPhoneNumber = phoneNumberTxt.getText();
+
+            if(postalCodeTxt.getText().isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a postal code");Optional<ButtonType> result = alert.showAndWait();
+                return;
+            }
             String addPostalCode = postalCodeTxt.getText();
+
             if(divisionCombo.getValue() == null) {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please Add a Country or Division");Optional<ButtonType> result = alert.showAndWait();
                 return;
             }
             Integer addDivisionID = divisionCombo.getValue().getDivisionID();
+
+            if(addressTxt.getText().isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add an address");Optional<ButtonType> result = alert.showAndWait();
+                return;
+            }
             String addAddress = addressTxt.getText();
 
            if(!addCustomerName.isEmpty() && !addPhoneNumber.isEmpty() && !addPhoneNumber.isEmpty() && !addPostalCode.isEmpty()  &&  !addAddress.isEmpty() ){
