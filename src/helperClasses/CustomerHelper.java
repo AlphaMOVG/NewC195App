@@ -30,13 +30,13 @@ public class CustomerHelper {
 
 
             while (rs.next()) {
-                String customerID = rs.getString("Customer_ID");
+                int customerID = rs.getInt("Customer_ID");
                 String customerName = rs.getString("Customer_Name");
                 String customerAddress = rs.getString("Address");
                 String customerPostalCode = rs.getString("Postal_Code");
                 String customerPhone = rs.getString("Phone");
-                String divisionID = rs.getString("Division_ID");
-                String countryID = rs.getString("Country_ID");
+                int divisionID = rs.getInt("Division_ID");
+                int countryID = rs.getInt("Country_ID");
                 Customers customer = new Customers(customerID, customerName, customerAddress, customerPostalCode, customerPhone, divisionID, countryID);
                 customersObservableList.add(customer);
             }
@@ -48,44 +48,39 @@ public class CustomerHelper {
     }
 
 
-    public static void createCustomer(String customerID, String customerName, String customerAddress, String customerPostalCode, String customerPhone, String divisionID, String countryID) {
+    public static void createCustomer(String customerName, String customerAddress, String customerPostalCode, String customerPhone, Integer divisionID) {
         try {
-            String sql = "INSERT INTO customers VALUES(NULL,?,?,?,?,?,?)";
+            String sql = "INSERT INTO customers VALUES(NULL,?,?,?,?,NOW(),'JF', NOW(),'JF',?)";
 
-            PreparedStatement ps = JDBC.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setString(1, customerID);
-            ps.setString(2, customerName);
-            ps.setString(3, customerAddress);
-            ps.setString(4, customerPostalCode);
-            ps.setString(5, customerPhone);
-            ps.setString(6, divisionID);
-            ps.setString(7, countryID);
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+           // ps.setInt(1, customerID);
+            ps.setString(1, customerName);
+            ps.setString(2, customerAddress);
+            ps.setString(3, customerPostalCode);
+            ps.setString(4, customerPhone);
+            ps.setInt(5, divisionID);
 
             ps.execute();
 
-            ResultSet rs = ps.getGeneratedKeys();
-            rs.next();
-            int custID = rs.getInt("1");
 
-
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
 
 
     }
 
-    public static void updateCustomer(String customerID, String customerName, String customerAddress, String customerPostalCode, String customerPhone, String  divisionID, String  countryID){
+    public static void updateCustomer(int customerID, String customerName, String customerAddress, String customerPostalCode, String customerPhone, int divisionID, int countryID){
         try {
         String sql  = "UPDATE customers SET Customer_ID = ?, Customer_Name = ?, Address = ?, Postal_Code = ? ,  Phone = ?, Division_ID = ?, Country_ID = ? ";
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-            ps.setString(1, customerID);
+            ps.setInt(1, customerID);
             ps.setString(2, customerName);
             ps.setString(3, customerAddress);
             ps.setString(4, customerPostalCode);
             ps.setString(5, customerPhone);
-            ps.setString(6, divisionID);
-            ps.setString(7, countryID);
+            ps.setInt(6, divisionID);
+            ps.setInt(7, countryID);
 
             ps.execute();
 

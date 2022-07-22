@@ -91,32 +91,39 @@ public class CustomerController implements Initializable {
     @FXML
     void onActionAdd(ActionEvent event) {
         try{
-            String addCustomerID = customerIdTxt.getText();
+            if(customerNameTxt.getText().isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a customer name");Optional<ButtonType> result = alert.showAndWait();
+                return;
+            }
             String  addCustomerName = customerNameTxt.getText();
-            String addPhoneNumber = phoneNumberCol.getText();
+            if(phoneNumberTxt.getText().isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a phone number");Optional<ButtonType> result = alert.showAndWait();
+                return;
+            }
+            String addPhoneNumber = phoneNumberTxt.getText();
             String addPostalCode = postalCodeTxt.getText();
-            String addDivisionID = divisionCombo.getValue().toString();
-            String addCountryID = countryCombo.getValue().toString();
+            if(divisionCombo.getValue() == null) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please Add a Country or Division");Optional<ButtonType> result = alert.showAndWait();
+                return;
+            }
+            Integer addDivisionID = divisionCombo.getValue().getDivisionID();
             String addAddress = addressTxt.getText();
 
-           if(!addCustomerID.isEmpty() && !addCustomerName.isEmpty() && !addPhoneNumber.isEmpty() && !addPhoneNumber.isEmpty() && !addPostalCode.isEmpty() && !addDivisionID.isEmpty() && !addCountryID.isEmpty() && !addAddress.isEmpty() ){
+           if(!addCustomerName.isEmpty() && !addPhoneNumber.isEmpty() && !addPhoneNumber.isEmpty() && !addPostalCode.isEmpty()  &&  !addAddress.isEmpty() ){
 
-             CustomerHelper.createCustomer(addCustomerID, addCustomerName,addAddress, addPostalCode, addPhoneNumber, addDivisionID, addCountryID);
-               Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-               alert.setTitle("Alert");
-               alert.setContentText("Customer added successfully");
-               Optional<ButtonType> result = alert.showAndWait();
-            }
-           else {
-               if(addCustomerName.isEmpty()Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-               alert.setTitle("Alert");
-               alert.setContentText("Please add a customer name");
-               Optional<ButtonType> result = alert.showAndWait();
-
+             CustomerHelper.createCustomer(addCustomerName,addAddress, addPostalCode, addPhoneNumber, addDivisionID);
+               Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Customer added successfully");Optional<ButtonType> result = alert.showAndWait();
+               ObservableList<Customers> allCustomers = null;
+               try {
+                   allCustomers = CustomerHelper.getAllCustomers();
+               } catch (SQLException throwables) {
+                   throwables.printStackTrace();
+               }
+               customerTableView.setItems(allCustomers);
            }
 
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (NumberFormatException | NullPointerException e ) {
+            e.printStackTrace(); // alert here
         }
 
     }
