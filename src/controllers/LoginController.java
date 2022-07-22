@@ -38,6 +38,8 @@ public class LoginController implements Initializable {
     @FXML
     private TextField languageBox;
     @FXML
+    private TextField zoneIDBox;
+    @FXML
     private TextField passwordTxt;
     @FXML
     private TextField usernameTxt;
@@ -138,7 +140,7 @@ public class LoginController implements Initializable {
             ZoneId zone = ZoneId.systemDefault();
 
 
-            languageBox.setText(String.valueOf(zone));
+            zoneIDBox.setText(String.valueOf(zone));
 
             rb = ResourceBundle.getBundle("languageRBs/RB", Locale.getDefault());
 
