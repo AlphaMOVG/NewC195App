@@ -43,6 +43,8 @@ public class CustomerController implements Initializable {
     private Button backBtn;
     @FXML
     private Button exitBtn;
+    @FXML
+    private Button editBtn;
 
 
     @FXML
@@ -191,14 +193,51 @@ public class CustomerController implements Initializable {
 
     @FXML
     void onActionUpdate(ActionEvent event) {
-        try{
+        try {
+
+
+            if (customerIdTxt == null || customerNameTxt == null || phoneNumberTxt ==null || postalCodeTxt == null || divisionCombo.getValue() == null || countryCombo.getValue() == null || addressTxt == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Customer not selected");
+                alert.showAndWait();
+            } else {
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");
+                alert.setContentText("Would you like to update the selected customer?");
+                Optional<ButtonType> result = alert.showAndWait();
+
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                 //  CustomerHelper.updateCustomer();
+                }
+            }
+            ObservableList<Customers> allCustomers = null;
+            try {
+                allCustomers = CustomerHelper.getAllCustomers();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            customerTableView.setItems(allCustomers);
+
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
+    @FXML
+    void onActionEdit(ActionEvent event) {
+        Customers selectCustomer = customerTableView.getSelectionModel().getSelectedItem();
+       // customerIdTxt.setText();
+        customerNameTxt.setText(selectCustomer.getCustomerName());
+        phoneNumberTxt.setText(selectCustomer.getCustomerPhoneNumber());
+        postalCodeTxt.setText(selectCustomer.getCustomerPostalCode());
+        //  divisionCombo.setValue();
+        //  countryCombo.setValue();
+        addressTxt.setText(selectCustomer.getCustomerAddress());
+
+    }
 
 
 

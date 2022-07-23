@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="788.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CustomerController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="452.0" prefWidth="907.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.CustomerController">
     <children>
         <Label layoutX="32.0" layoutY="20.0" prefHeight="35.0" prefWidth="159.0" text="Customers">
             <font>
@@ -28,25 +28,26 @@
         <ComboBox fx:id="divisionCombo" layoutX="116.0" layoutY="338.0" prefHeight="25.0" prefWidth="173.0" />
         <ComboBox fx:id="countryCombo" layoutX="116.0" layoutY="294.0" onAction="#onActionCountryCombo" prefWidth="150.0" />
         <TextField fx:id="phoneNumberTxt" layoutX="116.0" layoutY="167.0" />
-        <TableView fx:id="customerTableView" layoutX="276.0" layoutY="77.0" prefHeight="145.0" prefWidth="509.0">
+        <TableView fx:id="customerTableView" layoutX="276.0" layoutY="77.0" prefHeight="145.0" prefWidth="585.0">
             <columns>
-                <TableColumn fx:id="customerIdCol" prefWidth="79.0" text="Customer ID" />
-                <TableColumn fx:id="customerNameCol" prefWidth="96.0" text="Customer Name" />
+                <TableColumn fx:id="customerIdCol" prefWidth="78.0" text="Customer ID" />
+                <TableColumn fx:id="customerNameCol" prefWidth="97.0" text="Customer Name" />
                 <TableColumn fx:id="phoneNumberCol" prefWidth="90.0" text="Phone Number" />
                 <TableColumn fx:id="postalCodeCol" minWidth="0.0" prefWidth="72.0" text="Postal Code" />
                 <TableColumn fx:id="countryCol" minWidth="0.0" prefWidth="56.0" text="Country" />
                 <TableColumn fx:id="divisionCol" prefWidth="58.0" text="Division" />
-                <TableColumn fx:id="addressCol" prefWidth="58.0" text="Address" />
+                <TableColumn fx:id="addressCol" prefWidth="133.0" text="Address" />
             </columns>
         </TableView>
         <TextField fx:id="addressTxt" layoutX="116.0" layoutY="207.0" />
         <TextField fx:id="postalCodeTxt" layoutX="116.0" layoutY="245.0" />
         <Button fx:id="addBtn" layoutX="93.0" layoutY="381.0" mnemonicParsing="false" onAction="#onActionAdd" text="Add" />
-        <Button fx:id="updateBtn" layoutX="293.0" layoutY="237.0" mnemonicParsing="false" onAction="#onActionUpdate" text="Update" />
+        <Button fx:id="updateBtn" layoutX="367.0" layoutY="237.0" mnemonicParsing="false" onAction="#onActionUpdate" text="Update" />
         <Button fx:id="deleteBtn" layoutX="207.0" layoutY="381.0" mnemonicParsing="false" onAction="#onActionDelete" text="Delete" />
-        <Button fx:id="backBtn" layoutX="474.0" layoutY="237.0" mnemonicParsing="false" onAction="#onActionBack" text="Back" />
-        <Button fx:id="exitBtn" layoutX="594.0" layoutY="237.0" mnemonicParsing="false" onAction="#onActionExit" text="Exit" />
-        <Button fx:id="saveBtn" layoutX="397.0" layoutY="237.0" mnemonicParsing="false" onAction="#onActionSave" text="Save" />
+        <Button fx:id="backBtn" layoutX="555.0" layoutY="237.0" mnemonicParsing="false" onAction="#onActionBack" text="Back" />
+        <Button fx:id="exitBtn" layoutX="633.0" layoutY="237.0" mnemonicParsing="false" onAction="#onActionExit" text="Exit" />
+        <Button fx:id="saveBtn" layoutX="454.0" layoutY="237.0" mnemonicParsing="false" onAction="#onActionSave" text="Save" />
         <Button fx:id="clearBtn" layoutX="148.0" layoutY="381.0" mnemonicParsing="false" onAction="#onActionClear" text="Clear" />
+      <Button fx:id="editBtn" layoutX="297.0" layoutY="237.0" mnemonicParsing="false" onAction="#onActionEdit" text="Edit" />
     </children>
 </Pane>

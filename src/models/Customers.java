@@ -1,6 +1,8 @@
 package models;
 
 
+import helperClasses.CountryHelper;
+
 /**
  * Customers class contains customerName, customerAddress, customerPostalCode, customerPhoneNumber, customerState, divisionID.
  * These values are necessary for the customer information and this class also contains setters and getters for functionality.
