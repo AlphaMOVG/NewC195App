@@ -209,7 +209,7 @@ public class CustomerController implements Initializable {
                 Optional<ButtonType> result = alert.showAndWait();
 
                 if (result.isPresent() && result.get() == ButtonType.OK) {
-                 //  CustomerHelper.updateCustomer();
+                 //  CustomerHelper.updateCustomer(); not sure how to get all parameters from the customer model to pass into updateCustomer()
                 }
             }
             ObservableList<Customers> allCustomers = null;
@@ -229,12 +229,13 @@ public class CustomerController implements Initializable {
     @FXML
     void onActionEdit(ActionEvent event) {
         Customers selectCustomer = customerTableView.getSelectionModel().getSelectedItem();
-       // customerIdTxt.setText();
+
+       // customerIdTxt.setText(); this is an integer value so how do make it to where the ID is populated to?
         customerNameTxt.setText(selectCustomer.getCustomerName());
         phoneNumberTxt.setText(selectCustomer.getCustomerPhoneNumber());
         postalCodeTxt.setText(selectCustomer.getCustomerPostalCode());
-        //  divisionCombo.setValue();
-        //  countryCombo.setValue();
+        //  divisionCombo.setValue(); saying to change the customer model class getDivision() method
+        //  countryCombo.setValue(); same with this one
         addressTxt.setText(selectCustomer.getCustomerAddress());
 
     }
@@ -246,6 +247,7 @@ public class CustomerController implements Initializable {
     void onActionSave(ActionEvent event) {
         try{
 
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -256,6 +258,17 @@ public class CustomerController implements Initializable {
 
     @FXML
     void onActionClear(ActionEvent event) {
+        try{
+            customerNameTxt.clear();
+            phoneNumberTxt.clear();
+            postalCodeTxt.clear();
+            addressTxt.clear();
+// get a weird null pointer exception when i hit the clear button on line 89 it clears out the whole combo box
+            // how do i reset the values in the combo box?
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
 
     }
