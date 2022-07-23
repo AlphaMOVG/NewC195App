@@ -153,15 +153,40 @@ public class CustomerController implements Initializable {
 
     @FXML
     void onActionDelete(ActionEvent event) throws SQLException {
-        try{
+        try {
+
+            Customers deleteSelectedCustomer = customerTableView.getSelectionModel().getSelectedItem();
+
+                if (deleteSelectedCustomer == null) {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Error");
+                    alert.setContentText("Customer not selected");
+                    alert.showAndWait();
+                } else {
+
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Alert");
+                    alert.setContentText("Would you like to remove the selected customer?");
+                    Optional<ButtonType> result = alert.showAndWait();
+
+                    if (result.isPresent() && result.get() == ButtonType.OK) {
+                        CustomerHelper.deleteCustomer(deleteSelectedCustomer.getCustomerID());
+                    }
+                }
+            ObservableList<Customers> allCustomers = null;
+            try {
+                allCustomers = CustomerHelper.getAllCustomers();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            customerTableView.setItems(allCustomers);
 
 
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
+
 
 
     @FXML
