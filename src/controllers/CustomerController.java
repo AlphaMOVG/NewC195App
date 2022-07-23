@@ -244,24 +244,14 @@ public class CustomerController implements Initializable {
     @FXML
     void onActionEdit(ActionEvent event) {
         Customers selectCustomer = customerTableView.getSelectionModel().getSelectedItem();
-       Customers c = Customers
 
-        customerIdTxt.setText(); //this is an integer value so how do make it to where the ID is populated to?
+        customerIdTxt.setText(String.valueOf(selectCustomer.getCustomerID()));
         customerNameTxt.setText(selectCustomer.getCustomerName());
         phoneNumberTxt.setText(selectCustomer.getCustomerPhoneNumber());
         postalCodeTxt.setText(selectCustomer.getCustomerPostalCode());
-        countryCombo.getItems().stream().findFirst().ifPresent(country -> countryCombo.setValue(country));
-        divisionCombo.getItems().stream().findFirst().ifPresent(divisions -> divisionCombo.setValue(divisions));
-
-
         addressTxt.setText(selectCustomer.getCustomerAddress());
 
     }
-
-
-
-
-
 
 
     @FXML
@@ -271,14 +261,9 @@ public class CustomerController implements Initializable {
             phoneNumberTxt.clear();
             postalCodeTxt.clear();
             addressTxt.clear();
-// get a weird null pointer exception when i hit the clear button on line 89 it clears out the whole combo box
-            // how do i reset the values in the combo box?
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
-
     }
 
     @FXML
@@ -287,11 +272,6 @@ public class CustomerController implements Initializable {
         System.exit(0);
 
     }
-
-
-
-
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -316,7 +296,6 @@ public class CustomerController implements Initializable {
         countryCombo.setVisibleRowCount(5);
         countryCombo.setPromptText("- Choose A Country -");
 
-
         try {
             ObservableList<Divisions> divisions = DivisionsHelper.getAllDivisions();
         } catch (SQLException throwables) {
@@ -331,12 +310,5 @@ public class CustomerController implements Initializable {
         divisionCombo.setVisibleRowCount(5);
         divisionCombo.setPromptText("- Choose A Division -");
 
-
-
     }
-
-
-
-
-
 }
