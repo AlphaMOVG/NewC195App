@@ -42,12 +42,11 @@
         <TextField fx:id="addressTxt" layoutX="116.0" layoutY="207.0" />
         <TextField fx:id="postalCodeTxt" layoutX="116.0" layoutY="245.0" />
         <Button fx:id="addBtn" layoutX="93.0" layoutY="381.0" mnemonicParsing="false" onAction="#onActionAdd" text="Add" />
-        <Button fx:id="updateBtn" layoutX="367.0" layoutY="237.0" mnemonicParsing="false" onAction="#onActionUpdate" text="Update" />
-        <Button fx:id="deleteBtn" layoutX="207.0" layoutY="381.0" mnemonicParsing="false" onAction="#onActionDelete" text="Delete" />
-        <Button fx:id="backBtn" layoutX="555.0" layoutY="237.0" mnemonicParsing="false" onAction="#onActionBack" text="Back" />
+        <Button fx:id="updateBtn" layoutX="156.0" layoutY="381.0" mnemonicParsing="false" onAction="#onActionUpdate" text="Update" />
+        <Button fx:id="deleteBtn" layoutX="489.0" layoutY="237.0" mnemonicParsing="false" onAction="#onActionDelete" text="Delete" />
+        <Button fx:id="backBtn" layoutX="569.0" layoutY="237.0" mnemonicParsing="false" onAction="#onActionBack" text="Back" />
         <Button fx:id="exitBtn" layoutX="633.0" layoutY="237.0" mnemonicParsing="false" onAction="#onActionExit" text="Exit" />
-        <Button fx:id="saveBtn" layoutX="454.0" layoutY="237.0" mnemonicParsing="false" onAction="#onActionSave" text="Save" />
-        <Button fx:id="clearBtn" layoutX="148.0" layoutY="381.0" mnemonicParsing="false" onAction="#onActionClear" text="Clear" />
+        <Button fx:id="clearBtn" layoutX="233.0" layoutY="381.0" mnemonicParsing="false" onAction="#onActionClear" text="Clear" />
       <Button fx:id="editBtn" layoutX="297.0" layoutY="237.0" mnemonicParsing="false" onAction="#onActionEdit" text="Edit" />
     </children>
 </Pane>

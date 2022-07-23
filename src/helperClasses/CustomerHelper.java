@@ -70,16 +70,16 @@ public class CustomerHelper {
 
     }
 
-    public static void updateCustomer(int customerID, String customerName, String customerAddress, String customerPostalCode, String customerPhone, int divisionID, int countryID){
+    public static void updateCustomer(String customerID, String customerName, String customerAddress, String customerPostalCode, String customerPhone, int divisionID){
         try {
-        String sql  = "UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ? , Phone = ?, Division_ID = ?, Country_ID = ? ";
+        String sql  = "UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ? , Phone = ?, Division_ID = ? WHERE Customer_ID = ? ";
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
             ps.setString(1, customerName);
             ps.setString(2, customerAddress);
             ps.setString(3, customerPostalCode);
             ps.setString(4, customerPhone);
             ps.setInt(5, divisionID);
-            ps.setInt(6, countryID);
+            ps.setString(6, customerID);
 
             ps.execute();
 

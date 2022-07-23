@@ -32,8 +32,6 @@ public class CustomerController implements Initializable {
     @FXML
     private Button clearBtn;
     @FXML
-    private Button saveBtn;
-    @FXML
     private Button addBtn;
     @FXML
     private Button updateBtn;
@@ -123,8 +121,6 @@ public class CustomerController implements Initializable {
             }
             String addAddress = addressTxt.getText();
 
-           if(!addCustomerName.isEmpty() && !addPhoneNumber.isEmpty() && !addPhoneNumber.isEmpty() && !addPostalCode.isEmpty()  &&  !addAddress.isEmpty() ){
-
              CustomerHelper.createCustomer(addCustomerName,addAddress, addPostalCode, addPhoneNumber, addDivisionID);
                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Customer added successfully");Optional<ButtonType> result = alert.showAndWait();
                ObservableList<Customers> allCustomers = null;
@@ -134,7 +130,7 @@ public class CustomerController implements Initializable {
                    throwables.printStackTrace();
                }
                customerTableView.setItems(allCustomers);
-           }
+
 
         } catch (NumberFormatException | NullPointerException e ) {
             e.printStackTrace(); // alert here
@@ -193,25 +189,43 @@ public class CustomerController implements Initializable {
 
     @FXML
     void onActionUpdate(ActionEvent event) {
-        try {
+        try{
 
 
-            if (customerIdTxt == null || customerNameTxt == null || phoneNumberTxt ==null || postalCodeTxt == null || divisionCombo.getValue() == null || countryCombo.getValue() == null || addressTxt == null) {
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Error");
-                alert.setContentText("Customer not selected");
-                alert.showAndWait();
-            } else {
+            String updateCustomerID = customerIdTxt.getText();
 
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Alert");
-                alert.setContentText("Would you like to update the selected customer?");
-                Optional<ButtonType> result = alert.showAndWait();
-
-                if (result.isPresent() && result.get() == ButtonType.OK) {
-                 //  CustomerHelper.updateCustomer(); not sure how to get all parameters from the customer model to pass into updateCustomer()
-                }
+            if(customerNameTxt.getText().isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a customer name");Optional<ButtonType> result = alert.showAndWait();
+                return;
             }
+            String  updateCustomerName = customerNameTxt.getText();
+
+            if(phoneNumberTxt.getText().isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a phone number");Optional<ButtonType> result = alert.showAndWait();
+                return;
+            }
+            String updatePhoneNumber = phoneNumberTxt.getText();
+
+            if(postalCodeTxt.getText().isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a postal code");Optional<ButtonType> result = alert.showAndWait();
+                return;
+            }
+            String updatePostalCode = postalCodeTxt.getText();
+
+            if(divisionCombo.getValue() == null) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please Add a Country or Division");Optional<ButtonType> result = alert.showAndWait();
+                return;
+            }
+            Integer updateDivisionID = divisionCombo.getValue().getDivisionID();
+
+            if(addressTxt.getText().isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add an address");Optional<ButtonType> result = alert.showAndWait();
+                return;
+            }
+            String updateAddress = addressTxt.getText();
+
+            CustomerHelper.updateCustomer(updateCustomerID,updateCustomerName,updateAddress, updatePostalCode, updatePhoneNumber, updateDivisionID);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Customer updated successfully!");Optional<ButtonType> result = alert.showAndWait();
             ObservableList<Customers> allCustomers = null;
             try {
                 allCustomers = CustomerHelper.getAllCustomers();
@@ -221,21 +235,25 @@ public class CustomerController implements Initializable {
             customerTableView.setItems(allCustomers);
 
 
-        } catch (Exception e) {
+        } catch (NumberFormatException | NullPointerException e ) {
             e.printStackTrace();
         }
+
     }
 
     @FXML
     void onActionEdit(ActionEvent event) {
         Customers selectCustomer = customerTableView.getSelectionModel().getSelectedItem();
+       Customers c = Customers
 
-       // customerIdTxt.setText(); this is an integer value so how do make it to where the ID is populated to?
+        customerIdTxt.setText(); //this is an integer value so how do make it to where the ID is populated to?
         customerNameTxt.setText(selectCustomer.getCustomerName());
         phoneNumberTxt.setText(selectCustomer.getCustomerPhoneNumber());
         postalCodeTxt.setText(selectCustomer.getCustomerPostalCode());
-        //  divisionCombo.setValue(); saying to change the customer model class getDivision() method
-        //  countryCombo.setValue(); same with this one
+        countryCombo.getItems().stream().findFirst().ifPresent(country -> countryCombo.setValue(country));
+        divisionCombo.getItems().stream().findFirst().ifPresent(divisions -> divisionCombo.setValue(divisions));
+
+
         addressTxt.setText(selectCustomer.getCustomerAddress());
 
     }
@@ -243,16 +261,6 @@ public class CustomerController implements Initializable {
 
 
 
-    @FXML
-    void onActionSave(ActionEvent event) {
-        try{
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
 
 
 

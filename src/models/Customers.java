@@ -1,8 +1,6 @@
 package models;
 
 
-import helperClasses.CountryHelper;
-
 /**
  * Customers class contains customerName, customerAddress, customerPostalCode, customerPhoneNumber, customerState, divisionID.
  * These values are necessary for the customer information and this class also contains setters and getters for functionality.
@@ -10,7 +8,6 @@ import helperClasses.CountryHelper;
 
 public class Customers {
 
-    private String divisionName;
     private int customerID;
     private String customerName;
     private String customerAddress;
@@ -40,7 +37,7 @@ public class Customers {
      *
      * @return customerID
      */
-    public Integer getCustomerID() {
+    public int getCustomerID() {
 
         return customerID;
     }
