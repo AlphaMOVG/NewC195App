@@ -4,6 +4,7 @@ package controllers;
 import helperClasses.CountryHelper;
 import helperClasses.CustomerHelper;
 import helperClasses.DivisionsHelper;
+import javafx.collections.FXCollections;
 import javafx.scene.control.cell.PropertyValueFactory;
 import models.Country;
 import models.Customers;
@@ -242,14 +243,17 @@ public class CustomerController implements Initializable {
     }
 
     @FXML
-    void onActionEdit(ActionEvent event) {
+    void onActionEdit(ActionEvent event) throws SQLException {
         Customers selectCustomer = customerTableView.getSelectionModel().getSelectedItem();
+
 
         customerIdTxt.setText(String.valueOf(selectCustomer.getCustomerID()));
         customerNameTxt.setText(selectCustomer.getCustomerName());
         phoneNumberTxt.setText(selectCustomer.getCustomerPhoneNumber());
         postalCodeTxt.setText(selectCustomer.getCustomerPostalCode());
         addressTxt.setText(selectCustomer.getCustomerAddress());
+        divisionCombo.setValue();
+
 
     }
 
@@ -257,6 +261,7 @@ public class CustomerController implements Initializable {
     @FXML
     void onActionClear(ActionEvent event) {
         try{
+            customerIdTxt.clear();
             customerNameTxt.clear();
             phoneNumberTxt.clear();
             postalCodeTxt.clear();
