@@ -310,7 +310,13 @@ public class CustomerController implements Initializable {
         }
 
         try {
-       // ask about .setDisable if statement for the division combo box to be disabled until there is a selection in the country combo
+           /* if(countryCombo.getValue() == null) {
+               divisionCombo.setDisable(true);
+            }
+                //ask why this isn't working
+           else {
+                //divisionCombo.setDisable(false);
+          }*/
 
             divisionCombo.setItems(DivisionsHelper.getAllDivisions());
         } catch (SQLException throwables) {
