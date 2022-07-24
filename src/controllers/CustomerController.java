@@ -246,14 +246,13 @@ public class CustomerController implements Initializable {
     void onActionEdit(ActionEvent event) throws SQLException {
         Customers selectCustomer = customerTableView.getSelectionModel().getSelectedItem();
 
-
         customerIdTxt.setText(String.valueOf(selectCustomer.getCustomerID()));
         customerNameTxt.setText(selectCustomer.getCustomerName());
         phoneNumberTxt.setText(selectCustomer.getCustomerPhoneNumber());
         postalCodeTxt.setText(selectCustomer.getCustomerPostalCode());
         addressTxt.setText(selectCustomer.getCustomerAddress());
-        divisionCombo.setValue();
 
+       // add division and country data into the combo boxes from the data selected in the table.
 
     }
 
@@ -266,6 +265,9 @@ public class CustomerController implements Initializable {
             phoneNumberTxt.clear();
             postalCodeTxt.clear();
             addressTxt.clear();
+            divisionCombo.getItems().removeAll();
+            // how to reset the combo boxes after the clear button has been pressed
+
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -308,6 +310,8 @@ public class CustomerController implements Initializable {
         }
 
         try {
+       // ask about .setDisable if statement for the division combo box to be disabled until there is a selection in the country combo
+
             divisionCombo.setItems(DivisionsHelper.getAllDivisions());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
