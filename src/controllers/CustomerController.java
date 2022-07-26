@@ -4,7 +4,6 @@ package controllers;
 import helperClasses.CountryHelper;
 import helperClasses.CustomerHelper;
 import helperClasses.DivisionsHelper;
-import javafx.collections.FXCollections;
 import javafx.scene.control.cell.PropertyValueFactory;
 import models.Country;
 import models.Customers;
@@ -79,6 +78,8 @@ public class CustomerController implements Initializable {
     @FXML
     private TableColumn<CustomerHelper, String> addressCol;
 
+    private Divisions divisions;
+    private CountryHelper countryID;
 
 
     @FXML
@@ -186,8 +187,6 @@ public class CustomerController implements Initializable {
         }
     }
 
-
-
     @FXML
     void onActionUpdate(ActionEvent event) {
         try{
@@ -252,10 +251,22 @@ public class CustomerController implements Initializable {
         postalCodeTxt.setText(selectCustomer.getCustomerPostalCode());
         addressTxt.setText(selectCustomer.getCustomerAddress());
 
-       // add division and country data into the combo boxes from the data selected in the table.
+        for(CountryHelper c : countryCombo.getItems()){
+            if (selectCustomer.getCountryID() == c.getCountryID()){
+                countryCombo.setValue(c);
+                break;
+            }
+        }
+
+        for(Divisions D : divisionCombo.getItems()){
+            if(selectCustomer.getDivisionID() == D.getDivisionID()){
+                divisionCombo.setValue(D);
+                break;
+
+            }
+        }
 
     }
-
 
     @FXML
     void onActionClear(ActionEvent event) {
@@ -265,7 +276,7 @@ public class CustomerController implements Initializable {
             phoneNumberTxt.clear();
             postalCodeTxt.clear();
             addressTxt.clear();
-            divisionCombo.getItems().removeAll();
+            divisionCombo.getItems();
             // how to reset the combo boxes after the clear button has been pressed
 
         } catch (Exception e) {
@@ -310,13 +321,15 @@ public class CustomerController implements Initializable {
         }
 
         try {
-           /* if(countryCombo.getValue() == null) {
+            //ask why this isn't working
+          /*  if(countryCombo.getValue() == null) {
                divisionCombo.setDisable(true);
             }
-                //ask why this isn't working
-           else {
-                //divisionCombo.setDisable(false);
-          }*/
+
+           else if(country.getValue() != null){
+                divisionCombo.setDisable(false);
+            }*/
+
 
             divisionCombo.setItems(DivisionsHelper.getAllDivisions());
         } catch (SQLException throwables) {
