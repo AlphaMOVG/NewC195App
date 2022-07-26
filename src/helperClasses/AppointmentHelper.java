@@ -17,25 +17,34 @@ public class AppointmentHelper {
      */
     public static ObservableList<Appointments> getAllAppointments() throws SQLException {
         ObservableList<Appointments> appointmentsList = FXCollections.observableArrayList();
+try {
 
-        String sql = "SELECT * FROM appointments";
-        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
 
-        while (rs.next()) {
-            int appointmentID = rs.getInt("Appointment_ID");
-            String appointmentTitle = rs.getString("Title");
-            String appointmentDescription = rs.getString("Description");
-            String appointmentLocation = rs.getString("Location");
-            String appointmentType = rs.getString("Type");
-            LocalDateTime start = rs.getTimestamp("Start").toLocalDateTime();
-            LocalDateTime end = rs.getTimestamp("End").toLocalDateTime();
-            int customerID = rs.getInt("Customer_ID");
-            int userID = rs.getInt("User_ID");
-            int contactID = rs.getInt("Contact_ID");
-            Appointments appointment = new Appointments(appointmentID, appointmentTitle, appointmentDescription, appointmentLocation, appointmentType, start, end, customerID, userID, contactID);
-            appointmentsList.add(appointment);
-        }
+    String sql = "SELECT  a.Appointment_ID, a.Title, a.Description, a.location, a.Type, a.Start, a.End, a.Customer_ID, a.User_ID, a.Contact_ID" +
+            "FROM appointments AS a" +
+            "INNER JOIN customers AS c ON a.Customer_ID = c.Customer_ID" +
+            "INNER JOIN user AS u ON a.User_ID = u.User_ID" +
+            "INNER JOIN contacts AS con ON a.Contact_ID = con.Contact_ID";
+    PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+    ResultSet rs = ps.executeQuery();
+
+    while (rs.next()) {
+        int appointmentID = rs.getInt("Appointment_ID");
+        String appointmentTitle = rs.getString("Title");
+        String appointmentDescription = rs.getString("Description");
+        String appointmentLocation = rs.getString("Location");
+        String appointmentType = rs.getString("Type");
+        LocalDateTime start = rs.getTimestamp("Start").toLocalDateTime();
+        LocalDateTime end = rs.getTimestamp("End").toLocalDateTime();
+        int customerID = rs.getInt("Customer_ID");
+        int userID = rs.getInt("User_ID");
+        int contactID = rs.getInt("Contact_ID");
+        Appointments appointment = new Appointments(appointmentID, appointmentTitle, appointmentDescription, appointmentLocation, appointmentType, start, end, customerID, userID, contactID);
+        appointmentsList.add(appointment);
+    }
+} catch (SQLException throwables) {
+    throwables.printStackTrace();
+}
 
         return appointmentsList;
     }
@@ -43,51 +52,47 @@ public class AppointmentHelper {
 
     public static void createAppointment(int appointmentID, String appointmentTitle, String appointmentDescription, String appointmentLocation, String appointmentType, Timestamp start, Timestamp end, int customerID, int userID, int contactID) {
         try {
-            String sql = "INSERT INTO appointments VALUES(NULL,?,?,?,?,?,?,?,?,?)";
+            String sql = "INSERT INTO appointments VALUES(NULL,?,?,?,?,?,?, NOW(),'JF', NOW(),'JF',?,?,?";
 
-            PreparedStatement ps = JDBC.connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            ps.setInt(1, appointmentID);
-            ps.setString(2, appointmentTitle);
-            ps.setString(3, appointmentDescription);
-            ps.setString(4, appointmentLocation);
-            ps.setString(5, appointmentType);
-            ps.setTimestamp(6, start);
-            ps.setTimestamp(7, end);
-            ps.setInt(8, customerID);
-            ps.setInt(9, userID);
-            ps.setInt(10, contactID);
+            PreparedStatement ps = JDBC.connection.prepareStatement(sql);
 
+            ps.setString(1, appointmentTitle);
+            ps.setString(2, appointmentDescription);
+            ps.setString(3, appointmentLocation);
+            ps.setString(4, appointmentType);
+            ps.setTimestamp(5, start);
+            ps.setTimestamp(6, end);
+            ps.setInt(7, customerID);
+            ps.setInt(8, userID);
+            ps.setInt(9, contactID);
 
             ps.execute();
 
-            ResultSet rs = ps.getGeneratedKeys();
-            rs.next();
-            int appID = rs.getInt("1");
-
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
+
         }
     }
 
     public static void updateAppointment(int appointmentID, String appointmentTitle, String appointmentDescription, String appointmentLocation, String appointmentType, Timestamp start, Timestamp end, int customerID, int userID, int contactID) {
         try {
-            String sql  = "UPDATE appointments SET Appointment_ID = ?, Title = ?, Address = ?, Description = ? ,  Location = ?, Type = ?, Start = ?, End = ? WHERE Customer_ID = ? AND User_ID = ? AND Contact_ID = ? ";
+            String sql  = "UPDATE appointments SET Title = ?, Address = ?, Description = ? ,  Location = ?, Type = ?, Start = ?, End = ? WHERE Customer_ID = ? AND User_ID = ? AND Contact_ID = ? ";
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-            ps.setInt(1, appointmentID);
-            ps.setString(2, appointmentTitle);
-            ps.setString(3, appointmentDescription);
-            ps.setString(4, appointmentLocation);
-            ps.setString(5, appointmentType);
-            ps.setTimestamp(6, start);
-            ps.setTimestamp(7, end);
-            ps.setInt(8, customerID);
-            ps.setInt(9, userID);
-            ps.setInt(10, contactID);
+
+            ps.setString(1, appointmentTitle);
+            ps.setString(2, appointmentDescription);
+            ps.setString(3, appointmentLocation);
+            ps.setString(4, appointmentType);
+            ps.setTimestamp(5, start);
+            ps.setTimestamp(6, end);
+            ps.setInt(7, customerID);
+            ps.setInt(8, userID);
+            ps.setInt(9, contactID);
 
             ps.execute();
 
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }
@@ -95,6 +100,7 @@ public class AppointmentHelper {
 
     public static void deleteAppointment(int appointmentID) throws SQLException {
         try {
+
             String sql = "DELETE FROM appointments WHERE Appointment_ID = ?";
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
             ps.setInt(1, appointmentID);
