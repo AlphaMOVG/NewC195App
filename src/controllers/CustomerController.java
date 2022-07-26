@@ -85,8 +85,8 @@ public class CustomerController implements Initializable {
     @FXML
     void onActionCountryCombo(ActionEvent event) throws SQLException {
 
-       Country c = countryCombo.getValue();
-       divisionCombo.setItems(DivisionsHelper.getAllFilteredDivisions(c.getCountryID()));
+       Country cs = countryCombo.getValue();
+       divisionCombo.setItems(DivisionsHelper.getAllFilteredDivisions(cs.getCountryID()));
 
     }
 
@@ -94,7 +94,7 @@ public class CustomerController implements Initializable {
     void onActionAdd(ActionEvent event) {
         try{
             if(customerNameTxt.getText().isEmpty()){
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a customer name");Optional<ButtonType> result = alert.showAndWait();
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a customer to the form");Optional<ButtonType> result = alert.showAndWait();
                 return;
             }
             String  addCustomerName = customerNameTxt.getText();
@@ -269,14 +269,20 @@ public class CustomerController implements Initializable {
     }
 
     @FXML
-    void onActionClear(ActionEvent event) {
+    void onActionClear(ActionEvent event) throws SQLException {
+        Country c = countryCombo.getValue();
+        divisionCombo.setItems(DivisionsHelper.getAllFilteredDivisions(c.getCountryID()));
+
         try{
             customerIdTxt.clear();
             customerNameTxt.clear();
             phoneNumberTxt.clear();
             postalCodeTxt.clear();
             addressTxt.clear();
-            divisionCombo.getItems();
+            countryCombo.setItems(CountryHelper.getAllCountries());
+            divisionCombo.setItems(DivisionsHelper.getAllDivisions());
+
+
             // how to reset the combo boxes after the clear button has been pressed
 
         } catch (Exception e) {

@@ -126,3 +126,8 @@ User: test successfully logged in at: 2022-07-26 09:20:48.5854075
 User: test successfully logged in at: 2022-07-26 09:21:47.6873636
 User: test successfully logged in at: 2022-07-26 09:26:28.5296155
 User: test successfully logged in at: 2022-07-26 09:27:34.8194173
+user: tests failed login attempt at: 2022-07-26 09:31:58.4072566
+User: test successfully logged in at: 2022-07-26 09:32:02.6690185
+User: test successfully logged in at: 2022-07-26 09:33:32.991898
+User: test successfully logged in at: 2022-07-26 09:35:29.0507883
+User: test successfully logged in at: 2022-07-26 09:38:36.5479608
