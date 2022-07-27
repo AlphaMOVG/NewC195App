@@ -33,7 +33,7 @@ public class AppController implements Initializable {
     @FXML
     private Button deleteBtn;
     @FXML
-    private Button saveBtn;
+    private Button editBtn;
     @FXML
     private Button backBtn;
     @FXML
@@ -119,6 +119,30 @@ public class AppController implements Initializable {
         contactCol.setCellValueFactory(new PropertyValueFactory<>("contact"));
         userIdCol.setCellValueFactory(new PropertyValueFactory<>("userID"));
 
+        ObservableList<Contacts> contacts = null;
+        try {
+            contacts = ContactHelper.getAllContacts();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        contactCombo.setItems(contacts);
+        contactCombo.getValue();
+
+        LocalTime startComboStart = LocalTime.of(8, 0);
+        LocalTime startComboEnd = LocalTime.of(18, 0);
+        while(startComboStart.isBefore(startComboEnd.plusSeconds(1))){
+            sTimeCombo.getItems().add(String.valueOf(startComboStart));
+            startComboStart = startComboStart.plusMinutes(30);
+        }
+        sTimeCombo.getSelectionModel().select(String.valueOf(LocalTime.of(8,0)));
+
+        LocalTime endComboStart = LocalTime.of(8, 0);
+        LocalTime endComboEnd = LocalTime.of(18, 0);
+        while(endComboStart.isBefore(endComboStart.plusSeconds(1))){
+            eTimeCombo.getItems().add(String.valueOf(endComboStart));
+            endComboStart = endComboStart.plusMinutes(30);
+        }
+        sTimeCombo.getSelectionModel().select(String.valueOf(LocalTime.of(8,0)));
 
 
     }
@@ -206,59 +230,7 @@ public class AppController implements Initializable {
 
 
 
-    @FXML
-    void onActionLocationCombo(ActionEvent event) {
 
-    }
-
-
-    @FXML
-    void onActionContactCombo(ActionEvent event) throws SQLException {
-        ObservableList<Contacts> contacts = ContactHelper.getAllContacts();
-        contactCombo.setItems(contacts);
-        contactCombo.getValue();
-
-
-
-    }
-
-    @FXML
-    void onActionDatePicker(ActionEvent event) {
-       // localDateTime startDate = localDateTime;
-
-
-    }
-
-    @FXML
-    void onActionStartTimeCombo(ActionEvent event) {
-      //  localTime start = localTime.of(8, 0);
-     //   localTime end = localTime.of(18, 0);
-       // while(start.isBefore(end.plusSeconds(1))){
-        //   sTimeCombo.getItems().add(start);
-        //   start = start.plusMinutes(30);
-    //    }
-      //  sTimeCombo.getSelectionModel().select(localTime.of(8,0));
-
-    }
-
-
-
-    @FXML
-    void onActionEndTimeCombo(ActionEvent event) {
-     //   localTime end = localTime.of(18, 0);
-    }
-
-
-    @FXML
-    void onActionCustomerIDCombo(ActionEvent event) {
-
-    }
-
-
-    @FXML
-    void onActionUserIDCombo(ActionEvent event) {
-
-    }
 
 
     @FXML
@@ -296,16 +268,6 @@ public class AppController implements Initializable {
     }
 
 
-    @FXML
-    void onActionSave(ActionEvent event) {
-        try{
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-    }
 
 
     @FXML
@@ -326,6 +288,14 @@ public class AppController implements Initializable {
 
 
     }
+
+
+    @FXML
+    void onActionEdit(ActionEvent event) {
+
+    }
+
+
 
     @FXML
     void onActionClear(ActionEvent event) {

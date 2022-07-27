@@ -30,11 +30,11 @@
         <Label layoutX="325.0" layoutY="249.0" text="User ID" />
         <Label layoutX="316.0" layoutY="120.0" text="Start TIme" />
         <Label layoutX="319.0" layoutY="163.0" text="End TIme" />
-        <ComboBox fx:id="contactCombo" layoutX="115.0" layoutY="245.0" onAction="#onActionContactCombo" prefWidth="150.0" />
+        <ComboBox fx:id="contactCombo" layoutX="115.0" layoutY="245.0" prefWidth="150.0" />
         <TextField fx:id="appointmentIdTxt" editable="false" layoutX="117.0" layoutY="86.0" promptText="Auto Generated" />
         <TextField fx:id="titleTxt" layoutX="116.0" layoutY="124.0" />
-        <ComboBox fx:id="sTimeCombo" layoutX="390.0" layoutY="116.0" onAction="#onActionStartTimeCombo" prefHeight="25.0" prefWidth="114.0" />
-        <ComboBox fx:id="eTimeCombo" layoutX="390.0" layoutY="159.0" onAction="#onActionEndTimeCombo" prefHeight="25.0" prefWidth="114.0" />
+        <ComboBox fx:id="sTimeCombo" layoutX="390.0" layoutY="116.0" prefHeight="25.0" prefWidth="114.0" />
+        <ComboBox fx:id="eTimeCombo" layoutX="390.0" layoutY="159.0" prefHeight="25.0" prefWidth="114.0" />
         <TableView fx:id="appointmentsTableView" layoutX="21.0" layoutY="360.0" prefHeight="179.0" prefWidth="864.0">
             <columns>
                 <TableColumn fx:id="appointmentIdCol" prefWidth="100.00000190734863" text="Appointment ID" />
@@ -50,13 +50,12 @@
             </columns>
         </TableView>
         <Button fx:id="addBtn" layoutX="384.0" layoutY="288.0" mnemonicParsing="false" onAction="#onActionAdd" text="Add" />
-        <Button fx:id="updateBtn" layoutX="511.0" layoutY="324.0" mnemonicParsing="false" onAction="#onActionUpdate" text="Update" />
-        <Button fx:id="deleteBtn" layoutX="587.0" layoutY="324.0" mnemonicParsing="false" onAction="#onActionDelete" text="Delete" />
-        <Button fx:id="backBtn" layoutX="723.0" layoutY="324.0" mnemonicParsing="false" onAction="#onActionBack" text="Back" />
+        <Button fx:id="updateBtn" layoutX="437.0" layoutY="288.0" mnemonicParsing="false" onAction="#onActionUpdate" text="Update" />
+        <Button fx:id="deleteBtn" layoutX="678.0" layoutY="324.0" mnemonicParsing="false" onAction="#onActionDelete" text="Delete" />
+        <Button fx:id="backBtn" layoutX="766.0" layoutY="324.0" mnemonicParsing="false" onAction="#onActionBack" text="Back" />
         <Button fx:id="exitBtn" layoutX="821.0" layoutY="324.0" mnemonicParsing="false" onAction="#onActionExit" text="Exit" />
-        <DatePicker fx:id="datePicker" layoutX="389.0" layoutY="78.0" onAction="#onActionDatePicker" />
-        <Button fx:id="ClearBtn" layoutX="439.0" layoutY="288.0" mnemonicParsing="false" onAction="#onActionClear" text="Clear" />
-        <Button fx:id="saveBtn" layoutX="666.0" layoutY="324.0" mnemonicParsing="false" onAction="#onActionSave" text="Save" />
+        <DatePicker fx:id="datePicker" layoutX="389.0" layoutY="78.0" />
+        <Button fx:id="ClearBtn" layoutX="504.0" layoutY="288.0" mnemonicParsing="false" onAction="#onActionClear" text="Clear" />
         <RadioButton fx:id="monthsRBtn" layoutX="183.0" layoutY="316.0" mnemonicParsing="false" onAction="#onActionMonths" text="Months">
             <toggleGroup>
                 <ToggleGroup fx:id="toggleRBtn" />
@@ -66,8 +65,9 @@
         <RadioButton fx:id="appointmentsRBtn" layoutX="55.0" layoutY="315.0" mnemonicParsing="false" onAction="#onActionAllAppointments" text="All Appointments" toggleGroup="$toggleRBtn" />
         <TextField fx:id="typeTxt" layoutX="390.0" layoutY="38.0" />
         <TextField fx:id="descriptionTxt" layoutX="116.0" layoutY="167.0" />
-      <ComboBox fx:id="customerIDCombo" layoutX="389.0" layoutY="207.0" onAction="#onActionCustomerIDCombo" prefWidth="150.0" />
-      <ComboBox fx:id="userIDCombo" layoutX="389.0" layoutY="245.0" onAction="#onActionUserIDCombo" prefWidth="150.0" />
-      <ComboBox fx:id="locatioCombo" layoutX="116.0" layoutY="207.0" onAction="#onActionLocationCombo" prefWidth="150.0" />
+      <ComboBox fx:id="customerIDCombo" layoutX="389.0" layoutY="207.0" prefWidth="150.0" />
+      <ComboBox fx:id="userIDCombo" layoutX="389.0" layoutY="245.0" prefWidth="150.0" />
+      <TextField fx:id="locationTxt" layoutX="116.0" layoutY="207.0" />
+      <Button fx:id="editBtn" layoutX="596.0" layoutY="324.0" mnemonicParsing="false" onAction="#onActionEdit" text="Edit" />
     </children>
 </Pane>
