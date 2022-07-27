@@ -20,11 +20,8 @@ public class AppointmentHelper {
 try {
 
 
-    String sql = "SELECT  a.Appointment_ID, a.Title, a.Description, a.location, a.Type, a.Start, a.End, a.Customer_ID, a.User_ID, a.Contact_ID" +
-            "FROM appointments AS a" +
-            "INNER JOIN customers AS c ON a.Customer_ID = c.Customer_ID" +
-            "INNER JOIN user AS u ON a.User_ID = u.User_ID" +
-            "INNER JOIN contacts AS con ON a.Contact_ID = con.Contact_ID";
+    String sql = "SELECT * FROM appointments";
+    System.out.println(sql);
     PreparedStatement ps = JDBC.connection.prepareStatement(sql);
     ResultSet rs = ps.executeQuery();
 
@@ -42,8 +39,8 @@ try {
         Appointments appointment = new Appointments(appointmentID, appointmentTitle, appointmentDescription, appointmentLocation, appointmentType, start, end, customerID, userID, contactID);
         appointmentsList.add(appointment);
     }
-} catch (SQLException throwables) {
-    throwables.printStackTrace();
+} catch (SQLException e) {
+    e.printStackTrace();
 }
 
         return appointmentsList;

@@ -99,12 +99,11 @@ public class AppController implements Initializable {
     @Override
     public void initialize(java.net.URL url, ResourceBundle resourceBundle) {
 
-
         ObservableList<Appointments> allAppointments = null;
         try {
             allAppointments = AppointmentHelper.getAllAppointments();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         appointmentsTableView.setItems(allAppointments);
 
@@ -118,31 +117,6 @@ public class AppController implements Initializable {
         customerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         contactCol.setCellValueFactory(new PropertyValueFactory<>("contact"));
         userIdCol.setCellValueFactory(new PropertyValueFactory<>("userID"));
-
-        ObservableList<Contacts> contacts = null;
-        try {
-            contacts = ContactHelper.getAllContacts();
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
-        }
-        contactCombo.setItems(contacts);
-        contactCombo.getValue();
-
-        LocalTime startComboStart = LocalTime.of(8, 0);
-        LocalTime startComboEnd = LocalTime.of(18, 0);
-        while(startComboStart.isBefore(startComboEnd.plusSeconds(1))){
-            sTimeCombo.getItems().add(String.valueOf(startComboStart));
-            startComboStart = startComboStart.plusMinutes(30);
-        }
-        sTimeCombo.getSelectionModel().select(String.valueOf(LocalTime.of(8,0)));
-
-        LocalTime endComboStart = LocalTime.of(8, 0);
-        LocalTime endComboEnd = LocalTime.of(18, 0);
-        while(endComboStart.isBefore(endComboStart.plusSeconds(1))){
-            eTimeCombo.getItems().add(String.valueOf(endComboStart));
-            endComboStart = endComboStart.plusMinutes(30);
-        }
-        sTimeCombo.getSelectionModel().select(String.valueOf(LocalTime.of(8,0)));
 
 
     }

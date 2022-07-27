@@ -85,8 +85,17 @@ public class CustomerController implements Initializable {
     @FXML
     void onActionCountryCombo(ActionEvent event) throws SQLException {
 
+        if(countryCombo.getValue() == null) {
+            divisionCombo.setDisable(true);
+        }
+
+        else if(countryCombo.getValue() != null){
+            divisionCombo.setDisable(false);
+        }
+
        Country cs = countryCombo.getValue();
-       divisionCombo.setItems(DivisionsHelper.getAllFilteredDivisions(cs.getCountryID()));
+       if (cs != null){
+       divisionCombo.setItems(DivisionsHelper.getAllFilteredDivisions(cs.getCountryID()));}
 
     }
 
@@ -281,6 +290,8 @@ public class CustomerController implements Initializable {
             addressTxt.clear();
             countryCombo.setItems(CountryHelper.getAllCountries());
             divisionCombo.setItems(DivisionsHelper.getAllDivisions());
+            countryCombo.setPromptText("- Choose A Country -");
+            divisionCombo.setPromptText("- Choose A Division -");
 
 
             // how to reset the combo boxes after the clear button has been pressed
@@ -328,13 +339,14 @@ public class CustomerController implements Initializable {
 
         try {
             //ask why this isn't working
-          /*  if(countryCombo.getValue() == null) {
-               divisionCombo.setDisable(true);
+            if(countryCombo.getValue() == null) {
+                divisionCombo.setDisable(true);
             }
 
-           else if(country.getValue() != null){
+            else if(countryCombo.getValue() != null){
                 divisionCombo.setDisable(false);
-            }*/
+            }
+
 
 
             divisionCombo.setItems(DivisionsHelper.getAllDivisions());
