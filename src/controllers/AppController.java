@@ -115,7 +115,7 @@ public class AppController implements Initializable {
         startCol.setCellValueFactory(new PropertyValueFactory<>("start"));
         endCol.setCellValueFactory(new PropertyValueFactory<>("end"));
         customerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
-        contactCol.setCellValueFactory(new PropertyValueFactory<>("contact"));
+        contactCol.setCellValueFactory(new PropertyValueFactory<>("contactID")); // make the column a name instead of Contact
         userIdCol.setCellValueFactory(new PropertyValueFactory<>("userID"));
 
 

@@ -30,8 +30,8 @@ public class Contacts {
     }
 
 
-    public String toString(){
-        return "#"+ Integer.toString(contactID) + "" + "["+ contactName+ "]";
+    public String toString() {
+        return contactID + " - " + contactName;
     }
 
 }
