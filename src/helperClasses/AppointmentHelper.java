@@ -51,7 +51,7 @@ try {
     }
 
 
-    public static void createAppointment(int appointmentID, String appointmentTitle, String appointmentDescription, String appointmentLocation, String appointmentType, Timestamp start, Timestamp end, int customerID, int userID, int contactID) {
+    public static void createAppointment(String appointmentTitle, String appointmentDescription, String appointmentLocation, String appointmentType, Timestamp start, Timestamp end, int customerID, int userID, int contactID) {
         try {
             String sql = "INSERT INTO appointments VALUES(NULL,?,?,?,?,?,?, NOW(),'JF', NOW(),'JF',?,?,?";
 

@@ -22,6 +22,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.*;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -73,7 +74,7 @@ public class AppController implements Initializable {
     @FXML
     private ComboBox<Users> userCombo;
     @FXML
-    private ComboBox<Customers> customerIDCombo;
+    private ComboBox<Customers> customerCombo;
 
 
     @FXML
@@ -122,15 +123,15 @@ public class AppController implements Initializable {
         contactCol.setCellValueFactory(new PropertyValueFactory<>("contactID")); // make the column a name instead of Contact
         userIdCol.setCellValueFactory(new PropertyValueFactory<>("userID"));
 
-
         ObservableList<Customers> customers = null;
         try {
             customers = CustomerHelper.getAllCustomers();
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        customerIDCombo.setItems(customers);
-        customerIDCombo.getValue();
+        customerCombo.setItems(customers);
+        customerCombo.getValue();
+
 
         ObservableList<Users> users = null;
         try {
@@ -138,10 +139,8 @@ public class AppController implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
         userCombo.setItems(users);
         userCombo.getValue();
-
 
 
         ObservableList<Contacts> contacts = null;
@@ -153,6 +152,7 @@ public class AppController implements Initializable {
         contactCombo.setItems(contacts);
         contactCombo.getValue();
 
+        // how to cut the time off at 6 pm.
         LocalTime startComboStart = LocalTime.of(8, 0);
         LocalTime endComboEnd = LocalTime.of(8, 30);
         while (startComboStart.isBefore(endComboEnd.plusSeconds(1))) {
@@ -172,8 +172,6 @@ public class AppController implements Initializable {
 
             DatePicker pickDate = new DatePicker();
             datePicker =  pickDate;
-
-
 
         }
 
@@ -269,10 +267,82 @@ public class AppController implements Initializable {
     @FXML
     void onActionAdd(ActionEvent event) throws SQLException, IOException {
         try{
+            if(titleTxt.getText().isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a Title to the appointment.");Optional<ButtonType> result = alert.showAndWait();
+            return;
+        }
+            String  addTitle = titleTxt.getText();
 
-        } catch (Exception e) {
+            if(descriptionTxt.getText().isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a description to the appointment.");Optional<ButtonType> result = alert.showAndWait();
+                return;
+            }
+            String  addDescription = descriptionTxt.getText();
+
+            if(locationTxt.getText().isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a Location to the appointment.");Optional<ButtonType> result = alert.showAndWait();
+                return;
+            }
+            String  addLocation = locationTxt.getText();
+
+            if(contactCombo.getValue() == null) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a contact to the appointment");Optional<ButtonType> result = alert.showAndWait();
+                return;
+            }
+            Integer addContact = contactCombo.getValue().getContactID();
+
+
+            if(typeTxt.getText().isEmpty()){
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a type to the appointment.");Optional<ButtonType> result = alert.showAndWait();
+                return;
+            }
+            String  addType = typeTxt.getText();
+
+            if(sTimeCombo.getValue() == null) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a start time to the appointment");Optional<ButtonType> result = alert.showAndWait();
+                return;
+            }
+            Timestamp addStart = Timestamp.valueOf(sTimeCombo.getValue());
+
+            if(eTimeCombo.getValue() == null) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add an end time to the appointment");Optional<ButtonType> result = alert.showAndWait();
+                return;
+            }
+            Timestamp addEnd = Timestamp.valueOf(sTimeCombo.getValue());
+
+            if(datePicker.getValue() == null) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please a date to the appointment");Optional<ButtonType> result = alert.showAndWait();
+                return;
+            }
+            Integer addDate = Integer.valueOf(String.valueOf(datePicker.getValue()));
+
+            if(userCombo.getValue() == null) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a user to the appointment");Optional<ButtonType> result = alert.showAndWait();
+                return;
+            }
+            Integer addUser = userCombo.getValue().getUserID();
+
+            if(customerCombo.getValue() == null) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a customer to the appointment");Optional<ButtonType> result = alert.showAndWait();
+                return;
+            }
+            Integer addCustomer = customerCombo.getValue().getCustomerID();
+
+            AppointmentHelper.createAppointment(addTitle,addDescription, addLocation, addType, addStart, addEnd, addCustomer, addUser, addContact);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Appointment added successfully!");Optional<ButtonType> result = alert.showAndWait();
+            ObservableList<Appointments> allAppointments = null;
+            try {
+                allAppointments = AppointmentHelper.getAllAppointments();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            appointmentsTableView.setItems(allAppointments);
+
+
+        }catch (NumberFormatException | NullPointerException e ) {
             e.printStackTrace();
         }
+
 
 
     }
@@ -315,7 +385,7 @@ public class AppController implements Initializable {
     void onActionUpdate(ActionEvent event) {
         try{
 
-        } catch (Exception e) {
+        } catch (NumberFormatException | NullPointerException e ) {
             e.printStackTrace();
         }
 
