@@ -1,6 +1,7 @@
 package controllers;
 import helperClasses.AppointmentHelper;
 import helperClasses.ContactHelper;
+import helperClasses.CustomerHelper;
 import helperClasses.UserHelper;
 import models.Appointments;
 import models.Contacts;
@@ -120,6 +121,16 @@ public class AppController implements Initializable {
         contactCol.setCellValueFactory(new PropertyValueFactory<>("contactID")); // make the column a name instead of Contact
         userIdCol.setCellValueFactory(new PropertyValueFactory<>("userID"));
 
+
+        ObservableList<Customers> customers = null;
+        try {
+            customers = CustomerHelper.getAllCustomers();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        customerIDCombo.setItems(customers);
+        customerIDCombo.getValue();
+
         ObservableList<Users> users = null;
         try {
             users = UserHelper.getAllUsers();
@@ -129,8 +140,6 @@ public class AppController implements Initializable {
 
         userCombo.setItems(users);
         userCombo.getValue();
-
-
 
 
         ObservableList<Contacts> contacts = null;
