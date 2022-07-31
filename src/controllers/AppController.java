@@ -3,6 +3,7 @@ import helperClasses.AppointmentHelper;
 import helperClasses.ContactHelper;
 import helperClasses.CustomerHelper;
 import helperClasses.UserHelper;
+import javafx.util.Callback;
 import models.Appointments;
 import models.Contacts;
 import models.Customers;
@@ -168,6 +169,12 @@ public class AppController implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Start time cannot be after the end time");Optional<ButtonType> result = alert.showAndWait();
 
             }*/
+
+            DatePicker pickDate = new DatePicker();
+            datePicker =  pickDate;
+
+
+
         }
 
 
