@@ -142,6 +142,7 @@ public class AppController implements Initializable {
         userCombo.getValue();
 
 
+
         ObservableList<Contacts> contacts = null;
         try {
             contacts = ContactHelper.getAllContacts();
