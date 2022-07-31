@@ -20,7 +20,7 @@ public class CustomerHelper {
 
         ObservableList<Customers> customersObservableList = FXCollections.observableArrayList();
         try {
-            String sql = "SELECT c.Customer_ID, c.Customer_Name, c.Address, c.Postal_code, c.Phone, c.Division_ID, cn.Country_ID "+
+            String sql = "SELECT c.Customer_ID, c.Customer_Name, c.Address, c.Postal_code, c.Phone, c.Division_ID, cn.Country_ID " +
                     " FROM customers AS c " +
                     " INNER JOIN first_level_divisions AS f ON c.Division_ID = f.Division_ID" +
                     " INNER JOIN countries AS cn ON cn.Country_ID = f.Country_ID";

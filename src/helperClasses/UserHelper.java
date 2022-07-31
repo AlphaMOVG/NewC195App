@@ -47,8 +47,9 @@ public class UserHelper {
      */
     public static ObservableList<Users> getAllUsers() throws SQLException {
         ObservableList<Users> usersObservableList = FXCollections.observableArrayList();
-
-        String sql = "SELECT * from users, ";
+try{
+        String sql = "SELECT u.User_ID, u.User_Name, u.Password " +
+                "FROM users AS u ";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
@@ -58,6 +59,9 @@ public class UserHelper {
             Users user = new Users(userID, userName, userPassword);
             usersObservableList.add(user);
         }
+        } catch (SQLException e) {
+    e.printStackTrace();
+}
         return usersObservableList;
     }
 }

@@ -294,7 +294,7 @@ public class CustomerController implements Initializable {
             divisionCombo.setPromptText("- Choose A Division -");
 
 
-            // how to reset the combo boxes after the clear button has been pressed
+
 
         } catch (Exception e) {
             e.printStackTrace();

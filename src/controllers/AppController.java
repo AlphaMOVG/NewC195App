@@ -1,6 +1,7 @@
 package controllers;
 import helperClasses.AppointmentHelper;
 import helperClasses.ContactHelper;
+import helperClasses.UserHelper;
 import models.Appointments;
 import models.Contacts;
 import models.Customers;
@@ -20,6 +21,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.*;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class AppController implements Initializable {
@@ -67,7 +69,7 @@ public class AppController implements Initializable {
     @FXML
     private DatePicker datePicker;
     @FXML
-    private ComboBox<Users> userIDCombo;
+    private ComboBox<Users> userCombo;
     @FXML
     private ComboBox<Customers> customerIDCombo;
 
@@ -117,6 +119,46 @@ public class AppController implements Initializable {
         customerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
         contactCol.setCellValueFactory(new PropertyValueFactory<>("contactID")); // make the column a name instead of Contact
         userIdCol.setCellValueFactory(new PropertyValueFactory<>("userID"));
+
+        ObservableList<Users> users = null;
+        try {
+            users = UserHelper.getAllUsers();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        userCombo.setItems(users);
+        userCombo.getValue();
+
+
+
+
+        ObservableList<Contacts> contacts = null;
+        try {
+            contacts = ContactHelper.getAllContacts();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        contactCombo.setItems(contacts);
+        contactCombo.getValue();
+
+        LocalTime startComboStart = LocalTime.of(8, 0);
+        LocalTime endComboEnd = LocalTime.of(8, 30);
+        while (startComboStart.isBefore(endComboEnd.plusSeconds(1))) {
+            sTimeCombo.getItems().add(String.valueOf(startComboStart));
+            eTimeCombo.getItems().add(String.valueOf(endComboEnd));
+            startComboStart = startComboStart.plusMinutes(30);
+            endComboEnd = endComboEnd.plusMinutes(30);
+
+            /*if (startComboStart == endComboEnd) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Appointment times cannot be at the same time.");
+                Optional<ButtonType> result = alert.showAndWait();
+            }
+            if(startComboStart.isAfter(endComboEnd)){
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Start time cannot be after the end time");Optional<ButtonType> result = alert.showAndWait();
+
+            }*/
+        }
 
 
     }

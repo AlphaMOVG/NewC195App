@@ -34,8 +34,8 @@ public class DivisionsHelper extends Divisions {
                 Divisions divisions = new Divisions(divisionID, divisionName, country_ID);
                 DivisionsObservableList.add(divisions);
             }
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return DivisionsObservableList;
     }

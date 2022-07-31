@@ -104,8 +104,9 @@ public class Customers {
     }
 
 
-
+    @Override
     public String toString(){
+
         return customerID + "-" + customerName;
     }
 }
