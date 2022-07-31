@@ -314,6 +314,7 @@ public class AppController implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please a date to the appointment");Optional<ButtonType> result = alert.showAndWait();
                 return;
             }
+            // needing to somehow merege my date picker value with my start and end values.
             Integer addDate = Integer.valueOf(String.valueOf(datePicker.getValue()));
 
             if(userCombo.getValue() == null) {
@@ -363,6 +364,32 @@ public class AppController implements Initializable {
     @FXML
     void onActionDelete(ActionEvent event) {
         try{
+            Appointments deleteSelectedAppointment = appointmentsTableView.getSelectionModel().getSelectedItem();
+
+            if (deleteSelectedAppointment == null) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Error");
+                alert.setContentText("Appointment not selected");
+                alert.showAndWait();
+            } else {
+
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");
+                alert.setContentText("Would you like to remove the selected appointment?");
+                Optional<ButtonType> result = alert.showAndWait();
+
+                if (result.isPresent() && result.get() == ButtonType.OK) {
+                    CustomerHelper.deleteCustomer(deleteSelectedAppointment.getCustomerID());
+                }
+            }
+            ObservableList<Appointments> allAppointments = null;
+            try {
+                allAppointments = AppointmentHelper.getAllAppointments();
+            } catch (SQLException throwables) {
+                throwables.printStackTrace();
+            }
+            appointmentsTableView.setItems(allAppointments);
+
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -402,6 +429,16 @@ public class AppController implements Initializable {
 
     @FXML
     void onActionClear(ActionEvent event) {
+        titleTxt.clear();
+        descriptionTxt.clear();
+        locationTxt.clear();
+        typeTxt.clear();
+      //  sTimeCombo.setValue();
+      //  eTimeCombo.setValue();
+       // datepicker.
+       // userCombo.setValue();
+        // customerCombo.setValue();
+        //contactCombo.setValue();
 
     }
 
