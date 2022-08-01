@@ -80,25 +80,25 @@ public class AppController implements Initializable {
     @FXML
     private TableView<Appointments> appointmentsTableView;
     @FXML
-    private TableColumn<?, ?> appointmentIdCol;
+    private TableColumn<AppointmentHelper, Integer> appointmentIdCol;
     @FXML
-    private TableColumn<?, ?> titleCol;
+    private TableColumn<AppointmentHelper, String> titleCol;
     @FXML
-    private TableColumn<?, ?> descriptionCol;
+    private TableColumn<AppointmentHelper, String> descriptionCol;
     @FXML
-    private TableColumn<?, ?> locationCol;
+    private TableColumn<AppointmentHelper, String> locationCol;
     @FXML
-    private TableColumn<?, ?> startCol;
+    private TableColumn<AppointmentHelper, LocalDateTime> startCol;
     @FXML
-    private TableColumn<?, ?> endCol;
+    private TableColumn<AppointmentHelper, LocalDateTime> endCol;
     @FXML
-    private TableColumn<?, ?> typeCol;
+    private TableColumn<AppointmentHelper, String> typeCol;
     @FXML
-    private TableColumn<?, ?> customerIdCol;
+    private TableColumn<AppointmentHelper, Integer> customerIdCol;
     @FXML
-    private TableColumn<?, ?> userIdCol;
+    private TableColumn<AppointmentHelper, Integer> userIdCol;
     @FXML
-    private TableColumn<?, ?> contactCol;
+    private TableColumn<AppointmentHelper, Integer> contactCol;
 
 
     @Override
@@ -132,7 +132,7 @@ public class AppController implements Initializable {
         customerCombo.setItems(customers);
         customerCombo.getValue();
 
-
+        // Why are my users coming out as null values?
         ObservableList<Users> users = null;
         try {
             users = UserHelper.getAllUsers();
@@ -152,7 +152,7 @@ public class AppController implements Initializable {
         contactCombo.setItems(contacts);
         contactCombo.getValue();
 
-        // how to cut the time off at 6 pm. adjust for different times zones
+
         LocalTime startComboStart = LocalTime.of(8, 0);
         LocalTime endComboEnd = LocalTime.of(22, 00);
         while (startComboStart.isBefore(endComboEnd)) {
@@ -212,8 +212,8 @@ public class AppController implements Initializable {
             ObservableList<Appointments> allAppointmentsList = AppointmentHelper.getAllAppointments();
             ObservableList<Appointments> appointmentsMonth = FXCollections.observableArrayList();
 
-            LocalDateTime MonthStart = LocalDateTime.now().minusMonths(1);
-            LocalDateTime MonthEnd = LocalDateTime.now().plusMonths(1);
+            LocalDateTime MonthStart = LocalDateTime.of(LocalDate.now(), LocalTime.of(0 ,0));
+            LocalDateTime MonthEnd = MonthStart.plusDays(30);
 
 
             if (allAppointmentsList != null)
@@ -242,8 +242,8 @@ public class AppController implements Initializable {
             ObservableList<Appointments> allAppointmentsList = AppointmentHelper.getAllAppointments();
             ObservableList<Appointments> appointmentsWeek = FXCollections.observableArrayList();
 
-            LocalDateTime weekStart = LocalDateTime.now().minusWeeks(1);
-            LocalDateTime weekEnd = LocalDateTime.now().plusWeeks(1);
+            LocalDateTime weekStart = LocalDateTime.of(LocalDate.now(), LocalTime.of(0 ,0));
+            LocalDateTime weekEnd = weekStart.plusWeeks(1);
 
             if (allAppointmentsList != null)
 
@@ -310,7 +310,7 @@ public class AppController implements Initializable {
             }
 
             if(datePicker.getValue() == null) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please a date to the appointment");Optional<ButtonType> result = alert.showAndWait();
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a date to the appointment");Optional<ButtonType> result = alert.showAndWait();
                 return;
             }
 
@@ -332,7 +332,9 @@ public class AppController implements Initializable {
 
 
             AppointmentHelper.createAppointment(addTitle,addDescription, addLocation, addType, addStart, addEnd, addCustomer, addUser, addContact);
+
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Appointment added successfully!");Optional<ButtonType> result = alert.showAndWait();
+
             ObservableList<Appointments> allAppointments = null;
             try {
                 allAppointments = AppointmentHelper.getAllAppointments();

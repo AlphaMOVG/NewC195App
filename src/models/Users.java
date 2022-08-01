@@ -7,13 +7,10 @@ public class Users {
     public String userPassword;
 
 
-    public Users() {
+    public Users(int userID, String userName, String userPassword) {
         this.userID = userID;
         this.userName = userName;
         this.userPassword = userPassword;
-    }
-
-    public Users(int userID, String userName, String userPassword) {
 
     }
 
