@@ -66,9 +66,9 @@ public class AppController implements Initializable {
     @FXML
     private TextField typeTxt;
     @FXML
-    private ComboBox<String> sTimeCombo;
+    private ComboBox<LocalTime> sTimeCombo;
     @FXML
-    private ComboBox<String> eTimeCombo;
+    private ComboBox<LocalTime> eTimeCombo;
     @FXML
     private DatePicker datePicker;
     @FXML
@@ -152,14 +152,15 @@ public class AppController implements Initializable {
         contactCombo.setItems(contacts);
         contactCombo.getValue();
 
-        // how to cut the time off at 6 pm.
+        // how to cut the time off at 6 pm. adjust for different times zones
         LocalTime startComboStart = LocalTime.of(8, 0);
-        LocalTime endComboEnd = LocalTime.of(8, 30);
-        while (startComboStart.isBefore(endComboEnd.plusSeconds(1))) {
-            sTimeCombo.getItems().add(String.valueOf(startComboStart));
-            eTimeCombo.getItems().add(String.valueOf(endComboEnd));
+        LocalTime endComboEnd = LocalTime.of(22, 00);
+        while (startComboStart.isBefore(endComboEnd)) {
+            sTimeCombo.getItems().add(startComboStart);
             startComboStart = startComboStart.plusMinutes(30);
-            endComboEnd = endComboEnd.plusMinutes(30);
+            eTimeCombo.getItems().add(startComboStart);
+
+
 
             /*if (startComboStart == endComboEnd) {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Appointment times cannot be at the same time.");
@@ -302,32 +303,33 @@ public class AppController implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a start time to the appointment");Optional<ButtonType> result = alert.showAndWait();
                 return;
             }
-            Timestamp addStart = Timestamp.valueOf(sTimeCombo.getValue());
 
             if(eTimeCombo.getValue() == null) {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add an end time to the appointment");Optional<ButtonType> result = alert.showAndWait();
                 return;
             }
-            Timestamp addEnd = Timestamp.valueOf(sTimeCombo.getValue());
 
             if(datePicker.getValue() == null) {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please a date to the appointment");Optional<ButtonType> result = alert.showAndWait();
                 return;
             }
-            // needing to somehow merege my date picker value with my start and end values.
-            Integer addDate = Integer.valueOf(String.valueOf(datePicker.getValue()));
+
+            LocalDate addDate = datePicker.getValue();
+            LocalDateTime addStart = LocalDateTime.of(addDate, sTimeCombo.getValue());
+            LocalDateTime addEnd = LocalDateTime.of(addDate, eTimeCombo.getValue());
 
             if(userCombo.getValue() == null) {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a user to the appointment");Optional<ButtonType> result = alert.showAndWait();
                 return;
             }
-            Integer addUser = userCombo.getValue().getUserID();
+            int addUser = userCombo.getValue().getUserID();
 
             if(customerCombo.getValue() == null) {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a customer to the appointment");Optional<ButtonType> result = alert.showAndWait();
                 return;
             }
-            Integer addCustomer = customerCombo.getValue().getCustomerID();
+            int addCustomer = customerCombo.getValue().getCustomerID();
+
 
             AppointmentHelper.createAppointment(addTitle,addDescription, addLocation, addType, addStart, addEnd, addCustomer, addUser, addContact);
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Appointment added successfully!");Optional<ButtonType> result = alert.showAndWait();

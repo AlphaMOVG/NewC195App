@@ -51,7 +51,7 @@ try {
     }
 
 
-    public static void createAppointment(String appointmentTitle, String appointmentDescription, String appointmentLocation, String appointmentType, Timestamp start, Timestamp end, int customerID, int userID, int contactID) {
+    public static void createAppointment(String appointmentTitle, String appointmentDescription, String appointmentLocation, String appointmentType, LocalDateTime start, LocalDateTime end, int customerID, int userID, int contactID) {
         try {
             String sql = "INSERT INTO appointments VALUES(NULL,?,?,?,?,?,?, NOW(),'JF', NOW(),'JF',?,?,?";
 
@@ -61,8 +61,8 @@ try {
             ps.setString(2, appointmentDescription);
             ps.setString(3, appointmentLocation);
             ps.setString(4, appointmentType);
-            ps.setTimestamp(5, start);
-            ps.setTimestamp(6, end);
+            ps.setTimestamp(5, Timestamp.valueOf(start));
+            ps.setTimestamp(6, Timestamp.valueOf(end));
             ps.setInt(7, customerID);
             ps.setInt(8, userID);
             ps.setInt(9, contactID);
