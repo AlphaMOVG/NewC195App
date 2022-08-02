@@ -26,6 +26,7 @@ import java.sql.Timestamp;
 import java.time.*;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.TimeZone;
 
 public class AppController implements Initializable {
 
@@ -132,7 +133,7 @@ public class AppController implements Initializable {
         customerCombo.setItems(customers);
         customerCombo.getValue();
 
-        // Why are my users coming out as null values?
+
         ObservableList<Users> users = null;
         try {
             users = UserHelper.getAllUsers();
@@ -153,14 +154,24 @@ public class AppController implements Initializable {
         contactCombo.getValue();
 
 
+        LocalDate date = LocalDate.now();
         LocalTime startComboStart = LocalTime.of(8, 0);
         LocalTime endComboEnd = LocalTime.of(22, 00);
+        ZoneId localZone = ZoneId.of(TimeZone.getDefault().getID());
+        ZonedDateTime zDT = ZonedDateTime.of(date, startComboStart, localZone);
+
+        Instant instantZDT = zDT.toInstant();
+        ZonedDateTime zoneToLocalZDT = zDT.withZoneSameInstant(localZone);
+        ZonedDateTime toLocalZDT = instantZDT.atZone(localZone);
+
+
         while (startComboStart.isBefore(endComboEnd)) {
             sTimeCombo.getItems().add(startComboStart);
             startComboStart = startComboStart.plusMinutes(30);
             eTimeCombo.getItems().add(startComboStart);
 
-
+            DatePicker pickDate = new DatePicker(date);
+            datePicker = pickDate;
 
             /*if (startComboStart == endComboEnd) {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Appointment times cannot be at the same time.");
@@ -170,13 +181,7 @@ public class AppController implements Initializable {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Start time cannot be after the end time");Optional<ButtonType> result = alert.showAndWait();
 
             }*/
-
-            DatePicker pickDate = new DatePicker();
-            datePicker =  pickDate;
-
         }
-
-
     }
 
 
