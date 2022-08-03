@@ -3,7 +3,6 @@ import helperClasses.AppointmentHelper;
 import helperClasses.ContactHelper;
 import helperClasses.CustomerHelper;
 import helperClasses.UserHelper;
-import javafx.util.Callback;
 import models.Appointments;
 import models.Contacts;
 import models.Customers;
@@ -26,7 +25,6 @@ import java.sql.Timestamp;
 import java.time.*;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.TimeZone;
 
 public class AppController implements Initializable {
 
@@ -312,6 +310,8 @@ public class AppController implements Initializable {
             LocalDateTime addStart = LocalDateTime.of(addDate, sTimeCombo.getValue());
             LocalDateTime addEnd = LocalDateTime.of(addDate, eTimeCombo.getValue());
 
+
+
             if(userCombo.getValue() == null) {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a user to the appointment");Optional<ButtonType> result = alert.showAndWait();
                 return;
@@ -391,10 +391,6 @@ public class AppController implements Initializable {
 
     }
 
-    public void alerts() {
-
-    }
-
 
     @FXML
     void onActionExit(ActionEvent event) throws IOException {
@@ -470,10 +466,7 @@ public class AppController implements Initializable {
             }
             int updateCustomer = customerCombo.getValue().getCustomerID();
 
-
-
             AppointmentHelper.updateAppointment(updateTitle, updateDescription, updateLocation, updateType, updateStart, updateEnd, updateCustomer, updateUser, updateContact);
-
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Appointment updated successfully!");Optional<ButtonType> result = alert.showAndWait();
 
             ObservableList<Appointments> allAppointments = null;
@@ -501,18 +494,36 @@ public class AppController implements Initializable {
 
 
     @FXML
-    void onActionClear(ActionEvent event) {
+    void onActionClear(ActionEvent event) throws SQLException {
         titleTxt.clear();
         descriptionTxt.clear();
         locationTxt.clear();
         typeTxt.clear();
-      //  sTimeCombo.setValue();
-      //  eTimeCombo.setValue();
-       // datepicker.
-       // userCombo.setValue();
-        // customerCombo.setValue();
-        //contactCombo.setValue();
+
+        LocalDate date = LocalDate.now();
+        LocalTime startComboStart = LocalTime.of(8, 0);
+        ZoneId localZone = ZoneId.systemDefault();
+        ZonedDateTime startEST = ZonedDateTime.of(date, startComboStart, ZoneId.of("America/New_York"));
+        ZonedDateTime startZDT = startEST.withZoneSameInstant(localZone);
+        ZonedDateTime endZDT = startZDT.plusHours(14);
+        while (startZDT.isBefore(endZDT)) {
+            sTimeCombo.getItems().add(startZDT.toLocalTime());
+            startZDT = startZDT.plusMinutes(30);
+            eTimeCombo.getItems().add(startZDT.toLocalTime());
+        }
+        DatePicker pickDate = new DatePicker(date);
+        datePicker = pickDate;
+
+
+
+        // ask about how to reset datepicker, and time combo boxes.
+
+        userCombo.setItems(UserHelper.getAllUsers());
+        customerCombo.setItems(CustomerHelper.getAllCustomers());
+        contactCombo.setItems(ContactHelper.getAllContacts());
 
     }
+
+
 
 }
