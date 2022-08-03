@@ -76,7 +76,7 @@ try {
         }
     }
 
-    public static void updateAppointment(int appointmentID, String appointmentTitle, String appointmentDescription, String appointmentLocation, String appointmentType, Timestamp start, Timestamp end, int customerID, int userID, int contactID) {
+    public static void updateAppointment(String appointmentTitle, String appointmentDescription, String appointmentLocation, String appointmentType, LocalDateTime start, LocalDateTime end, int customerID, int userID, int contactID) {
         try {
             String sql  = "UPDATE appointments SET Title = ?, Address = ?, Description = ? ,  Location = ?, Type = ?, Start = ?, End = ? WHERE Customer_ID = ? AND User_ID = ? AND Contact_ID = ? ";
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
@@ -85,8 +85,8 @@ try {
             ps.setString(2, appointmentDescription);
             ps.setString(3, appointmentLocation);
             ps.setString(4, appointmentType);
-            ps.setTimestamp(5, start);
-            ps.setTimestamp(6, end);
+            ps.setTimestamp(5, Timestamp.valueOf(start));
+            ps.setTimestamp(6, Timestamp.valueOf(end));
             ps.setInt(7, customerID);
             ps.setInt(8, userID);
             ps.setInt(9, contactID);
