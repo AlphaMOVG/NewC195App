@@ -62,7 +62,7 @@
             </toggleGroup>
         </RadioButton>
         <RadioButton fx:id="weeksRBtn" layoutX="265.0" layoutY="316.0" mnemonicParsing="false" onAction="#onActionWeeks" text="Weeks" toggleGroup="$toggleRBtn" />
-        <RadioButton fx:id="appointmentsRBtn" layoutX="55.0" layoutY="315.0" mnemonicParsing="false" onAction="#onActionAllAppointments" text="All Appointments" toggleGroup="$toggleRBtn" />
+        <RadioButton fx:id="allAppointmentsRBtn" layoutX="55.0" layoutY="315.0" mnemonicParsing="false" onAction="#onActionAllAppointments" text="All Appointments" toggleGroup="$toggleRBtn" />
         <TextField fx:id="typeTxt" layoutX="390.0" layoutY="38.0" />
         <TextField fx:id="descriptionTxt" layoutX="116.0" layoutY="167.0" />
       <ComboBox fx:id="customerCombo" layoutX="389.0" layoutY="207.0" prefWidth="150.0" />

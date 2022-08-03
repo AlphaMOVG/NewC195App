@@ -49,7 +49,7 @@ public class AppController implements Initializable {
     @FXML
     private RadioButton monthsRBtn;
     @FXML
-    private RadioButton appointmentsRBtn;
+    private RadioButton allAppointmentsRBtn;
     @FXML
     private ToggleGroup toggleRBtn;
 
@@ -104,6 +104,7 @@ public class AppController implements Initializable {
 
     @Override
     public void initialize(java.net.URL url, ResourceBundle resourceBundle) {
+        allAppointmentsRBtn.setSelected(true);
 
         ObservableList<Appointments> allAppointments = null;
         try {
@@ -156,22 +157,18 @@ public class AppController implements Initializable {
 
         LocalDate date = LocalDate.now();
         LocalTime startComboStart = LocalTime.of(8, 0);
-        LocalTime endComboEnd = LocalTime.of(22, 00);
-        ZoneId localZone = ZoneId.of(TimeZone.getDefault().getID());
-        ZonedDateTime zDT = ZonedDateTime.of(date, startComboStart, localZone);
+        ZoneId localZone = ZoneId.systemDefault();
+        ZonedDateTime startEST = ZonedDateTime.of(date, startComboStart, ZoneId.of("America/New_York"));
+        ZonedDateTime startZDT = startEST.withZoneSameInstant(localZone);
 
-        Instant instantZDT = zDT.toInstant();
-        ZonedDateTime zoneToLocalZDT = zDT.withZoneSameInstant(localZone);
-        ZonedDateTime toLocalZDT = instantZDT.atZone(localZone);
+        ZonedDateTime endZDT = startZDT.plusHours(14);
+
+        while (startZDT.isBefore(endZDT)) {
+            sTimeCombo.getItems().add(startZDT.toLocalTime());
+            startZDT = startZDT.plusMinutes(30);
+            eTimeCombo.getItems().add(startZDT.toLocalTime());
 
 
-        while (startComboStart.isBefore(endComboEnd)) {
-            sTimeCombo.getItems().add(startComboStart);
-            startComboStart = startComboStart.plusMinutes(30);
-            eTimeCombo.getItems().add(startComboStart);
-
-            DatePicker pickDate = new DatePicker(date);
-            datePicker = pickDate;
 
             /*if (startComboStart == endComboEnd) {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Appointment times cannot be at the same time.");
@@ -182,6 +179,8 @@ public class AppController implements Initializable {
 
             }*/
         }
+        DatePicker pickDate = new DatePicker(date);
+        datePicker = pickDate;
     }
 
 
@@ -212,7 +211,7 @@ public class AppController implements Initializable {
      * @throws //SQLException
      */
     @FXML
-    void onActionMonths(ActionEvent event) throws SQLException {
+    void onActionMonths(ActionEvent event) {
         try {
             ObservableList<Appointments> allAppointmentsList = AppointmentHelper.getAllAppointments();
             ObservableList<Appointments> appointmentsMonth = FXCollections.observableArrayList();
@@ -241,7 +240,7 @@ public class AppController implements Initializable {
      * @throws SQLException
      */
     @FXML
-    void onActionWeeks(ActionEvent event) throws SQLException {
+    void onActionWeeks(ActionEvent event)  {
         try {
 
             ObservableList<Appointments> allAppointmentsList = AppointmentHelper.getAllAppointments();
@@ -251,7 +250,6 @@ public class AppController implements Initializable {
             LocalDateTime weekEnd = weekStart.plusWeeks(1);
 
             if (allAppointmentsList != null)
-
 
                 allAppointmentsList.forEach(appointment -> {
                     if (appointment.getEnd().isAfter(weekStart) && appointment.getEnd().isBefore(weekEnd)) {
@@ -268,11 +266,11 @@ public class AppController implements Initializable {
 
 
 
-
-
     @FXML
     void onActionAdd(ActionEvent event) throws SQLException, IOException {
         try{
+
+
             if(titleTxt.getText().isEmpty()){
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a Title to the appointment.");Optional<ButtonType> result = alert.showAndWait();
             return;
@@ -347,7 +345,7 @@ public class AppController implements Initializable {
                 throwables.printStackTrace();
             }
             appointmentsTableView.setItems(allAppointments);
-
+//appointment was added successsfully according to my event but there was no new appointment in the DB when checked.
 
         }catch (NumberFormatException | NullPointerException e ) {
             e.printStackTrace();
@@ -388,7 +386,7 @@ public class AppController implements Initializable {
                 Optional<ButtonType> result = alert.showAndWait();
 
                 if (result.isPresent() && result.get() == ButtonType.OK) {
-                    CustomerHelper.deleteCustomer(deleteSelectedAppointment.getCustomerID());
+                    AppointmentHelper.deleteAppointment(deleteSelectedAppointment.getAppointmentID());
                 }
             }
             ObservableList<Appointments> allAppointments = null;

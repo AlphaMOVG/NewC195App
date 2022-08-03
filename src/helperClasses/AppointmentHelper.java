@@ -53,7 +53,7 @@ try {
 
     public static void createAppointment(String appointmentTitle, String appointmentDescription, String appointmentLocation, String appointmentType, LocalDateTime start, LocalDateTime end, int customerID, int userID, int contactID) {
         try {
-            String sql = "INSERT INTO appointments VALUES(NULL,?,?,?,?,?,?, NOW(),'JF', NOW(),'JF',?,?,?";
+            String sql = "INSERT INTO appointments (Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID) VALUES(?,?,?,?,?,?, ?,?,?) ";
 
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
 
@@ -67,7 +67,8 @@ try {
             ps.setInt(8, userID);
             ps.setInt(9, contactID);
 
-            ps.execute();
+            System.out.println(ps.toString());
+            ps.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -90,7 +91,7 @@ try {
             ps.setInt(8, userID);
             ps.setInt(9, contactID);
 
-            ps.execute();
+            ps.executeUpdate();
 
 
         } catch (SQLException e) {

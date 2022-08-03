@@ -59,7 +59,7 @@ public class CustomerHelper {
             ps.setString(4, customerPhone);
             ps.setInt(5, divisionID);
 
-            ps.execute();
+            ps.executeUpdate();
 
 
         } catch (SQLException e) {
@@ -80,7 +80,7 @@ public class CustomerHelper {
             ps.setInt(5, divisionID);
             ps.setString(6, customerID);
 
-            ps.execute();
+            ps.executeUpdate();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -94,7 +94,7 @@ public class CustomerHelper {
             String sql = "DELETE from customers WHERE Customer_ID = ?";
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
             ps.setInt(1, customerID);
-            ps.execute();
+            ps.executeUpdate();
 
 
         } catch (SQLException e) {
