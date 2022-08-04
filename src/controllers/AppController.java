@@ -350,7 +350,9 @@ public class AppController implements Initializable {
             }
             int addCustomer = customerCombo.getValue().getCustomerID();
 
-            if(dateChecker(addDate) || weekendChecker(addDate) || startDayChecker(addStart,addEnd) || startDayChecker(addStart,addEnd) || sameDayChecker(addStart,addEnd) || endDayChecker(addStart,addEnd))
+            if(dateChecker(addDate) || weekendChecker(addDate) || startDayChecker(addStart,addEnd) || startDayChecker(addStart,addEnd) || sameDayChecker(addStart,addEnd) || endDayChecker(addStart,addEnd)){
+                return;
+            }
 
                 AppointmentHelper.createAppointment(addTitle, addDescription, addLocation, addType, addStart, addEnd, addCustomer, addUser, addContact);
 
@@ -466,7 +468,7 @@ public class AppController implements Initializable {
                 Optional<ButtonType> result = alert.showAndWait();
                 return;
             }
-            Integer updateContact = contactCombo.getValue().getContactID();
+            int updateContact = contactCombo.getValue().getContactID();
 
 
             if (typeTxt.getText().isEmpty()) {
