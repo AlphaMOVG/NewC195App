@@ -291,7 +291,7 @@ public class AppController implements Initializable {
                 Optional<ButtonType> result = alert.showAndWait();
                 return;
             }
-            Integer addContact = contactCombo.getValue().getContactID();
+            int addContact = contactCombo.getValue().getContactID();
 
 
             if (typeTxt.getText().isEmpty()) {
@@ -329,6 +329,8 @@ public class AppController implements Initializable {
             }
 
             LocalDate addDate = datePicker.getValue();
+
+            System.out.println(addDate + "cat");
             LocalDateTime addStart = LocalDateTime.of(addDate, sTimeCombo.getValue());
             LocalDateTime addEnd = LocalDateTime.of(addDate, eTimeCombo.getValue());
 
@@ -351,16 +353,14 @@ public class AppController implements Initializable {
             int addCustomer = customerCombo.getValue().getCustomerID();
 
             if(dateChecker(addDate) || weekendChecker(addDate) || startDayChecker(addStart,addEnd) || startDayChecker(addStart,addEnd) || sameDayChecker(addStart,addEnd) || endDayChecker(addStart,addEnd)){
-                return;
-            }
-
+                System.out.println("check");
+            }else {
                 AppointmentHelper.createAppointment(addTitle, addDescription, addLocation, addType, addStart, addEnd, addCustomer, addUser, addContact);
-
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Alert");
-            alert.setContentText("Appointment added successfully!");
-            Optional<ButtonType> result = alert.showAndWait();
-
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");
+                alert.setContentText("Appointment added successfully!");
+                Optional<ButtonType> result = alert.showAndWait();
+            }
             ObservableList<Appointments> allAppointments = null;
             try {
                 allAppointments = AppointmentHelper.getAllAppointments();
@@ -368,7 +368,6 @@ public class AppController implements Initializable {
                 throwables.printStackTrace();
             }
             appointmentsTableView.setItems(allAppointments);
-
         } catch (NumberFormatException | NullPointerException e) {
             e.printStackTrace();
         }
@@ -581,7 +580,7 @@ public class AppController implements Initializable {
 
         eTimeCombo.setValue(LocalTime.from(selectAppointment.getEnd()));
 
-        // datePicker.setValue(selectAppointment.); how to select date from the table to edit.
+        datePicker.setValue(LocalDate.from(selectAppointment.getStart()));
 
     }
 
@@ -593,22 +592,12 @@ public class AppController implements Initializable {
         locationTxt.clear();
         typeTxt.clear();
 
-        LocalDate date = LocalDate.now();
-        LocalTime startComboStart = LocalTime.of(8, 0);
-        ZoneId localZone = ZoneId.systemDefault();
-        ZonedDateTime startEST = ZonedDateTime.of(date, startComboStart, ZoneId.of("America/New_York"));
-        ZonedDateTime startZDT = startEST.withZoneSameInstant(localZone);
-        ZonedDateTime endZDT = startZDT.plusHours(14);
-        while (startZDT.isBefore(endZDT)) {
-            sTimeCombo.getItems().add(startZDT.toLocalTime());
-            startZDT = startZDT.plusMinutes(30);
-            eTimeCombo.getItems().add(startZDT.toLocalTime());
-        }
-        DatePicker pickDate = new DatePicker(date);
-        datePicker = pickDate;
+        datePicker.setValue(null); // ask about why wont this clear out the date picker?
+
+        sTimeCombo.setValue(null);
+        eTimeCombo.setValue(null);
 
 
-        // ask about how to reset datepicker, and time combo boxes or how to reset them.
 
         userCombo.setItems(UserHelper.getAllUsers());
         customerCombo.setItems(CustomerHelper.getAllCustomers());
@@ -618,6 +607,8 @@ public class AppController implements Initializable {
 
 // ask about how to get these methods to work in the add and update action.
     private boolean dateChecker(LocalDate datePicker) {
+        System.out.println(datePicker);
+        System.out.println(LocalDate.now());
         if (datePicker.isBefore(LocalDate.now())) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Alert");
@@ -625,6 +616,7 @@ public class AppController implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
             return false;
         } else {
+            System.out.println("dateChecker");
             return true;
         }
     }
