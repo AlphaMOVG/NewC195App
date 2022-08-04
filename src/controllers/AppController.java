@@ -21,7 +21,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.*;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -204,7 +203,7 @@ public class AppController implements Initializable {
             ObservableList<Appointments> allAppointmentsList = AppointmentHelper.getAllAppointments();
             ObservableList<Appointments> appointmentsMonth = FXCollections.observableArrayList();
 
-            LocalDateTime MonthStart = LocalDateTime.of(LocalDate.now(), LocalTime.of(0 ,0));
+            LocalDateTime MonthStart = LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0));
             LocalDateTime MonthEnd = MonthStart.plusDays(30);
 
 
@@ -228,13 +227,13 @@ public class AppController implements Initializable {
      * @throws SQLException
      */
     @FXML
-    void onActionWeeks(ActionEvent event)  {
+    void onActionWeeks(ActionEvent event) {
         try {
 
             ObservableList<Appointments> allAppointmentsList = AppointmentHelper.getAllAppointments();
             ObservableList<Appointments> appointmentsWeek = FXCollections.observableArrayList();
 
-            LocalDateTime weekStart = LocalDateTime.of(LocalDate.now(), LocalTime.of(0 ,0));
+            LocalDateTime weekStart = LocalDateTime.of(LocalDate.now(), LocalTime.of(0, 0));
             LocalDateTime weekEnd = weekStart.plusWeeks(1);
 
             if (allAppointmentsList != null)
@@ -252,57 +251,79 @@ public class AppController implements Initializable {
     }
 
 
-
-
     @FXML
     void onActionAdd(ActionEvent event) throws SQLException, IOException {
-        try{
+        try {
 
 
-            if(titleTxt.getText().isEmpty()){
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a Title to the appointment.");Optional<ButtonType> result = alert.showAndWait();
-            return;
-        }
-            String  addTitle = titleTxt.getText();
-
-            if(descriptionTxt.getText().isEmpty()){
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a description to the appointment.");Optional<ButtonType> result = alert.showAndWait();
+            if (titleTxt.getText().isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");
+                alert.setContentText("Please add a Title to the appointment.");
+                Optional<ButtonType> result = alert.showAndWait();
                 return;
             }
-            String  addDescription = descriptionTxt.getText();
+            String addTitle = titleTxt.getText();
 
-            if(locationTxt.getText().isEmpty()){
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a Location to the appointment.");Optional<ButtonType> result = alert.showAndWait();
+            if (descriptionTxt.getText().isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");
+                alert.setContentText("Please add a description to the appointment.");
+                Optional<ButtonType> result = alert.showAndWait();
                 return;
             }
-            String  addLocation = locationTxt.getText();
+            String addDescription = descriptionTxt.getText();
 
-            if(contactCombo.getValue() == null) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a contact to the appointment");Optional<ButtonType> result = alert.showAndWait();
+            if (locationTxt.getText().isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");
+                alert.setContentText("Please add a Location to the appointment.");
+                Optional<ButtonType> result = alert.showAndWait();
+                return;
+            }
+            String addLocation = locationTxt.getText();
+
+            if (contactCombo.getValue() == null) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");
+                alert.setContentText("Please add a contact to the appointment");
+                Optional<ButtonType> result = alert.showAndWait();
                 return;
             }
             Integer addContact = contactCombo.getValue().getContactID();
 
 
-            if(typeTxt.getText().isEmpty()){
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a type to the appointment.");Optional<ButtonType> result = alert.showAndWait();
+            if (typeTxt.getText().isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");
+                alert.setContentText("Please add a type to the appointment.");
+                Optional<ButtonType> result = alert.showAndWait();
                 return;
             }
-            String  addType = typeTxt.getText();
+            String addType = typeTxt.getText();
 
-            if(sTimeCombo.getValue() == null) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a start time to the appointment");Optional<ButtonType> result = alert.showAndWait();
+            if (sTimeCombo.getValue() == null) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");
+                alert.setContentText("Please add a start time to the appointment");
+                Optional<ButtonType> result = alert.showAndWait();
                 return;
             }
 
-            if(eTimeCombo.getValue() == null) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add an end time to the appointment");Optional<ButtonType> result = alert.showAndWait();
+            if (eTimeCombo.getValue() == null) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");
+                alert.setContentText("Please add an end time to the appointment");
+                Optional<ButtonType> result = alert.showAndWait();
                 return;
             }
 
 
-            if(datePicker.getValue() == null) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a date to the appointment");Optional<ButtonType> result = alert.showAndWait();
+            if (datePicker.getValue() == null) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");
+                alert.setContentText("Please add a date to the appointment");
+                Optional<ButtonType> result = alert.showAndWait();
                 return;
             }
 
@@ -310,25 +331,32 @@ public class AppController implements Initializable {
             LocalDateTime addStart = LocalDateTime.of(addDate, sTimeCombo.getValue());
             LocalDateTime addEnd = LocalDateTime.of(addDate, eTimeCombo.getValue());
 
-
-
-            if(userCombo.getValue() == null) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a user to the appointment");Optional<ButtonType> result = alert.showAndWait();
+            if (userCombo.getValue() == null) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");
+                alert.setContentText("Please add a user to the appointment");
+                Optional<ButtonType> result = alert.showAndWait();
                 return;
             }
             int addUser = userCombo.getValue().getUserID();
 
-            if(customerCombo.getValue() == null) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a customer to the appointment");Optional<ButtonType> result = alert.showAndWait();
+            if (customerCombo.getValue() == null) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");
+                alert.setContentText("Please add a customer to the appointment");
+                Optional<ButtonType> result = alert.showAndWait();
                 return;
             }
             int addCustomer = customerCombo.getValue().getCustomerID();
 
+            if(dateChecker(addDate) || weekendChecker(addDate) || startDayChecker(addStart,addEnd) || startDayChecker(addStart,addEnd) || sameDayChecker(addStart,addEnd) || endDayChecker(addStart,addEnd))
 
+                AppointmentHelper.createAppointment(addTitle, addDescription, addLocation, addType, addStart, addEnd, addCustomer, addUser, addContact);
 
-            AppointmentHelper.createAppointment(addTitle,addDescription, addLocation, addType, addStart, addEnd, addCustomer, addUser, addContact);
-
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Appointment added successfully!");Optional<ButtonType> result = alert.showAndWait();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Alert");
+            alert.setContentText("Appointment added successfully!");
+            Optional<ButtonType> result = alert.showAndWait();
 
             ObservableList<Appointments> allAppointments = null;
             try {
@@ -338,7 +366,7 @@ public class AppController implements Initializable {
             }
             appointmentsTableView.setItems(allAppointments);
 
-        }catch (NumberFormatException | NullPointerException e ) {
+        } catch (NumberFormatException | NullPointerException e) {
             e.printStackTrace();
         }
     }
@@ -357,7 +385,7 @@ public class AppController implements Initializable {
 
     @FXML
     void onActionDelete(ActionEvent event) {
-        try{
+        try {
             Appointments deleteSelectedAppointment = appointmentsTableView.getSelectionModel().getSelectedItem();
 
             if (deleteSelectedAppointment == null) {
@@ -402,51 +430,75 @@ public class AppController implements Initializable {
 
     @FXML
     void onActionUpdate(ActionEvent event) {
-        try{
-            if(titleTxt.getText().isEmpty()){
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a Title to the appointment.");Optional<ButtonType> result = alert.showAndWait();
+        try {
+            if (titleTxt.getText().isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");
+                alert.setContentText("Please add a Title to the appointment.");
+                Optional<ButtonType> result = alert.showAndWait();
                 return;
             }
-            String  updateTitle = titleTxt.getText();
+            String updateTitle = titleTxt.getText();
 
-            if(descriptionTxt.getText().isEmpty()){
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a description to the appointment.");Optional<ButtonType> result = alert.showAndWait();
+            if (descriptionTxt.getText().isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");
+                alert.setContentText("Please add a description to the appointment.");
+                Optional<ButtonType> result = alert.showAndWait();
                 return;
             }
-            String  updateDescription = descriptionTxt.getText();
+            String updateDescription = descriptionTxt.getText();
 
-            if(locationTxt.getText().isEmpty()){
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a Location to the appointment.");Optional<ButtonType> result = alert.showAndWait();
+            if (locationTxt.getText().isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");
+                alert.setContentText("Please add a Location to the appointment.");
+                Optional<ButtonType> result = alert.showAndWait();
                 return;
             }
-            String  updateLocation = locationTxt.getText();
+            String updateLocation = locationTxt.getText();
 
-            if(contactCombo.getValue() == null) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a contact to the appointment");Optional<ButtonType> result = alert.showAndWait();
+            if (contactCombo.getValue() == null) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");
+                alert.setContentText("Please add a contact to the appointment");
+                Optional<ButtonType> result = alert.showAndWait();
                 return;
             }
             Integer updateContact = contactCombo.getValue().getContactID();
 
 
-            if(typeTxt.getText().isEmpty()){
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a type to the appointment.");Optional<ButtonType> result = alert.showAndWait();
+            if (typeTxt.getText().isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");
+                alert.setContentText("Please add a type to the appointment.");
+                Optional<ButtonType> result = alert.showAndWait();
                 return;
             }
-            String  updateType = typeTxt.getText();
+            String updateType = typeTxt.getText();
 
-            if(sTimeCombo.getValue() == null) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a start time to the appointment");Optional<ButtonType> result = alert.showAndWait();
+            if (sTimeCombo.getValue() == null) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");
+                alert.setContentText("Please add a start time to the appointment");
+                Optional<ButtonType> result = alert.showAndWait();
                 return;
             }
 
-            if(eTimeCombo.getValue() == null) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add an end time to the appointment");Optional<ButtonType> result = alert.showAndWait();
+            if (eTimeCombo.getValue() == null) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");
+                alert.setContentText("Please add an end time to the appointment");
+                Optional<ButtonType> result = alert.showAndWait();
                 return;
             }
 
 
-            if(datePicker.getValue() == null) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a date to the appointment");Optional<ButtonType> result = alert.showAndWait();
+            if (datePicker.getValue() == null) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");
+                alert.setContentText("Please add a date to the appointment");
+                Optional<ButtonType> result = alert.showAndWait();
                 return;
             }
 
@@ -454,20 +506,35 @@ public class AppController implements Initializable {
             LocalDateTime updateStart = LocalDateTime.of(updateDate, sTimeCombo.getValue());
             LocalDateTime updateEnd = LocalDateTime.of(updateDate, eTimeCombo.getValue());
 
-            if(userCombo.getValue() == null) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a user to the appointment");Optional<ButtonType> result = alert.showAndWait();
+            dateChecker(updateDate);
+            weekendChecker(updateDate);
+            startDayChecker(updateStart,updateEnd);
+            sameDayChecker(updateStart,updateEnd);
+            endDayChecker(updateStart,updateEnd);
+
+            if (userCombo.getValue() == null) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");
+                alert.setContentText("Please add a user to the appointment");
+                Optional<ButtonType> result = alert.showAndWait();
                 return;
             }
             int updateUser = userCombo.getValue().getUserID();
 
-            if(customerCombo.getValue() == null) {
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Please add a customer to the appointment");Optional<ButtonType> result = alert.showAndWait();
+            if (customerCombo.getValue() == null) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");
+                alert.setContentText("Please add a customer to the appointment");
+                Optional<ButtonType> result = alert.showAndWait();
                 return;
             }
             int updateCustomer = customerCombo.getValue().getCustomerID();
 
             AppointmentHelper.updateAppointment(updateTitle, updateDescription, updateLocation, updateType, updateStart, updateEnd, updateCustomer, updateUser, updateContact);
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);alert.setTitle("Alert");alert.setContentText("Appointment updated successfully!");Optional<ButtonType> result = alert.showAndWait();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Alert");
+            alert.setContentText("Appointment updated successfully!");
+            Optional<ButtonType> result = alert.showAndWait();
 
             ObservableList<Appointments> allAppointments = null;
             try {
@@ -477,10 +544,9 @@ public class AppController implements Initializable {
             }
             appointmentsTableView.setItems(allAppointments);
 
-        }catch (NumberFormatException | NullPointerException e ) {
+        } catch (NumberFormatException | NullPointerException e) {
             e.printStackTrace();
         }
-
 
 
     }
@@ -490,7 +556,6 @@ public class AppController implements Initializable {
     void onActionEdit(ActionEvent event) {
 
     }
-
 
 
     @FXML
@@ -515,7 +580,6 @@ public class AppController implements Initializable {
         datePicker = pickDate;
 
 
-
         // ask about how to reset datepicker, and time combo boxes.
 
         userCombo.setItems(UserHelper.getAllUsers());
@@ -525,5 +589,73 @@ public class AppController implements Initializable {
     }
 
 
+    private boolean dateChecker(LocalDate datePicker) {
+        if (datePicker.isBefore(LocalDate.now())) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Alert");
+            alert.setContentText("Appointment must be set on, or after the current date.");
+            Optional<ButtonType> result = alert.showAndWait();
+            return false;
+        } else {
+            return true;
+        }
+    }
 
+    private boolean weekendChecker(LocalDate datePicker) {
+        if (datePicker.getDayOfWeek() == DayOfWeek.SATURDAY || datePicker.getDayOfWeek() == DayOfWeek.SUNDAY) {
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Alert");
+            alert.setContentText("Appointment must be set during a weekday.");
+            Optional<ButtonType> result = alert.showAndWait();
+
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+
+    private boolean startDayChecker(LocalDateTime sTimeCombo, LocalDateTime eTimeCombo){
+        if(sTimeCombo.isAfter(eTimeCombo)){
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Alert");
+            alert.setContentText("Appointment must start before the end time.");
+            Optional<ButtonType> result = alert.showAndWait();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private boolean sameDayChecker(LocalDateTime sTimeCombo, LocalDateTime eTimeCombo){
+        if(sTimeCombo == eTimeCombo){
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Alert");
+            alert.setContentText("Appointment start and end times cannot be the same.");
+            Optional<ButtonType> result = alert.showAndWait();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    private boolean endDayChecker(LocalDateTime sTimeCombo, LocalDateTime eTimeCombo){
+        if(eTimeCombo.isBefore(sTimeCombo)){
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Alert");
+            alert.setContentText("Appointment must end after the start time.");
+            Optional<ButtonType> result = alert.showAndWait();
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public static void checkAppointmentOverlap() throws SQLException {
+        ObservableList<Appointments> getAllAppointments = AppointmentHelper.getAllAppointments();
+        for(Appointments a : AppointmentHelper.getAllAppointments()){
+
+        }
+
+    }
 }

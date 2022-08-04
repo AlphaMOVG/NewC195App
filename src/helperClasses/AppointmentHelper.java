@@ -66,13 +66,10 @@ try {
             ps.setInt(7, customerID);
             ps.setInt(8, userID);
             ps.setInt(9, contactID);
-
             System.out.println(ps.toString());
             ps.executeUpdate();
-
         } catch (SQLException e) {
             e.printStackTrace();
-
         }
     }
 
@@ -90,10 +87,7 @@ try {
             ps.setInt(7, customerID);
             ps.setInt(8, userID);
             ps.setInt(9, contactID);
-
             ps.executeUpdate();
-
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -102,19 +96,15 @@ try {
 
     public static void deleteAppointment(int appointmentID) throws SQLException {
         try {
-
             String sql = "DELETE FROM appointments WHERE Appointment_ID = ?";
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
             ps.setInt(1, appointmentID);
             ps.executeUpdate();
-
-
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
-
-
     }
+
+
+
 }
