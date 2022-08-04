@@ -1,4 +1,5 @@
 package controllers;
+import com.sun.javafx.charts.Legend;
 import helperClasses.AppointmentHelper;
 import helperClasses.ContactHelper;
 import helperClasses.CustomerHelper;
@@ -506,12 +507,6 @@ public class AppController implements Initializable {
             LocalDateTime updateStart = LocalDateTime.of(updateDate, sTimeCombo.getValue());
             LocalDateTime updateEnd = LocalDateTime.of(updateDate, eTimeCombo.getValue());
 
-            dateChecker(updateDate);
-            weekendChecker(updateDate);
-            startDayChecker(updateStart,updateEnd);
-            sameDayChecker(updateStart,updateEnd);
-            endDayChecker(updateStart,updateEnd);
-
             if (userCombo.getValue() == null) {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Alert");
@@ -554,6 +549,37 @@ public class AppController implements Initializable {
 
     @FXML
     void onActionEdit(ActionEvent event) {
+        Appointments selectAppointment = appointmentsTableView.getSelectionModel().getSelectedItem();
+
+        appointmentIdTxt.setText(String.valueOf(selectAppointment.getAppointmentID()));
+        titleTxt.setText(selectAppointment.getAppointmentType());
+        descriptionTxt.setText(selectAppointment.getAppointmentDescription());
+        locationTxt.setText(selectAppointment.getAppointmentLocation());
+        typeTxt.setText(selectAppointment.getAppointmentType());
+
+        for(Customers c : customerCombo.getItems())
+            if(selectAppointment.getCustomerID() == c.getCustomerID()){
+                customerCombo.setValue(c);
+            break;
+            }
+
+        for(Users u : userCombo.getItems())
+            if(selectAppointment.getUserID() == u.getUserID()){
+                userCombo.setValue(u);
+                break;
+            }
+
+        for(Contacts c : contactCombo.getItems())
+            if(selectAppointment.getContactID() == c.getContactID()){
+                contactCombo.setValue(c);
+                break;
+            }
+
+        sTimeCombo.setValue(LocalTime.from(selectAppointment.getStart()));
+
+        eTimeCombo.setValue(LocalTime.from(selectAppointment.getEnd()));
+
+        // datePicker.setValue(selectAppointment.); how to select date from the table to edit.
 
     }
 
@@ -580,7 +606,7 @@ public class AppController implements Initializable {
         datePicker = pickDate;
 
 
-        // ask about how to reset datepicker, and time combo boxes.
+        // ask about how to reset datepicker, and time combo boxes or how to reset them.
 
         userCombo.setItems(UserHelper.getAllUsers());
         customerCombo.setItems(CustomerHelper.getAllCustomers());
@@ -588,7 +614,7 @@ public class AppController implements Initializable {
 
     }
 
-
+// ask about how to get these methods to work in the add and update action.
     private boolean dateChecker(LocalDate datePicker) {
         if (datePicker.isBefore(LocalDate.now())) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -651,11 +677,16 @@ public class AppController implements Initializable {
         }
     }
 
-    public static void checkAppointmentOverlap() throws SQLException {
-        ObservableList<Appointments> getAllAppointments = AppointmentHelper.getAllAppointments();
+    // ask about how to properly check the overlaps.
+
+   /* public static void checkAppointmentOverlap(Legend appointmentTableView, AppointmentHelper apps) throws SQLException {
         for(Appointments a : AppointmentHelper.getAllAppointments()){
-
+            if( a = new apps.equals(appointmentTableView.getItems())){
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");
+                alert.setContentText("Appointments cannot overlap.");
+                Optional<ButtonType> result = alert.showAndWait();
+            }
         }
-
-    }
+    }*/
 }
