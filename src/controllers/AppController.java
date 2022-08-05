@@ -158,7 +158,6 @@ public class AppController implements Initializable {
         ZoneId localZone = ZoneId.systemDefault();
         ZonedDateTime startEST = ZonedDateTime.of(date, startComboStart, ZoneId.of("America/New_York"));
         ZonedDateTime startZDT = startEST.withZoneSameInstant(localZone);
-
         ZonedDateTime endZDT = startZDT.plusHours(14);
 
         while (startZDT.isBefore(endZDT)) {
@@ -167,8 +166,8 @@ public class AppController implements Initializable {
             eTimeCombo.getItems().add(startZDT.toLocalTime());
 
         }
-        DatePicker pickDate = new DatePicker(date);
-        datePicker = pickDate;
+
+        datePicker.setValue(date);
     }
 
 
@@ -577,10 +576,9 @@ public class AppController implements Initializable {
             }
 
         sTimeCombo.setValue(LocalTime.from(selectAppointment.getStart()));
-
         eTimeCombo.setValue(LocalTime.from(selectAppointment.getEnd()));
 
-        datePicker.setValue(LocalDate.from(selectAppointment.getStart()));
+        datePicker.setValue((selectAppointment.getStart().toLocalDate())); // ask questions on why this wont select from the table.
 
     }
 
@@ -592,13 +590,11 @@ public class AppController implements Initializable {
         locationTxt.clear();
         typeTxt.clear();
 
-        datePicker.setValue(null); // ask about why wont this clear out the date picker?
+
+        datePicker.setValue(null);
 
         sTimeCombo.setValue(null);
         eTimeCombo.setValue(null);
-
-
-
         userCombo.setItems(UserHelper.getAllUsers());
         customerCombo.setItems(CustomerHelper.getAllCustomers());
         contactCombo.setItems(ContactHelper.getAllContacts());
@@ -614,24 +610,16 @@ public class AppController implements Initializable {
             alert.setTitle("Alert");
             alert.setContentText("Appointment must be set on, or after the current date.");
             Optional<ButtonType> result = alert.showAndWait();
-            return false;
+            return true;
         } else {
             System.out.println("dateChecker");
-            return true;
+            return false;
         }
     }
 
     private boolean weekendChecker(LocalDate datePicker) {
-        if (datePicker.getDayOfWeek() == DayOfWeek.SATURDAY || datePicker.getDayOfWeek() == DayOfWeek.SUNDAY) {
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Alert");
-            alert.setContentText("Appointment must be set during a weekday.");
-            Optional<ButtonType> result = alert.showAndWait();
-
             return false;
-        } else {
-            return true;
-        }
+
     }
 
 
@@ -641,21 +629,21 @@ public class AppController implements Initializable {
             alert.setTitle("Alert");
             alert.setContentText("Appointment must start before the end time.");
             Optional<ButtonType> result = alert.showAndWait();
-            return false;
-        } else {
             return true;
+        } else {
+            return false;
         }
     }
 
     private boolean sameDayChecker(LocalDateTime sTimeCombo, LocalDateTime eTimeCombo){
-        if(sTimeCombo == eTimeCombo){
+        if(sTimeCombo.isEqual(eTimeCombo) ){
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Alert");
             alert.setContentText("Appointment start and end times cannot be the same.");
             Optional<ButtonType> result = alert.showAndWait();
-            return false;
-        } else {
             return true;
+        } else {
+            return false;
         }
     }
 
@@ -665,22 +653,23 @@ public class AppController implements Initializable {
             alert.setTitle("Alert");
             alert.setContentText("Appointment must end after the start time.");
             Optional<ButtonType> result = alert.showAndWait();
-            return false;
-        } else {
             return true;
+        } else {
+            return false;
         }
     }
 
     // ask about how to properly check the overlaps.
 
-   /* public static void checkAppointmentOverlap(Legend appointmentTableView, AppointmentHelper apps) throws SQLException {
+    public static void checkAppointmentOverlap( AppointmentHelper apps) throws SQLException {
         for(Appointments a : AppointmentHelper.getAllAppointments()){
-            if( a = new apps.equals(appointmentTableView.getItems())){
+
+
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Alert");
                 alert.setContentText("Appointments cannot overlap.");
                 Optional<ButtonType> result = alert.showAndWait();
             }
         }
-    }*/
-}
+    }
+
