@@ -622,7 +622,6 @@ public class AppController implements Initializable {
 
     }
 
-
     private boolean startDayChecker(LocalDateTime sTimeCombo, LocalDateTime eTimeCombo){
         if(sTimeCombo.isAfter(eTimeCombo)){
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -661,7 +660,12 @@ public class AppController implements Initializable {
 
     // ask about how to properly check the overlaps.
 
-    public static void checkAppointmentOverlap( AppointmentHelper apps) throws SQLException {
+    public static void checkAppointmentOverlapAdd( AppointmentHelper apps) throws SQLException {
+                LocalDateTime startOverlapOne;
+                LocalDateTime endOverlapOne;
+                LocalDateTime startOverlapTwo;
+                LocalDateTime endOverlapTwo;
+
         for(Appointments a : AppointmentHelper.getAllAppointments()){
 
 
@@ -671,5 +675,22 @@ public class AppController implements Initializable {
                 Optional<ButtonType> result = alert.showAndWait();
             }
         }
+
+    public static void checkAppointmentOverlapUpdate( AppointmentHelper apps) throws SQLException {
+        LocalDateTime startOverlapOne;
+        LocalDateTime endOverlapOne;
+        LocalDateTime startOverlapTwo;
+        LocalDateTime endOverlapTwo;
+
+        for(Appointments a : AppointmentHelper.getAllAppointments()){
+
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Alert");
+            alert.setContentText("Appointments cannot overlap.");
+            Optional<ButtonType> result = alert.showAndWait();
+        }
     }
+
+}
 
