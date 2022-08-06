@@ -1,5 +1,4 @@
 package controllers;
-import com.sun.javafx.charts.Legend;
 import helperClasses.AppointmentHelper;
 import helperClasses.ContactHelper;
 import helperClasses.CustomerHelper;
@@ -351,9 +350,9 @@ public class AppController implements Initializable {
             }
             int addCustomer = customerCombo.getValue().getCustomerID();
 
-            if(dateChecker(addDate) || weekendChecker(addDate) || startDayChecker(addStart,addEnd) || startDayChecker(addStart,addEnd) || sameDayChecker(addStart,addEnd) || endDayChecker(addStart,addEnd)){
+            if (dateChecker(addDate) || weekendChecker(addDate) || startDayChecker(addStart, addEnd) || startDayChecker(addStart, addEnd) || sameDayChecker(addStart, addEnd) || endDayChecker(addStart, addEnd)) {
                 System.out.println("check");
-            }else {
+            } else {
                 AppointmentHelper.createAppointment(addTitle, addDescription, addLocation, addType, addStart, addEnd, addCustomer, addUser, addContact);
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Alert");
@@ -557,20 +556,20 @@ public class AppController implements Initializable {
         locationTxt.setText(selectAppointment.getAppointmentLocation());
         typeTxt.setText(selectAppointment.getAppointmentType());
 
-        for(Customers c : customerCombo.getItems())
-            if(selectAppointment.getCustomerID() == c.getCustomerID()){
+        for (Customers c : customerCombo.getItems())
+            if (selectAppointment.getCustomerID() == c.getCustomerID()) {
                 customerCombo.setValue(c);
-            break;
+                break;
             }
 
-        for(Users u : userCombo.getItems())
-            if(selectAppointment.getUserID() == u.getUserID()){
+        for (Users u : userCombo.getItems())
+            if (selectAppointment.getUserID() == u.getUserID()) {
                 userCombo.setValue(u);
                 break;
             }
 
-        for(Contacts c : contactCombo.getItems())
-            if(selectAppointment.getContactID() == c.getContactID()){
+        for (Contacts c : contactCombo.getItems())
+            if (selectAppointment.getContactID() == c.getContactID()) {
                 contactCombo.setValue(c);
                 break;
             }
@@ -585,6 +584,7 @@ public class AppController implements Initializable {
 
     @FXML
     void onActionClear(ActionEvent event) throws SQLException {
+        appointmentIdTxt.clear();
         titleTxt.clear();
         descriptionTxt.clear();
         locationTxt.clear();
@@ -601,7 +601,7 @@ public class AppController implements Initializable {
 
     }
 
-// ask about how to get these methods to work in the add and update action.
+    // ask about how to get these methods to work in the add and update action.
     private boolean dateChecker(LocalDate datePicker) {
         System.out.println(datePicker);
         System.out.println(LocalDate.now());
@@ -618,12 +618,12 @@ public class AppController implements Initializable {
     }
 
     private boolean weekendChecker(LocalDate datePicker) {
-            return false;
+        return false;
 
     }
 
-    private boolean startDayChecker(LocalDateTime sTimeCombo, LocalDateTime eTimeCombo){
-        if(sTimeCombo.isAfter(eTimeCombo)){
+    private boolean startDayChecker(LocalDateTime sTimeCombo, LocalDateTime eTimeCombo) {
+        if (sTimeCombo.isAfter(eTimeCombo)) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Alert");
             alert.setContentText("Appointment must start before the end time.");
@@ -634,8 +634,8 @@ public class AppController implements Initializable {
         }
     }
 
-    private boolean sameDayChecker(LocalDateTime sTimeCombo, LocalDateTime eTimeCombo){
-        if(sTimeCombo.isEqual(eTimeCombo) ){
+    private boolean sameDayChecker(LocalDateTime sTimeCombo, LocalDateTime eTimeCombo) {
+        if (sTimeCombo.isEqual(eTimeCombo)) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Alert");
             alert.setContentText("Appointment start and end times cannot be the same.");
@@ -646,8 +646,8 @@ public class AppController implements Initializable {
         }
     }
 
-    private boolean endDayChecker(LocalDateTime sTimeCombo, LocalDateTime eTimeCombo){
-        if(eTimeCombo.isBefore(sTimeCombo)){
+    private boolean endDayChecker(LocalDateTime sTimeCombo, LocalDateTime eTimeCombo) {
+        if (eTimeCombo.isBefore(sTimeCombo)) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Alert");
             alert.setContentText("Appointment must end after the start time.");
@@ -660,27 +660,31 @@ public class AppController implements Initializable {
 
     // ask about how to properly check the overlaps.
 
-    public static void checkAppointmentOverlapAdd( AppointmentHelper apps) throws SQLException {
-                LocalDateTime startOverlapOne;
-                LocalDateTime endOverlapOne;
-                LocalDateTime startOverlapTwo;
-                LocalDateTime endOverlapTwo;
+    public void checkAppointmentOverlapAdd(LocalDateTime Start, LocalDateTime End, int customerID) throws SQLException {
+        Boolean isOverlap = false;
 
-        for(Appointments a : AppointmentHelper.getAllAppointments()){
+        for (Appointments a : AppointmentHelper.getAllAppointments())
+
+            if (a.getCustomerID() == customerID) {
+                if (Start.isBefore(a.getStart()) || Start.isEqual(a.getStart()) && End.isAfter(a.getStart()) || End.isEqual(a.getEnd()))
+                    isOverlap = true;
+                if (Start.isAfter(a.getEnd()) && End.isBefore(a.getEnd())) isOverlap = true;
 
 
-                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            }
+
+
+               /* Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Alert");
                 alert.setContentText("Appointments cannot overlap.");
-                Optional<ButtonType> result = alert.showAndWait();
-            }
-        }
+                Optional<ButtonType> result = alert.showAndWait();*/
+    }
 
-    public static void checkAppointmentOverlapUpdate( AppointmentHelper apps) throws SQLException {
-        LocalDateTime startOverlapOne;
-        LocalDateTime endOverlapOne;
-        LocalDateTime startOverlapTwo;
-        LocalDateTime endOverlapTwo;
+
+
+
+    public static void checkAppointmentOverlapUpdate( LocalDateTime Start, LocalDateTime End, Customers customerID) throws SQLException {
+
 
         for(Appointments a : AppointmentHelper.getAllAppointments()){
 
