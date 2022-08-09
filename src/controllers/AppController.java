@@ -350,7 +350,7 @@ public class AppController implements Initializable {
             }
             int addCustomer = customerCombo.getValue().getCustomerID();
 
-            if (dateChecker(addDate) || weekendChecker(addDate) || startDayChecker(addStart, addEnd) || startDayChecker(addStart, addEnd) || sameDayChecker(addStart, addEnd) || endDayChecker(addStart, addEnd)) {
+            if (dateChecker(addDate) || weekendChecker(addDate) || startDayChecker(addStart, addEnd) || startDayChecker(addStart, addEnd) || sameDayChecker(addStart, addEnd) || endDayChecker(addStart, addEnd) || checkAppointmentOverlapAdd(addStart, addEnd, addCustomer)) {
                 System.out.println("check");
             } else {
                 AppointmentHelper.createAppointment(addTitle, addDescription, addLocation, addType, addStart, addEnd, addCustomer, addUser, addContact);
@@ -660,25 +660,48 @@ public class AppController implements Initializable {
 
     // ask about how to properly check the overlaps.
 
-    public void checkAppointmentOverlapAdd(LocalDateTime Start, LocalDateTime End, int customerID) throws SQLException {
-        Boolean isOverlap = false;
+    private boolean checkAppointmentOverlapAdd(LocalDateTime Start, LocalDateTime End, int customerID) throws SQLException {
+
 
         for (Appointments a : AppointmentHelper.getAllAppointments())
 
             if (a.getCustomerID() == customerID) {
-                if (Start.isBefore(a.getStart()) || Start.isEqual(a.getStart()) && End.isAfter(a.getStart()) || End.isEqual(a.getEnd()))
-                    isOverlap = true;
-                if (Start.isAfter(a.getEnd()) && End.isBefore(a.getEnd())) isOverlap = true;
-
+                if (Start.isBefore(a.getStart()) || Start.isEqual(a.getStart()) && End.isAfter(a.getStart()) || End.isEqual(a.getEnd())){
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Alert");
+                    alert.setContentText("Appointments cannot overlap.");
+                    Optional<ButtonType> result = alert.showAndWait();
+                    return true;
+                }
+                else {
+                    return false;
+                }
+                if (Start.isAfter(a.getStart()) || Start.isEqual(a.getStart()) && Start.isBefore(a.getEnd())){
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Alert");
+                    alert.setContentText("Appointments cannot overlap.");
+                    Optional<ButtonType> result = alert.showAndWait();
+                    return true;
+                }
+                else {
+                    return false;
+                }
+                if (End.isAfter(a.getStart()) && End.isBefore(a.getStart()) || End.isEqual(a.getStart())){
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Alert");
+                    alert.setContentText("Appointments cannot overlap.");
+                    Optional<ButtonType> result = alert.showAndWait();
+                    return true;
+                }
+                else {
+                    return false;
+                }
 
             }
-
-
-               /* Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                alert.setTitle("Alert");
-                alert.setContentText("Appointments cannot overlap.");
-                Optional<ButtonType> result = alert.showAndWait();*/
+        return false;
     }
+
+
 
 
 
