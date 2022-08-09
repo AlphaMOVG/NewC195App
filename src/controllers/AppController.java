@@ -706,14 +706,46 @@ public class AppController implements Initializable {
 
 
 
-    public static void checkAppointmentOverlapUpdate( LocalDateTime Start, LocalDateTime End, int customerID) throws SQLException {
+    private boolean checkAppointmentOverlapUpdate( LocalDateTime Start, LocalDateTime End, int customerID) throws SQLException {
 
 
-        for(Appointments a : AppointmentHelper.getAllAppointments()){
+        try {
+            for (Appointments a : AppointmentHelper.getAllAppointments())
 
+                if (a.getCustomerID() != customerID) {
+                    if (Start.isBefore(a.getStart()) || Start.isEqual(a.getStart()) && End.isAfter(a.getStart()) || End.isEqual(a.getEnd())) {
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                        alert.setTitle("Alert");
+                        alert.setContentText("Appointments cannot overlap.");
+                        Optional<ButtonType> result = alert.showAndWait();
+                        return true;
+                    }
 
+                    if (Start.isAfter(a.getStart()) || Start.isEqual(a.getStart()) && Start.isBefore(a.getEnd())) {
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                        alert.setTitle("Alert");
+                        alert.setContentText("Appointments cannot overlap.");
+                        Optional<ButtonType> result = alert.showAndWait();
+                        return true;
+                    }
 
+                    if (End.isAfter(a.getStart()) && End.isBefore(a.getStart()) || End.isEqual(a.getStart())) {
+                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                        alert.setTitle("Alert");
+                        alert.setContentText("Appointments cannot overlap.");
+                        Optional<ButtonType> result = alert.showAndWait();
+                        return true;
+                    } else {
+                        return false;
+                    }
+
+                }
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
         }
+
+        return false; // fixing this issue that IDE makes me return true, thus not letting me add the appointment if it clears all checks.
     }
 
 }
