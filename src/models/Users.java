@@ -2,7 +2,7 @@ package models;
 
 
 /**
- * Users class
+ * Users class.
  * */
 public class Users {
 

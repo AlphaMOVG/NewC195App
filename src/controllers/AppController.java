@@ -412,7 +412,6 @@ public class AppController implements Initializable {
             }
             appointmentsTableView.setItems(allAppointments);
 
-
         } catch (Exception e) {
             e.printStackTrace();
         }

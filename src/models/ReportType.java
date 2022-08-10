@@ -1,5 +1,9 @@
 package models;
 
+/***
+ * ReportType Class.
+ */
+
 public class ReportType {
     public String appointmentType;
     public int appointmentTotal;

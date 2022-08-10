@@ -5,7 +5,7 @@ public class MonthReport {
     public int appointmentTotal;
 
     /**
-     * Month report constructor.
+     * MonthReport constructor.
      * @param appointmentMonth
      * @param appointmentTotal
      */

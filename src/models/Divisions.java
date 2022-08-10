@@ -1,5 +1,8 @@
 package models;
 
+/**
+ * Divisions class.
+ * */
 public class Divisions {
     private int divisionID;
     private String divisionName;
