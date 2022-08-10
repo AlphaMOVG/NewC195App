@@ -27,8 +27,15 @@ import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * Customer controller that implements Initializable.
+ * */
+
 public class CustomerController implements Initializable {
 
+    /**
+     * Customer controller form buttons.
+     * */
     @FXML
     private Button clearBtn;
     @FXML
@@ -44,7 +51,9 @@ public class CustomerController implements Initializable {
     @FXML
     private Button editBtn;
 
-
+    /**
+     * Text fields and combo boxes for the form.
+     * */
     @FXML
     private TextField customerIdTxt;
     @FXML
@@ -60,7 +69,9 @@ public class CustomerController implements Initializable {
     @FXML
     private TextField addressTxt;
 
-
+    /**
+     * Columns and name of the table.
+     * */
     @FXML
     private TableView<Customers> customerTableView;
     @FXML
@@ -78,10 +89,13 @@ public class CustomerController implements Initializable {
     @FXML
     private TableColumn<CustomerHelper, String> addressCol;
 
+
     private Divisions divisions;
     private CountryHelper countryID;
 
-
+    /**
+     * On action event that disables the division combo box if there is no selection in the country combo box.
+     * */
     @FXML
     void onActionCountryCombo(ActionEvent event) throws SQLException {
 
@@ -99,6 +113,9 @@ public class CustomerController implements Initializable {
 
     }
 
+    /**
+     * On action event that adds the new data that was filled out in the fields to the table.
+     * */
     @FXML
     void onActionAdd(ActionEvent event) {
         try{
@@ -149,6 +166,9 @@ public class CustomerController implements Initializable {
 
     }
 
+    /**
+     * On action event that takes the user back to the select screen.
+     * */
     @FXML
     void onActionBack(ActionEvent event) throws IOException {
         Parent parent = FXMLLoader.load(getClass().getResource("../view/SelectScreen.fxml"));
@@ -159,6 +179,10 @@ public class CustomerController implements Initializable {
 
 
     }
+
+    /**
+     * On action event that deletes the selected customer from the table.
+     */
 
     @FXML
     void onActionDelete(ActionEvent event) throws SQLException {
@@ -196,6 +220,9 @@ public class CustomerController implements Initializable {
         }
     }
 
+    /**
+     * On action event that updates customer information from the form fields.
+     * */
     @FXML
     void onActionUpdate(ActionEvent event) {
         try{
@@ -250,6 +277,9 @@ public class CustomerController implements Initializable {
 
     }
 
+    /**
+     * On action event that allows the user to select a customer and add their information to the form fields.
+     * */
     @FXML
     void onActionEdit(ActionEvent event) throws SQLException {
         Customers selectCustomer = customerTableView.getSelectionModel().getSelectedItem();
@@ -277,6 +307,9 @@ public class CustomerController implements Initializable {
 
     }
 
+    /**
+     * On action event that clears out the form fields.
+     * */
     @FXML
     void onActionClear(ActionEvent event) throws SQLException {
             customerIdTxt.clear();
@@ -288,6 +321,9 @@ public class CustomerController implements Initializable {
             divisionCombo.setValue(null);
     }
 
+    /**
+     * On action event that exits the program.
+     * */
     @FXML
     void onActionExit(ActionEvent event) throws IOException {
 
@@ -295,6 +331,10 @@ public class CustomerController implements Initializable {
 
     }
 
+    /**
+     * initialize that connects the customer table to the database.
+     * Sets the combo boxes and populates the table columns with the appropriate data.
+     * */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         ObservableList<Customers> allCustomers = null;
@@ -323,25 +363,18 @@ public class CustomerController implements Initializable {
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
         try {
-            //ask why this isn't working
             if(countryCombo.getValue() == null) {
                 divisionCombo.setDisable(true);
             }
-
             else if(countryCombo.getValue() != null){
                 divisionCombo.setDisable(false);
             }
-
-
-
             divisionCombo.setItems(DivisionsHelper.getAllDivisions());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
         divisionCombo.setVisibleRowCount(5);
         divisionCombo.setPromptText("- Choose A Division -");
-
     }
 }

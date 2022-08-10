@@ -40,6 +40,13 @@ public class DivisionsHelper extends Divisions {
         return DivisionsObservableList;
     }
 
+    /**
+     * ObservableList that gets a list of filtered divisions based on their Country ID.
+     *
+     * @return filteredDivisionsObservableList
+     * @throws SQLException
+     *
+     */
     public static ObservableList<Divisions> getAllFilteredDivisions(int countryID) throws SQLException {
         ObservableList<Divisions> filteredDivisionsObservableList = FXCollections.observableArrayList();
 
@@ -59,8 +66,5 @@ public class DivisionsHelper extends Divisions {
             throwables.printStackTrace();
         }
         return filteredDivisionsObservableList;
-
-
     }
-
 }

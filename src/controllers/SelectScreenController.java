@@ -13,8 +13,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Select screen controller class that implements Initializable
+ */
 public class SelectScreenController implements Initializable {
 
+    /**
+     * Buttons for the form
+     */
     @FXML
     private Button appointmentBtn;
     @FXML
@@ -25,7 +31,9 @@ public class SelectScreenController implements Initializable {
     private Button reportBtn;
 
 
-
+    /**
+     * On action appointments screen event
+     */
     @FXML
     void onActionAppointmentScreen(ActionEvent event) throws IOException {
 
@@ -38,6 +46,9 @@ public class SelectScreenController implements Initializable {
 
     }
 
+    /**
+     * On action customer screen event
+     */
     @FXML
     void onActionCustomerScreen(ActionEvent event) throws IOException {
 
@@ -50,7 +61,9 @@ public class SelectScreenController implements Initializable {
 
     }
 
-
+    /**
+     * On action report screen event
+     */
     @FXML
     void onActionReportsScreen(ActionEvent event) throws IOException {
 
@@ -62,6 +75,9 @@ public class SelectScreenController implements Initializable {
 
     }
 
+    /**
+     * On action Exit event
+     */
     @FXML
     void onActionExit(ActionEvent event) {
 

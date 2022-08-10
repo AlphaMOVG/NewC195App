@@ -40,7 +40,7 @@ public class UserHelper {
     }
 
     /**
-     * Method to pull in all user data to getAllUsers observablelist.
+     * Method to gather all user data to the getAllUsers observablelist.
      *
      * @return usersObservableList
      * @throws SQLException

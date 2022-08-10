@@ -47,7 +47,12 @@ public class AppointmentHelper {
         return appointmentsList;
     }
 
-
+    /**
+     * Create appointment SQL query
+     *
+     *
+     * @throws //SQLException
+     */
     public static void createAppointment(String appointmentTitle, String appointmentDescription, String appointmentLocation, String appointmentType, LocalDateTime start, LocalDateTime end, int customerID, int userID, int contactID) {
         try {
             String sql = "INSERT INTO appointments (Title, Description, Location, Type, Start, End, Customer_ID, User_ID, Contact_ID) VALUES(?,?,?,?,?,?, ?,?,?) ";
@@ -70,6 +75,12 @@ public class AppointmentHelper {
         }
     }
 
+    /**
+     * Update appointment SQL query
+     *
+     *
+     * @throws //SQLException
+     */
     public static void updateAppointment(String appointmentTitle, String appointmentDescription, String appointmentLocation, String appointmentType, LocalDateTime start, LocalDateTime end, int customerID, int userID, int contactID) {
         try {
             String sql = "UPDATE appointments SET Title = ?, Address = ?, Description = ? ,  Location = ?, Type = ?, Start = ?, End = ? WHERE Customer_ID = ? AND User_ID = ? AND Contact_ID = ? ";
@@ -90,7 +101,12 @@ public class AppointmentHelper {
         }
     }
 
-
+    /**
+     * Delete appointment SQL query
+     *
+     *
+     * @throws //SQLException
+     */
     public static void deleteAppointment(int appointmentID) throws SQLException {
         try {
             String sql = "DELETE FROM appointments WHERE Appointment_ID = ?";

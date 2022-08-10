@@ -39,7 +39,6 @@ public class CustomerHelper {
                 Customers customer = new Customers(customerID, customerName, customerAddress, customerPostalCode, customerPhone, divisionID, countryID);
                 customersObservableList.add(customer);
             }
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -47,6 +46,12 @@ public class CustomerHelper {
     }
 
 
+    /**
+     * Create customer SQL query
+     *
+     *
+     * @throws //SQLException
+     */
     public static void createCustomer(String customerName, String customerAddress, String customerPostalCode, String customerPhone, Integer divisionID) {
         try {
             String sql = "INSERT INTO customers VALUES(NULL,?,?,?,?,NOW(),'JF', NOW(),'JF',?)";
@@ -69,6 +74,12 @@ public class CustomerHelper {
 
     }
 
+    /**
+     * Update customer SQL query
+     *
+     *
+     * @throws //SQLException
+     */
     public static void updateCustomer(String customerID, String customerName, String customerAddress, String customerPostalCode, String customerPhone, int divisionID){
         try {
         String sql  = "UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ? , Phone = ?, Division_ID = ? WHERE Customer_ID = ? ";
@@ -88,6 +99,12 @@ public class CustomerHelper {
         }
     }
 
+    /**
+     * Delete customer SQL query
+     *
+     *
+     * @throws //SQLException
+     */
     public static void deleteCustomer(int customerID){
         try {
 

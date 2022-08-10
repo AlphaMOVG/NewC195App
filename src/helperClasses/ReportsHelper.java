@@ -13,6 +13,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 
+/**
+ * Reports Helper class that extends the Appointments class.
+ * */
 public class ReportsHelper extends Appointments {
 
     public ReportsHelper(int appointmentID, String appointmentTitle, String appointmentDescription, String appointmentLocation, String appointmentType, LocalDateTime start, LocalDateTime end, int customerID, int userID, int contactID) {
@@ -20,7 +23,7 @@ public class ReportsHelper extends Appointments {
     }
 
     /**
-     * SQL Query that pulls the exact data needed: Countries and total appointment per country.
+     * SQL Query that pulls the data needed for countries and the total appointments per country.
      * @throws SQLException
      * @return countriesObservableList
      */
@@ -30,15 +33,11 @@ public class ReportsHelper extends Appointments {
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
-
             String countryName = rs.getString("Country");
             int countryCount = rs.getInt("countryCount");
             Reports report = new Reports(countryCount, countryName);
             countriesObservableList.add(report);
-
         }
-
         return countriesObservableList;
     }
-
 }
