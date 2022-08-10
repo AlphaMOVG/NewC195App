@@ -9,6 +9,7 @@ public class Reports {
 
 
     /**
+     * Reports Constructor
      * @param countryName
      * @param countryCount
      */

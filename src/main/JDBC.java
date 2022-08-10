@@ -4,6 +4,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+
+
+/**
+ * Class JDBC is the connection class to connect the application to the database.
+ * */
 public class JDBC {
     private static final String protocol = "jdbc";
     private static final String vendor = ":mysql:";
@@ -20,7 +25,6 @@ public class JDBC {
 
         try {
             Class.forName(driver); // Locate Driver
-           // password = Details.getPassword(); // Assign password
             connection = DriverManager.getConnection(jdbcUrl, userName, password); // reference Connection object
             System.out.println("Connection successful!");
         }

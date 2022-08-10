@@ -16,6 +16,16 @@ public class Customers {
     private int divisionID;
     private int countryID;
 
+    /**
+     * Customers constructor.
+     * @param customerID
+     * @param customerName
+     * @param customerAddress
+     * @param customerPostalCode
+     * @param customerPhoneNumber
+     * @param divisionID
+     * @param countryID
+     */
 
     public Customers(int customerID, String customerName, String customerAddress, String customerPostalCode,
                      String customerPhoneNumber, int divisionID, int countryID) {

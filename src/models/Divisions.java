@@ -7,7 +7,7 @@ public class Divisions {
 
 
     /**
-     *
+     * Divisions constructor
      * @param divisionID
      * @param countryID
      * @param divisionName
@@ -45,7 +45,9 @@ public class Divisions {
         return countryID;
     }
 
-
+    /**
+     * To string method for DivisionID and DivisionName.
+     * */
     @Override
     public String toString(){
 

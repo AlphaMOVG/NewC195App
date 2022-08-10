@@ -5,7 +5,7 @@ public class ReportType {
     public int appointmentTotal;
 
     /**
-     *
+     * ReportType Constructor.
      * @param appointmentTotal
      * @param appointmentType
      */

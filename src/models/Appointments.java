@@ -2,8 +2,14 @@ package models;
 
 import java.time.LocalDateTime;
 
+/**
+ * Appointments class.
+ * */
 public class Appointments {
 
+    /**
+     * Fields for the appointments class.
+     * */
     private int appointmentID;
     private String appointmentTitle;
     private String appointmentDescription;
@@ -15,7 +21,19 @@ public class Appointments {
     public int userID;
     public int contactID;
 
-
+    /**
+     * Appointments constructor.
+     * @param appointmentID
+     * @param appointmentTitle
+     * @param appointmentDescription
+     * @param appointmentLocation
+     * @param appointmentType
+     * @param start
+     * @param end
+     * @param customerID
+     * @param userID
+     * @param contactID
+     * */
     public Appointments(int appointmentID, String appointmentTitle, String appointmentDescription,
                         String appointmentLocation, String appointmentType, LocalDateTime start, LocalDateTime end, int customerID,
                         int userID, int contactID) {

@@ -1,12 +1,21 @@
 package models;
 
+
+/**
+ * Users class
+ * */
 public class Users {
 
     public int userID;
     public String userName;
     public String userPassword;
 
-
+    /**
+     * Users constructor.
+     * @param userID
+     * @param userName
+     * @param userPassword
+     * */
     public Users(int userID, String userName, String userPassword) {
         this.userID = userID;
         this.userName = userName;

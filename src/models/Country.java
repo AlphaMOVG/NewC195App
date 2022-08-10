@@ -1,5 +1,9 @@
 package models;
 
+
+/**
+ * Country class.
+ * */
 public class Country {
 
     private String countryName;
@@ -7,7 +11,7 @@ public class Country {
 
     /**
      *
-     *
+     * @param countryID
      * @param countryName
      */
     public Country(int countryID,String countryName ) {
@@ -24,11 +28,18 @@ public class Country {
 
         return countryName;
     }
-
+    /**
+     *
+     * @return countryID
+     */
     public int getCountryID(){
 
         return countryID;
     }
+
+    /**
+     * To string method for countryID and countryName.
+     * */
 @Override
     public String toString() {
         return countryID + " - " + countryName;
