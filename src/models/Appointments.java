@@ -84,7 +84,6 @@ public class Appointments {
      */
     public LocalDateTime getStart() {
         System.out.println("start " + start);
-
         return start;
     }
 

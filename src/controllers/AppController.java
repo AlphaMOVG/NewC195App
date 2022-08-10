@@ -350,7 +350,7 @@ public class AppController implements Initializable {
             }
             int addCustomer = customerCombo.getValue().getCustomerID();
 
-            if (dateChecker(addDate) || weekendChecker(addDate) || startDayChecker(addStart, addEnd) || startDayChecker(addStart, addEnd) || sameDayChecker(addStart, addEnd) || endDayChecker(addStart, addEnd) || checkAppointmentOverlapAdd(addStart, addEnd, addCustomer)) {
+            if (dateChecker(addDate) || startTimeChecker(addStart, addEnd) || sameTimeChecker(addStart, addEnd) || endTimeChecker(addStart, addEnd) || checkAppointmentOverlapAddOne(addStart, addCustomer) || checkAppointmentOverlapAddTwo(addEnd, addCustomer) || checkAppointmentOverlapAddThree(addStart, addEnd, addCustomer)) {
                 System.out.println("check");
             } else {
                 AppointmentHelper.createAppointment(addTitle, addDescription, addLocation, addType, addStart, addEnd, addCustomer, addUser, addContact);
@@ -524,11 +524,17 @@ public class AppController implements Initializable {
             }
             int updateCustomer = customerCombo.getValue().getCustomerID();
 
-            AppointmentHelper.updateAppointment(updateTitle, updateDescription, updateLocation, updateType, updateStart, updateEnd, updateCustomer, updateUser, updateContact);
-            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-            alert.setTitle("Alert");
-            alert.setContentText("Appointment updated successfully!");
-            Optional<ButtonType> result = alert.showAndWait();
+            if (dateChecker(updateDate) || startTimeChecker(updateStart, updateEnd) || sameTimeChecker(updateStart, updateEnd) || endTimeChecker(updateStart, updateEnd) || checkAppointmentOverlapUpdateOne(updateStart, updateCustomer) || checkAppointmentOverlapUpdateTwo(updateEnd, updateCustomer) || checkAppointmentOverlapUpdateThree(updateStart, updateEnd, updateCustomer)) {
+                System.out.println("check check");
+            }
+            else{
+
+                AppointmentHelper.updateAppointment(updateTitle, updateDescription, updateLocation, updateType, updateStart, updateEnd, updateCustomer, updateUser, updateContact);
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");
+                alert.setContentText("Appointment updated successfully!");
+                Optional<ButtonType> result = alert.showAndWait();
+            }
 
             ObservableList<Appointments> allAppointments = null;
             try {
@@ -538,7 +544,7 @@ public class AppController implements Initializable {
             }
             appointmentsTableView.setItems(allAppointments);
 
-        } catch (NumberFormatException | NullPointerException e) {
+        } catch (NumberFormatException | NullPointerException | SQLException e) {
             e.printStackTrace();
         }
 
@@ -601,7 +607,7 @@ public class AppController implements Initializable {
 
     }
 
-    // ask about how to get these methods to work in the add and update action.
+
     private boolean dateChecker(LocalDate datePicker) {
         System.out.println(datePicker);
         System.out.println(LocalDate.now());
@@ -617,12 +623,8 @@ public class AppController implements Initializable {
         }
     }
 
-    private boolean weekendChecker(LocalDate datePicker) {
-        return false;
 
-    }
-
-    private boolean startDayChecker(LocalDateTime sTimeCombo, LocalDateTime eTimeCombo) {
+    private boolean startTimeChecker(LocalDateTime sTimeCombo, LocalDateTime eTimeCombo) {
         if (sTimeCombo.isAfter(eTimeCombo)) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Alert");
@@ -634,7 +636,7 @@ public class AppController implements Initializable {
         }
     }
 
-    private boolean sameDayChecker(LocalDateTime sTimeCombo, LocalDateTime eTimeCombo) {
+    private boolean sameTimeChecker(LocalDateTime sTimeCombo, LocalDateTime eTimeCombo) {
         if (sTimeCombo.isEqual(eTimeCombo)) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Alert");
@@ -646,7 +648,7 @@ public class AppController implements Initializable {
         }
     }
 
-    private boolean endDayChecker(LocalDateTime sTimeCombo, LocalDateTime eTimeCombo) {
+    private boolean endTimeChecker(LocalDateTime sTimeCombo, LocalDateTime eTimeCombo) {
         if (eTimeCombo.isBefore(sTimeCombo)) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Alert");
@@ -660,93 +662,111 @@ public class AppController implements Initializable {
 
     // ask about how to properly check the overlaps.
 
-    private boolean checkAppointmentOverlapAdd(LocalDateTime Start, LocalDateTime End, int customerID) throws SQLException {
 
-        try {
-            for (Appointments a : AppointmentHelper.getAllAppointments())
-
-                if (a.getCustomerID() == customerID) {
-                    if (Start.isBefore(a.getStart()) || Start.isEqual(a.getStart()) && End.isAfter(a.getStart()) || End.isEqual(a.getEnd())) {
-                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                        alert.setTitle("Alert");
-                        alert.setContentText("Appointments cannot overlap.");
-                        Optional<ButtonType> result = alert.showAndWait();
-                        return true;
-                    }
-
-                    if (Start.isAfter(a.getStart()) || Start.isEqual(a.getStart()) && Start.isBefore(a.getEnd())) {
-                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                        alert.setTitle("Alert");
-                        alert.setContentText("Appointments cannot overlap.");
-                        Optional<ButtonType> result = alert.showAndWait();
-                        return true;
-                    }
-
-                    if (End.isAfter(a.getStart()) && End.isBefore(a.getStart()) || End.isEqual(a.getStart())) {
-                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                        alert.setTitle("Alert");
-                        alert.setContentText("Appointments cannot overlap.");
-                        Optional<ButtonType> result = alert.showAndWait();
-                        return true;
-                    } else {
-                        return false;
-                    }
-
+    private boolean checkAppointmentOverlapAddOne(LocalDateTime Start, int customerID) throws SQLException {
+        for (Appointments a : AppointmentHelper.getAllAppointments()) {
+            if (a.getCustomerID() == customerID) {
+                if (Start.isAfter(a.getStart()) || Start.isEqual(a.getStart()) || Start.isBefore(a.getEnd())) {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Alert");                                        //1
+                    alert.setContentText("Start time overlaps another appointment.");
+                    Optional<ButtonType> result = alert.showAndWait();
+                    return true;
+                } else {
+                    continue;
                 }
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            }
         }
+        return false;
+    }
 
-        return false; // fixing this issue that IDE makes me return true, thus not letting me add the appointment if it clears all checks.
+    private boolean checkAppointmentOverlapAddTwo(LocalDateTime End, int customerID) throws SQLException {
+        for (Appointments a : AppointmentHelper.getAllAppointments()) {
+            if (a.getCustomerID() == customerID) {
+                if (End.isAfter(a.getStart()) || End.isBefore(a.getEnd()) || End.isEqual(a.getEnd())) {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Alert");                                        //2
+                    alert.setContentText("End time overlaps another appointment.");
+                    Optional<ButtonType> result = alert.showAndWait();
+                    return true;
+                } else {
+                    continue;
+                }
+            }
+        }
+        return false;
+
     }
 
 
-
-
-
-
-    private boolean checkAppointmentOverlapUpdate( LocalDateTime Start, LocalDateTime End, int customerID) throws SQLException {
-
-
-        try {
-            for (Appointments a : AppointmentHelper.getAllAppointments())
-
-                if (a.getCustomerID() != customerID) {
-                    if (Start.isBefore(a.getStart()) || Start.isEqual(a.getStart()) && End.isAfter(a.getStart()) || End.isEqual(a.getEnd())) {
-                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                        alert.setTitle("Alert");
-                        alert.setContentText("Appointments cannot overlap.");
-                        Optional<ButtonType> result = alert.showAndWait();
-                        return true;
-                    }
-
-                    if (Start.isAfter(a.getStart()) || Start.isEqual(a.getStart()) && Start.isBefore(a.getEnd())) {
-                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                        alert.setTitle("Alert");
-                        alert.setContentText("Appointments cannot overlap.");
-                        Optional<ButtonType> result = alert.showAndWait();
-                        return true;
-                    }
-
-                    if (End.isAfter(a.getStart()) && End.isBefore(a.getStart()) || End.isEqual(a.getStart())) {
-                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                        alert.setTitle("Alert");
-                        alert.setContentText("Appointments cannot overlap.");
-                        Optional<ButtonType> result = alert.showAndWait();
-                        return true;
-                    } else {
-                        return false;
-                    }
-
+    private boolean checkAppointmentOverlapAddThree(LocalDateTime Start, LocalDateTime End, int customerID) throws SQLException {
+        for (Appointments a : AppointmentHelper.getAllAppointments()) {
+            if (a.getCustomerID() == customerID) {
+                if (Start.isBefore(a.getStart()) || Start.isEqual(a.getStart()) || End.isAfter(a.getEnd()) || End.isEqual(a.getEnd())) {
+                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                    alert.setTitle("Alert");                                                //3
+                    alert.setContentText("Start and End overlap a current appointment.");
+                    Optional<ButtonType> result = alert.showAndWait();
+                    return true;
+                } else {
+                    continue;
                 }
-
-        } catch (SQLException throwables) {
-            throwables.printStackTrace();
+            }
         }
-
-        return false; // fixing this issue that IDE makes me return true, thus not letting me add the appointment if it clears all checks.
+        return false;
     }
+
+
+    private boolean checkAppointmentOverlapUpdateOne(LocalDateTime Start, int customerID) throws SQLException {
+        for (Appointments a : AppointmentHelper.getAllAppointments()) {
+            if (a.getCustomerID() != customerID) {
+                continue;
+            }
+            if (Start.isAfter(a.getStart()) || Start.isEqual(a.getStart()) || Start.isBefore(a.getEnd())) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");                                        //1
+                alert.setContentText("Start time overlaps another appointment.");
+                Optional<ButtonType> result = alert.showAndWait();
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    private boolean checkAppointmentOverlapUpdateTwo(LocalDateTime End, int customerID) throws SQLException {
+        for (Appointments a : AppointmentHelper.getAllAppointments()) {
+            if (a.getCustomerID() != customerID) {
+                continue;
+            }
+            if (End.isAfter(a.getStart()) || End.isBefore(a.getEnd()) || End.isEqual(a.getEnd())) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");                                        //2
+                alert.setContentText("End time overlaps another appointment.");
+                Optional<ButtonType> result = alert.showAndWait();
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+    private boolean checkAppointmentOverlapUpdateThree(LocalDateTime Start, LocalDateTime End, int customerID) throws SQLException {
+        for (Appointments a : AppointmentHelper.getAllAppointments()) {
+            if (a.getCustomerID() != customerID) {
+                continue;
+            }
+            if (Start.isBefore(a.getStart()) || Start.isEqual(a.getStart()) || End.isAfter(a.getEnd()) || End.isEqual(a.getEnd())) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");                                                //3
+                alert.setContentText("Start and End overlap a current appointment.");
+                Optional<ButtonType> result = alert.showAndWait();
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 }
 
