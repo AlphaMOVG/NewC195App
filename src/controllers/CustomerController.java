@@ -279,26 +279,13 @@ public class CustomerController implements Initializable {
 
     @FXML
     void onActionClear(ActionEvent event) throws SQLException {
-        Country c = countryCombo.getValue();
-        divisionCombo.setItems(DivisionsHelper.getAllFilteredDivisions(c.getCountryID()));
-
-        try{
             customerIdTxt.clear();
             customerNameTxt.clear();
             phoneNumberTxt.clear();
             postalCodeTxt.clear();
             addressTxt.clear();
-            countryCombo.setItems(CountryHelper.getAllCountries());
-            divisionCombo.setItems(DivisionsHelper.getAllDivisions());
-            countryCombo.setPromptText("- Choose A Country -");
-            divisionCombo.setPromptText("- Choose A Division -");
-
-
-
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+            countryCombo.setValue(null);
+            divisionCombo.setValue(null);
     }
 
     @FXML

@@ -526,8 +526,7 @@ public class AppController implements Initializable {
 
             if (dateChecker(updateDate) || startTimeChecker(updateStart, updateEnd) || sameTimeChecker(updateStart, updateEnd) || endTimeChecker(updateStart, updateEnd) || checkAppointmentOverlapUpdateOne(updateStart, updateCustomer) || checkAppointmentOverlapUpdateTwo(updateEnd, updateCustomer) || checkAppointmentOverlapUpdateThree(updateStart, updateEnd, updateCustomer)) {
                 System.out.println("check check");
-            }
-            else{
+            } else {
 
                 AppointmentHelper.updateAppointment(updateTitle, updateDescription, updateLocation, updateType, updateStart, updateEnd, updateCustomer, updateUser, updateContact);
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -595,22 +594,17 @@ public class AppController implements Initializable {
         descriptionTxt.clear();
         locationTxt.clear();
         typeTxt.clear();
-
-
         datePicker.setValue(null);
-
         sTimeCombo.setValue(null);
         eTimeCombo.setValue(null);
-        userCombo.setItems(UserHelper.getAllUsers());
-        customerCombo.setItems(CustomerHelper.getAllCustomers());
-        contactCombo.setItems(ContactHelper.getAllContacts());
+        userCombo.setValue(null);
+        customerCombo.setValue(null);
+        contactCombo.setValue(null);
 
     }
 
 
     private boolean dateChecker(LocalDate datePicker) {
-        System.out.println(datePicker);
-        System.out.println(LocalDate.now());
         if (datePicker.isBefore(LocalDate.now())) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Alert");
@@ -618,7 +612,6 @@ public class AppController implements Initializable {
             Optional<ButtonType> result = alert.showAndWait();
             return true;
         } else {
-            System.out.println("dateChecker");
             return false;
         }
     }
@@ -660,21 +653,20 @@ public class AppController implements Initializable {
         }
     }
 
-    // ask about how to properly check the overlaps.
-
 
     private boolean checkAppointmentOverlapAddOne(LocalDateTime Start, int customerID) throws SQLException {
         for (Appointments a : AppointmentHelper.getAllAppointments()) {
             if (a.getCustomerID() == customerID) {
-                if (Start.isAfter(a.getStart()) || Start.isEqual(a.getStart()) || Start.isBefore(a.getEnd())) {
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Alert");                                        //1
-                    alert.setContentText("Start time overlaps another appointment.");
-                    Optional<ButtonType> result = alert.showAndWait();
-                    return true;
-                } else {
-                    continue;
-                }
+                continue;
+            }
+            if (Start.isAfter(a.getStart()) || Start.isEqual(a.getStart()) || Start.isBefore(a.getEnd())) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");                                        //1
+                alert.setContentText("Start time overlaps another appointment.");
+                Optional<ButtonType> result = alert.showAndWait();
+                return true;
+            } else {
+                continue;
             }
         }
         return false;
@@ -683,15 +675,16 @@ public class AppController implements Initializable {
     private boolean checkAppointmentOverlapAddTwo(LocalDateTime End, int customerID) throws SQLException {
         for (Appointments a : AppointmentHelper.getAllAppointments()) {
             if (a.getCustomerID() == customerID) {
-                if (End.isAfter(a.getStart()) || End.isBefore(a.getEnd()) || End.isEqual(a.getEnd())) {
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Alert");                                        //2
-                    alert.setContentText("End time overlaps another appointment.");
-                    Optional<ButtonType> result = alert.showAndWait();
-                    return true;
-                } else {
-                    continue;
-                }
+                continue;
+            }
+            if (End.isAfter(a.getStart()) || End.isBefore(a.getEnd()) || End.isEqual(a.getEnd())) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");                                        //2
+                alert.setContentText("End time overlaps another appointment.");
+                Optional<ButtonType> result = alert.showAndWait();
+                return true;
+            } else {
+                continue;
             }
         }
         return false;
@@ -702,17 +695,19 @@ public class AppController implements Initializable {
     private boolean checkAppointmentOverlapAddThree(LocalDateTime Start, LocalDateTime End, int customerID) throws SQLException {
         for (Appointments a : AppointmentHelper.getAllAppointments()) {
             if (a.getCustomerID() == customerID) {
-                if (Start.isBefore(a.getStart()) || Start.isEqual(a.getStart()) || End.isAfter(a.getEnd()) || End.isEqual(a.getEnd())) {
-                    Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                    alert.setTitle("Alert");                                                //3
-                    alert.setContentText("Start and End overlap a current appointment.");
-                    Optional<ButtonType> result = alert.showAndWait();
-                    return true;
-                } else {
-                    continue;
-                }
+                continue;
+            }
+            if (Start.isBefore(a.getStart()) || Start.isEqual(a.getStart()) || End.isAfter(a.getEnd()) || End.isEqual(a.getEnd())) {
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");                                                //3
+                alert.setContentText("Start and End overlap a current appointment.");
+                Optional<ButtonType> result = alert.showAndWait();
+                return true;
+            } else {
+                continue;
             }
         }
+
         return false;
     }
 
@@ -728,6 +723,8 @@ public class AppController implements Initializable {
                 alert.setContentText("Start time overlaps another appointment.");
                 Optional<ButtonType> result = alert.showAndWait();
                 return true;
+            } else {
+                continue;
             }
         }
         return false;
@@ -745,6 +742,8 @@ public class AppController implements Initializable {
                 alert.setContentText("End time overlaps another appointment.");
                 Optional<ButtonType> result = alert.showAndWait();
                 return true;
+            } else {
+                continue;
             }
         }
         return false;
@@ -762,6 +761,8 @@ public class AppController implements Initializable {
                 alert.setContentText("Start and End overlap a current appointment.");
                 Optional<ButtonType> result = alert.showAndWait();
                 return true;
+            } else {
+                continue;
             }
         }
         return false;

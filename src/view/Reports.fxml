@@ -11,7 +11,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="884.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ReportsController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="521.0" prefWidth="884.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ReportsController">
     <children>
         <Label layoutX="6.0" layoutY="9.0" prefHeight="503.0" prefWidth="867.0" style="-fx-border-color: black; -fx-padding: 10; -fx-border-radius: 5;" />
         <Label layoutX="29.0" layoutY="25.0" prefHeight="26.0" prefWidth="146.0" text="Reports">
@@ -28,7 +28,7 @@
                             <children>
                                 <AnchorPane prefHeight="365.0" prefWidth="848.0">
                                     <children>
-                                        <ComboBox fx:id="contactScheduleContactBox" layoutX="659.0" layoutY="3.0" onAction="#appointmentDataByContact" prefWidth="150.0" />
+                                        <ComboBox fx:id="contactScheduleContactBox" layoutX="659.0" layoutY="3.0" onAction="#appointmentDataByContact" prefWidth="150.0" promptText="Choose a contact" />
                                         <Text layoutX="511.0" layoutY="21.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Appointments by contact:" />
                                         <TableView fx:id="allAppointmentsTable" layoutY="36.0" prefHeight="301.0" prefWidth="848.0">
                                             <columns>
@@ -94,4 +94,3 @@
         </TabPane>
     </children>
 </AnchorPane>
-
