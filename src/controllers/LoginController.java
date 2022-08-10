@@ -28,6 +28,11 @@ import java.util.MissingResourceException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * Login controller class that implements Initializable.
+ *
+ */
+
 public class LoginController implements Initializable {
     @FXML
     private Button clearBtn;
@@ -44,7 +49,10 @@ public class LoginController implements Initializable {
     @FXML
     private TextField usernameTxt;
 
-
+    /**
+     * Clear action
+     *
+     */
     @FXML
     void onActionClear(ActionEvent event) {
         passwordTxt.clear();
@@ -52,7 +60,10 @@ public class LoginController implements Initializable {
 
     }
 
-
+    /**
+     *Exit action
+     *
+     */
     @FXML
     void onActionExit(ActionEvent event) {
 
@@ -60,6 +71,10 @@ public class LoginController implements Initializable {
 
     }
 
+    /**
+     * Appointment time validation, also logs successful and unsuccessful login attempts. logs in if successful.
+     *
+     */
     @FXML
     void onActionLogin(ActionEvent event)  {
 
@@ -91,9 +106,7 @@ public class LoginController implements Initializable {
                 stage.setScene(scene);
                 stage.show();
 
-
                 outputFile.print("User: " + username + " successfully logged in at: " + Timestamp.valueOf(LocalDateTime.now()) + "\n");
-
 
                 for (Appointments appointment : getAllAppointments) {
                     startTime = appointment.getStart();
@@ -118,9 +131,7 @@ public class LoginController implements Initializable {
                 alert.setContentText(rb.getString("Incorrect"));
                 alert.show();
 
-                //log the failed login attempt
                 outputFile.print("user: " + username + " failed login attempt at: " + Timestamp.valueOf(LocalDateTime.now()) + "\n");
-
             }
             outputFile.close();
         } catch (IOException | SQLException ioException) {
@@ -129,19 +140,18 @@ public class LoginController implements Initializable {
 
     }
 
-// as questions about this
 
+    /**
+     * Sets the default zone of the system, also sets for language conversion
+     *
+     */
     public void initialize(URL url, ResourceBundle rb) {
         try {
 
             Locale locale = Locale.getDefault();
             Locale.setDefault(locale);
-
             ZoneId zone = ZoneId.systemDefault();
-
-
             zoneIDBox.setText(String.valueOf(zone));
-
             rb = ResourceBundle.getBundle("languageRBs/RB", Locale.getDefault());
 
             clearBtn.setText(rb.getString("Clear"));

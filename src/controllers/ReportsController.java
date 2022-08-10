@@ -131,17 +131,26 @@ public class ReportsController {
             ObservableList<MonthReport> reportMonths = FXCollections.observableArrayList();
 
 
-
+            /**
+             * Lambda #1
+             *
+             */
             getAllAppointments.forEach(appointments -> {
                 appointmentType.add(appointments.getAppointmentType());
             });
 
-
+            /**
+             * Lambda #2
+             *
+             */
             getAllAppointments.stream().map(appointment -> {
                 return appointment.getStart().getMonth();
             }).forEach(appointmentMonths::add);
 
-
+            /**
+             * Lambda #3
+             *
+             */
             appointmentMonths.stream().filter(month -> {
                 return !monthOfAppointments.contains(month);
             }).forEach(monthOfAppointments::add);
@@ -184,7 +193,7 @@ public class ReportsController {
             ObservableList<Reports> aggregatedCountries = ReportsHelper.getCountries();
             ObservableList<Reports> countriesToAdd = FXCollections.observableArrayList();
 
-            //IDE converted
+
             aggregatedCountries.forEach(countriesToAdd::add);
 
             customerByCountry.setItems(countriesToAdd);
@@ -193,7 +202,10 @@ public class ReportsController {
             exception.printStackTrace();
         }
     }
-
+/**
+ *
+ *
+ */
 
     /**
      * Button to go back to main menu.
