@@ -27,6 +27,9 @@ import java.util.ResourceBundle;
 
 public class AppController implements Initializable {
 
+    /**
+     * FXML Buttons for the application
+     * */
     @FXML
     private Button clearBtn;
     @FXML
@@ -50,7 +53,9 @@ public class AppController implements Initializable {
     @FXML
     private ToggleGroup toggleRBtn;
 
-
+    /**
+     * Text fields and combo box names
+     * */
     @FXML
     private TextField appointmentIdTxt;
     @FXML
@@ -74,7 +79,9 @@ public class AppController implements Initializable {
     @FXML
     private ComboBox<Customers> customerCombo;
 
-
+    /**
+     * columns and table name for the table
+     * */
     @FXML
     private TableView<Appointments> appointmentsTableView;
     @FXML
@@ -98,7 +105,10 @@ public class AppController implements Initializable {
     @FXML
     private TableColumn<AppointmentHelper, Integer> contactCol;
 
-
+    /**
+     * initialize method for the appointment controller
+     * populates the appointment table and set the combo box values
+     * */
     @Override
     public void initialize(java.net.URL url, ResourceBundle resourceBundle) {
         allAppointmentsRBtn.setSelected(true);
@@ -249,7 +259,12 @@ public class AppController implements Initializable {
         }
     }
 
-
+    /**
+     * On action add event that uses the createAppointment method to add an appointment to the database.
+     *
+     *
+     * @throws SQLException
+     */
     @FXML
     void onActionAdd(ActionEvent event) throws SQLException, IOException {
         try {
@@ -372,7 +387,10 @@ public class AppController implements Initializable {
 
     }
 
-
+    /**
+     *  methodd that allows the user to return to the previous screen.
+     * @throws IOException
+     * */
     @FXML
     void onActionBack(ActionEvent event) throws IOException {
 
@@ -383,7 +401,10 @@ public class AppController implements Initializable {
         stage.show();
     }
 
-
+    /**
+     * On action event that allows the user to delete the selected appointment.
+     * @throws
+     * */
     @FXML
     void onActionDelete(ActionEvent event) {
         try {
@@ -419,7 +440,10 @@ public class AppController implements Initializable {
 
     }
 
-
+    /**
+     * On action event that allows the user to close the program.
+     * @throws IOException
+     * */
     @FXML
     void onActionExit(ActionEvent event) throws IOException {
 
@@ -427,7 +451,10 @@ public class AppController implements Initializable {
 
     }
 
-
+    /**
+     * On action event that allows the user to update a selected appointment.
+     *
+     **/
     @FXML
     void onActionUpdate(ActionEvent event) {
         try {
@@ -549,7 +576,10 @@ public class AppController implements Initializable {
         }
     }
 
-
+    /**
+     * On action event that allows a user to select an appointment and populate the fields in the form.
+     *
+     * */
     @FXML
     void onActionEdit(ActionEvent event) {
         Appointments selectAppointment = appointmentsTableView.getSelectionModel().getSelectedItem();
@@ -585,6 +615,10 @@ public class AppController implements Initializable {
 
     }
 
+    /**
+     * On action event that allows the user to clear all the populated fields.
+     * @throws SQLException
+     * */
     @FXML
     void onActionClear(ActionEvent event) throws SQLException {
         appointmentIdTxt.clear();
@@ -600,6 +634,9 @@ public class AppController implements Initializable {
         contactCombo.setValue(null);
     }
 
+    /**
+     * Method that checks if the date is before the current date.
+     * */
     private boolean dateChecker(LocalDate datePicker) {
         if (datePicker.isBefore(LocalDate.now())) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -612,6 +649,9 @@ public class AppController implements Initializable {
         }
     }
 
+    /**
+     * Method that checks if the start time is after the end time.
+     * */
     private boolean startTimeChecker(LocalDateTime sTimeCombo, LocalDateTime eTimeCombo) {
         if (sTimeCombo.isAfter(eTimeCombo)) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -624,6 +664,9 @@ public class AppController implements Initializable {
         }
     }
 
+    /**
+     * Method that checks if the start and end time are the same.
+     * */
     private boolean sameTimeChecker(LocalDateTime sTimeCombo, LocalDateTime eTimeCombo) {
         if (sTimeCombo.isEqual(eTimeCombo)) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -636,6 +679,9 @@ public class AppController implements Initializable {
         }
     }
 
+    /**
+     * Method that checks if the end time is before the start time.
+     * */
     private boolean endTimeChecker(LocalDateTime sTimeCombo, LocalDateTime eTimeCombo) {
         if (eTimeCombo.isBefore(sTimeCombo)) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -648,6 +694,9 @@ public class AppController implements Initializable {
         }
     }
 
+    /**
+     * Method that checks for overlapping appointments when the add button is clicked
+     * */
     private boolean checkAppointmentOverlapAdd(LocalDateTime Start, LocalDateTime End, int customerID) throws SQLException {
         for (Appointments a : AppointmentHelper.getAllAppointments()) {
             if (a.getCustomerID() != customerID) {
@@ -678,6 +727,9 @@ public class AppController implements Initializable {
       return false;
     }
 
+        /**
+         * Method that checks for appointment overlaps when the update button is clicked.
+         * */
     private boolean checkAppointmentOverlapUpdate(LocalDateTime Start, LocalDateTime End, int customerID, int appointmentID) throws SQLException {
         for (Appointments a : AppointmentHelper.getAllAppointments()) {
             if (a.getCustomerID() != customerID || a.getAppointmentID() == appointmentID) {
