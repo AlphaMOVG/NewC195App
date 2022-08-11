@@ -129,7 +129,7 @@ public class AppController implements Initializable {
         startCol.setCellValueFactory(new PropertyValueFactory<>("start"));
         endCol.setCellValueFactory(new PropertyValueFactory<>("end"));
         customerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerID"));
-        contactCol.setCellValueFactory(new PropertyValueFactory<>("contactID")); // make the column a name instead of Contact
+        contactCol.setCellValueFactory(new PropertyValueFactory<>("contactID"));
         userIdCol.setCellValueFactory(new PropertyValueFactory<>("userID"));
 
         ObservableList<Customers> customers = null;
@@ -183,7 +183,7 @@ public class AppController implements Initializable {
     /**
      * When radio button for "All Appointments" is selected.
      *
-     * @throws SQLException
+     *
      */
     @FXML
     void onActionAllAppointments(ActionEvent event) {
@@ -204,7 +204,7 @@ public class AppController implements Initializable {
     /**
      * When radio button for "Month" is selected.
      *
-     * @throws //SQLException
+     *
      */
     @FXML
     void onActionMonths(ActionEvent event) {
@@ -233,7 +233,7 @@ public class AppController implements Initializable {
     /**
      * When radio button for week is selected.
      *
-     * @throws SQLException
+     *
      */
     @FXML
     void onActionWeeks(ActionEvent event) {
@@ -263,7 +263,7 @@ public class AppController implements Initializable {
      * On action add event that uses the createAppointment method to add an appointment to the database.
      *
      *
-     * @throws SQLException
+     *
      */
     @FXML
     void onActionAdd(ActionEvent event) throws SQLException, IOException {
@@ -389,7 +389,7 @@ public class AppController implements Initializable {
 
     /**
      *  methodd that allows the user to return to the previous screen.
-     * @throws IOException
+     *
      * */
     @FXML
     void onActionBack(ActionEvent event) throws IOException {
@@ -403,7 +403,7 @@ public class AppController implements Initializable {
 
     /**
      * On action event that allows the user to delete the selected appointment.
-     * @throws
+     *
      * */
     @FXML
     void onActionDelete(ActionEvent event) {
@@ -442,7 +442,7 @@ public class AppController implements Initializable {
 
     /**
      * On action event that allows the user to close the program.
-     * @throws IOException
+     *
      * */
     @FXML
     void onActionExit(ActionEvent event) throws IOException {
@@ -617,7 +617,7 @@ public class AppController implements Initializable {
 
     /**
      * On action event that allows the user to clear all the populated fields.
-     * @throws SQLException
+     * 
      * */
     @FXML
     void onActionClear(ActionEvent event) throws SQLException {

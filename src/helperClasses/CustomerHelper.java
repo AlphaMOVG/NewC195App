@@ -50,7 +50,7 @@ public class CustomerHelper {
      * Create customer SQL query
      *
      *
-     * @throws //SQLException
+     *
      */
     public static void createCustomer(String customerName, String customerAddress, String customerPostalCode, String customerPhone, Integer divisionID) {
         try {
@@ -78,7 +78,7 @@ public class CustomerHelper {
      * Update customer SQL query
      *
      *
-     * @throws //SQLException
+     *
      */
     public static void updateCustomer(String customerID, String customerName, String customerAddress, String customerPostalCode, String customerPhone, int divisionID){
         try {
@@ -103,7 +103,7 @@ public class CustomerHelper {
      * Delete customer SQL query
      *
      *
-     * @throws //SQLException
+     *
      */
     public static void deleteCustomer(int customerID){
         try {

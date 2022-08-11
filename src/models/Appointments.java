@@ -23,16 +23,7 @@ public class Appointments {
 
     /**
      * Appointments constructor.
-     * @param appointmentID
-     * @param appointmentTitle
-     * @param appointmentDescription
-     * @param appointmentLocation
-     * @param appointmentType
-     * @param start
-     * @param end
-     * @param customerID
-     * @param userID
-     * @param contactID
+     *
      * */
     public Appointments(int appointmentID, String appointmentTitle, String appointmentDescription,
                         String appointmentLocation, String appointmentType, LocalDateTime start, LocalDateTime end, int customerID,

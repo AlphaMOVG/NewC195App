@@ -12,8 +12,7 @@ public class AppointmentHelper {
     /**
      * Observablelist for all appointments in database.
      *
-     * @return appointmentsObservableList
-     * @throws //SQLException
+     *
      */
     public static ObservableList<Appointments> getAllAppointments() throws SQLException {
         ObservableList<Appointments> appointmentsList = FXCollections.observableArrayList();
@@ -51,7 +50,7 @@ public class AppointmentHelper {
      * Create appointment SQL query
      *
      *
-     * @throws //SQLException
+     * 
      */
     public static void createAppointment(String appointmentTitle, String appointmentDescription, String appointmentLocation, String appointmentType, LocalDateTime start, LocalDateTime end, int customerID, int userID, int contactID) {
         try {
@@ -79,7 +78,7 @@ public class AppointmentHelper {
      * Update appointment SQL query
      *
      *
-     * @throws //SQLException
+     *
      */
     public static void updateAppointment(String appointmentTitle, String appointmentDescription, String appointmentLocation, String appointmentType, LocalDateTime start, LocalDateTime end, int customerID, int userID, int contactID, int appointmentID) {
         try {
@@ -109,7 +108,7 @@ public class AppointmentHelper {
      * Delete appointment SQL query
      *
      *
-     * @throws //SQLException
+     *
      */
     public static void deleteAppointment(int appointmentID) throws SQLException {
         try {

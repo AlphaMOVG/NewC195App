@@ -51,7 +51,7 @@ public class ReportsController {
 
     /**
      * Initialize and setup fields on the form.
-     * @throws //SQLException
+     *
      */
     public void initialize() throws SQLException {
 
@@ -209,7 +209,7 @@ public class ReportsController {
 
     /**
      * Button to go back to main menu.
-     * @throws //IOException
+     *
      */
     @FXML
     public void backToMainMenu (ActionEvent event) throws IOException {
