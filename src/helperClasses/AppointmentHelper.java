@@ -81,9 +81,10 @@ public class AppointmentHelper {
      *
      * @throws //SQLException
      */
-    public static void updateAppointment(String appointmentTitle, String appointmentDescription, String appointmentLocation, String appointmentType, LocalDateTime start, LocalDateTime end, int customerID, int userID, int contactID) {
+    public static void updateAppointment(String appointmentTitle, String appointmentDescription, String appointmentLocation, String appointmentType, LocalDateTime start, LocalDateTime end, int customerID, int userID, int contactID, int appointmentID) {
         try {
-            String sql = "UPDATE appointments SET Title = ?, Address = ?, Description = ? ,  Location = ?, Type = ?, Start = ?, End = ? WHERE Customer_ID = ? AND User_ID = ? AND Contact_ID = ? ";
+            String sql = "UPDATE appointments SET Title = ?, Description = ? ,  Location = ?, Type = ?," +
+                    " Start = ?, End = ? , Customer_ID = ? , User_ID = ? , Contact_ID = ? WHERE Appointment_ID = ? ";
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
 
             ps.setString(1, appointmentTitle);
@@ -95,7 +96,10 @@ public class AppointmentHelper {
             ps.setInt(7, customerID);
             ps.setInt(8, userID);
             ps.setInt(9, contactID);
+            ps.setInt(10, appointmentID);
+
             ps.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

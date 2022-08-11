@@ -431,6 +431,8 @@ public class AppController implements Initializable {
     @FXML
     void onActionUpdate(ActionEvent event) {
         try {
+            int appID = appointmentsTableView.getSelectionModel().getSelectedItem().getAppointmentID();
+           // int updateApptID = Integer.parseInt(appointmentIdTxt.getText());
             if (titleTxt.getText().isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Alert");
@@ -524,11 +526,11 @@ public class AppController implements Initializable {
             }
             int updateCustomer = customerCombo.getValue().getCustomerID();
 
-            if (dateChecker(updateDate) || startTimeChecker(updateStart, updateEnd) || sameTimeChecker(updateStart, updateEnd) || endTimeChecker(updateStart, updateEnd) || checkAppointmentOverlapUpdate(updateStart, updateEnd, updateCustomer)) {
+            if (dateChecker(updateDate) || startTimeChecker(updateStart, updateEnd) || sameTimeChecker(updateStart, updateEnd) || endTimeChecker(updateStart, updateEnd) || checkAppointmentOverlapUpdate(updateStart, updateEnd, updateCustomer, appID )) {
                 System.out.println("check check");
             } else {
 
-                AppointmentHelper.updateAppointment(updateTitle, updateDescription, updateLocation, updateType, updateStart, updateEnd, updateCustomer, updateUser, updateContact);
+                AppointmentHelper.updateAppointment(updateTitle, updateDescription, updateLocation, updateType, updateStart, updateEnd, updateCustomer, updateUser, updateContact, appID);
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Alert");
                 alert.setContentText("Appointment updated successfully!");
@@ -648,7 +650,7 @@ public class AppController implements Initializable {
 
     private boolean checkAppointmentOverlapAdd(LocalDateTime Start, LocalDateTime End, int customerID) throws SQLException {
         for (Appointments a : AppointmentHelper.getAllAppointments()) {
-            if (a.getCustomerID() == customerID) {
+            if (a.getCustomerID() != customerID) {
                 continue;
             }
             if ((Start.isAfter(a.getStart()) || Start.isEqual(a.getStart())) && (Start.isBefore(a.getEnd()))) { //1
@@ -676,20 +678,32 @@ public class AppController implements Initializable {
       return false;
     }
 
-    private boolean checkAppointmentOverlapUpdate(LocalDateTime Start, LocalDateTime End, int customerID) throws SQLException {
+    private boolean checkAppointmentOverlapUpdate(LocalDateTime Start, LocalDateTime End, int customerID, int appointmentID) throws SQLException {
         for (Appointments a : AppointmentHelper.getAllAppointments()) {
-            if (a.getCustomerID() != customerID) {
+            if (a.getCustomerID() != customerID || a.getAppointmentID() == appointmentID) {
                 continue;
             }
-            if ((Start.isAfter(a.getStart()) || Start.isEqual(a.getStart())) && (Start.isBefore(a.getEnd())))//1
-                if ((End.isAfter(a.getStart())) && (End.isBefore(a.getEnd()) || End.isEqual(a.getEnd()))) //2
-                    if ((Start.isBefore(a.getStart()) || Start.isEqual(a.getStart())) && (End.isAfter(a.getEnd()) || End.isEqual(a.getEnd()))) { //3
-                        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-                        alert.setTitle("Alert");
-                        alert.setContentText("Updated appointment overlaps another appointment.");
-                        Optional<ButtonType> result = alert.showAndWait();
-                        return true;
-                    }
+            if ((Start.isAfter(a.getStart()) || Start.isEqual(a.getStart())) && (Start.isBefore(a.getEnd()))) { //1
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");
+                alert.setContentText("Start time overlaps a current appointment.");
+                Optional<ButtonType> result = alert.showAndWait();
+                return true;
+            }
+            if ((End.isAfter(a.getStart())) && (End.isBefore(a.getEnd()) || End.isEqual(a.getEnd()))) { //2
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");
+                alert.setContentText("End time overlaps a current appointment.");
+                Optional<ButtonType> result = alert.showAndWait();
+                return true;
+            }
+            if ((Start.isBefore(a.getStart()) || Start.isEqual(a.getStart())) && (End.isAfter(a.getEnd()) || End.isEqual(a.getEnd()))) { //3
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Alert");
+                alert.setContentText("Start and end times overlap a current appointment.");
+                Optional<ButtonType> result = alert.showAndWait();
+                return true;
+            }
         }
         return false;
     }
