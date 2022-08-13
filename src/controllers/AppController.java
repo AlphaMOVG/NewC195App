@@ -585,34 +585,42 @@ public class AppController implements Initializable {
     void onActionEdit(ActionEvent event) {
         Appointments selectAppointment = appointmentsTableView.getSelectionModel().getSelectedItem();
 
-        appointmentIdTxt.setText(String.valueOf(selectAppointment.getAppointmentID()));
-        titleTxt.setText(selectAppointment.getAppointmentType());
-        descriptionTxt.setText(selectAppointment.getAppointmentDescription());
-        locationTxt.setText(selectAppointment.getAppointmentLocation());
-        typeTxt.setText(selectAppointment.getAppointmentType());
+        if (selectAppointment == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("Appointment not selected");
+            alert.showAndWait();
+        } else {
 
-        for (Customers c : customerCombo.getItems())
-            if (selectAppointment.getCustomerID() == c.getCustomerID()) {
-                customerCombo.setValue(c);
-                break;
-            }
+            appointmentIdTxt.setText(String.valueOf(selectAppointment.getAppointmentID()));
+            titleTxt.setText(selectAppointment.getAppointmentType());
+            descriptionTxt.setText(selectAppointment.getAppointmentDescription());
+            locationTxt.setText(selectAppointment.getAppointmentLocation());
+            typeTxt.setText(selectAppointment.getAppointmentType());
 
-        for (Users u : userCombo.getItems())
-            if (selectAppointment.getUserID() == u.getUserID()) {
-                userCombo.setValue(u);
-                break;
-            }
+            for (Customers c : customerCombo.getItems())
+                if (selectAppointment.getCustomerID() == c.getCustomerID()) {
+                    customerCombo.setValue(c);
+                    break;
+                }
 
-        for (Contacts c : contactCombo.getItems())
-            if (selectAppointment.getContactID() == c.getContactID()) {
-                contactCombo.setValue(c);
-                break;
-            }
+            for (Users u : userCombo.getItems())
+                if (selectAppointment.getUserID() == u.getUserID()) {
+                    userCombo.setValue(u);
+                    break;
+                }
 
-        sTimeCombo.setValue(LocalTime.from(selectAppointment.getStart()));
-        eTimeCombo.setValue(LocalTime.from(selectAppointment.getEnd()));
+            for (Contacts c : contactCombo.getItems())
+                if (selectAppointment.getContactID() == c.getContactID()) {
+                    contactCombo.setValue(c);
+                    break;
+                }
 
-        datePicker.setValue((selectAppointment.getStart().toLocalDate())); // ask questions on why this wont select from the table.
+            sTimeCombo.setValue(LocalTime.from(selectAppointment.getStart()));
+            eTimeCombo.setValue(LocalTime.from(selectAppointment.getEnd()));
+
+            datePicker.setValue((selectAppointment.getStart().toLocalDate())); // ask questions on why this wont select from the table.
+        }
 
     }
 
