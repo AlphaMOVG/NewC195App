@@ -50,7 +50,7 @@ public class AppointmentHelper {
      * Create appointment SQL query
      *
      *
-     * 
+     *
      */
     public static void createAppointment(String appointmentTitle, String appointmentDescription, String appointmentLocation, String appointmentType, LocalDateTime start, LocalDateTime end, int customerID, int userID, int contactID) {
         try {
@@ -120,6 +120,4 @@ public class AppointmentHelper {
             e.printStackTrace();
         }
     }
-
-
 }
