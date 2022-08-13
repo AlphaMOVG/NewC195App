@@ -132,7 +132,7 @@ public class ReportsController {
 
 
             /**
-             * Lambda #1
+             * Lambda #1 that adds appointments to the report by type of appointment that they are.
              *
              */
             getAllAppointments.forEach(appointments -> {
@@ -140,7 +140,7 @@ public class ReportsController {
             });
 
             /**
-             * Lambda #2
+             * Lambda #2 that gives the results of the appointment by months and assigns key value pairs.
              *
              */
             getAllAppointments.stream().map(appointment -> {
@@ -148,7 +148,7 @@ public class ReportsController {
             }).forEach(appointmentMonths::add);
 
             /**
-             * Lambda #3
+             * Lambda #3 assigns key value pairs and filters the appointments by months for the report.
              *
              */
             appointmentMonths.stream().filter(month -> {
