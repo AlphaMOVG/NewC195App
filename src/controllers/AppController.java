@@ -419,7 +419,7 @@ public class AppController implements Initializable {
 
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Alert");
-                alert.setContentText("Would you like to remove the selected appointment?" + " "  + "with an ID of: " + deleteSelectedAppointment.getAppointmentID() + " " + "and an appointment type of:" + " " + deleteSelectedAppointment.getAppointmentType());
+                alert.setContentText("Would you like to remove the selected appointment?" + " "  + "with an ID of: " + deleteSelectedAppointment.getAppointmentID() + "," + " " + "and an appointment type of:" + " " + deleteSelectedAppointment.getAppointmentType());
                 Optional<ButtonType> result = alert.showAndWait();
 
 
