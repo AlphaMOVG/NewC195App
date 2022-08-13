@@ -140,7 +140,7 @@ public class ReportsController {
             });
 
             /**
-             * Lambda #2 that gives the results of the appointment by months and assigns key value pairs.
+             * Lambda #2 that gives adds the results of the appointment by months and assigns key value pairs.
              *
              */
             getAllAppointments.stream().map(appointment -> {
