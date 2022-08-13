@@ -107,13 +107,10 @@ public class CustomerHelper {
      */
     public static void deleteCustomer(int customerID){
         try {
-
             String sql = "DELETE from customers WHERE Customer_ID = ?";
             PreparedStatement ps = JDBC.connection.prepareStatement(sql);
             ps.setInt(1, customerID);
             ps.executeUpdate();
-
-
         } catch (SQLException e) {
             e.printStackTrace();
         }
