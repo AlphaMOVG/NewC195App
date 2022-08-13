@@ -97,6 +97,7 @@ public class AppointmentHelper {
             ps.setInt(9, contactID);
             ps.setInt(10, appointmentID);
             ps.executeUpdate();
+
         } catch (SQLException e) {
             e.printStackTrace();
         }

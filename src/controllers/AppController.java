@@ -419,8 +419,9 @@ public class AppController implements Initializable {
 
                 Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Alert");
-                alert.setContentText("Would you like to remove the selected appointment?");
+                alert.setContentText("Would you like to remove the selected appointment?" + " "  + "with an ID of: " + deleteSelectedAppointment.getAppointmentID() + " " + "and an appointment type of:" + " " + deleteSelectedAppointment.getAppointmentType());
                 Optional<ButtonType> result = alert.showAndWait();
+
 
                 if (result.isPresent() && result.get() == ButtonType.OK) {
                     AppointmentHelper.deleteAppointment(deleteSelectedAppointment.getAppointmentID());
@@ -617,7 +618,7 @@ public class AppController implements Initializable {
 
     /**
      * On action event that allows the user to clear all the populated fields.
-     * 
+     *
      * */
     @FXML
     void onActionClear(ActionEvent event) throws SQLException {
