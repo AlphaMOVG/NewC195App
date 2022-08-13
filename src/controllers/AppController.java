@@ -425,6 +425,9 @@ public class AppController implements Initializable {
 
                 if (result.isPresent() && result.get() == ButtonType.OK) {
                     AppointmentHelper.deleteAppointment(deleteSelectedAppointment.getAppointmentID());
+                    alert.setTitle("Alert");
+                    alert.setContentText("Appointment:" + " " + deleteSelectedAppointment.getAppointmentID() + " " +  "With a type:" + " " + deleteSelectedAppointment.getAppointmentType() + " " + " has been deleted!");
+                    alert.showAndWait();
                 }
             }
             ObservableList<Appointments> allAppointments = null;
