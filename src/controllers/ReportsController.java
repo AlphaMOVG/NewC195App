@@ -21,7 +21,9 @@ import java.sql.SQLException;
 import java.time.Month;
 import java.util.Collections;
 
-
+/**
+ * Reports controller
+ * */
 public class ReportsController {
 
     @FXML
@@ -132,7 +134,7 @@ public class ReportsController {
 
 
             /**
-             * Lambda #1 that adds appointments to the report by type of appointment that they are.
+             * Lambda #1 that adds appointments to the report by the type of appointment that they are.
              *
              */
             getAllAppointments.forEach(appointments -> {
@@ -140,7 +142,7 @@ public class ReportsController {
             });
 
             /**
-             * Lambda #2 that gives adds the results of the appointment by months and assigns key value pairs.
+             * Lambda #2 that gives the added results of the appointment by the Local date time of months.
              *
              */
             getAllAppointments.stream().map(appointment -> {
