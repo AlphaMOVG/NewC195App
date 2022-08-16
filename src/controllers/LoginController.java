@@ -34,18 +34,40 @@ import java.util.ResourceBundle;
  */
 
 public class LoginController implements Initializable {
+
+    /**
+     * Clear Button
+     * */
     @FXML
     private Button clearBtn;
+    /**
+     * Exit Button
+     * */
     @FXML
     private Button exitBtn;
+    /**
+     * Login Button
+     * */
     @FXML
     private Button loginBtn;
+    /**
+     * Language text field
+     * */
     @FXML
     private TextField languageBox;
+    /**
+     * Text Field
+     */
     @FXML
     private TextField zoneIDBox;
+    /**
+     * Text Field
+     */
     @FXML
     private TextField passwordTxt;
+    /**
+     * Text Field
+     */
     @FXML
     private TextField usernameTxt;
 

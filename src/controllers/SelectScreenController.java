@@ -19,14 +19,23 @@ import java.util.ResourceBundle;
 public class SelectScreenController implements Initializable {
 
     /**
-     * Buttons for the form
+     * Appointment Button
      */
     @FXML
     private Button appointmentBtn;
+    /**
+     * Customer Button
+     */
     @FXML
     private Button customerBtn;
+    /**
+     * Exit Button
+     */
     @FXML
     private Button exitBtn;
+    /**
+     * Reports Button
+     */
     @FXML
     private Button reportBtn;
 

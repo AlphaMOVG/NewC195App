@@ -122,6 +122,10 @@ public class ReportsController {
 
     /**
      * Total number of customer appointments by type and month report.
+     *  Lambda #1 that adds appointments to the report by the type of appointment that they are.
+     *  Lambda #2 that gives the added results of the appointment by the Local date time of months.
+     *  Lambda #3 assigns key value pairs and filters the appointments by months for the report.
+     *
      * @throws SQLException
      */
     public void appointmentTotalsTab() throws SQLException {

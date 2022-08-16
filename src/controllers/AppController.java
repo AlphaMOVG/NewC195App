@@ -30,80 +30,167 @@ import java.util.ResourceBundle;
 public class AppController implements Initializable {
 
     /**
-     * FXML Buttons for the application
+     * FXML Clear button
      * */
     @FXML
     private Button clearBtn;
+    /**
+     * FXML add button
+     * */
     @FXML
     private Button addBtn;
+    /**
+     * FXML update button
+     * */
     @FXML
     private Button updateBtn;
+    /**
+     * FXML delete button
+     * */
     @FXML
     private Button deleteBtn;
+    /**
+     * FXML edit button
+     * */
     @FXML
     private Button editBtn;
+    /**
+     * FXML back button
+     * */
     @FXML
     private Button backBtn;
+    /**
+     * FXML exit button
+     * */
     @FXML
     private Button exitBtn;
+    /**
+     * FXML weeks radio button
+     * */
     @FXML
     private RadioButton weeksRBtn;
+    /**
+     * FXML months radio button
+     * */
     @FXML
     private RadioButton monthsRBtn;
+    /**
+     * FXML all appointments radio button
+     * */
     @FXML
     private RadioButton allAppointmentsRBtn;
     @FXML
     private ToggleGroup toggleRBtn;
 
     /**
-     * Text fields and combo box names
+     * Text field
      * */
     @FXML
     private TextField appointmentIdTxt;
+    /**
+     * Text field
+     * */
     @FXML
     private TextField titleTxt;
+    /**
+     * Text field
+     * */
     @FXML
     private TextField descriptionTxt;
+    /**
+     * Text field
+     * */
     @FXML
     private TextField locationTxt;
+    /**
+     * Combo Box
+     * */
     @FXML
     private ComboBox<Contacts> contactCombo;
+    /**
+     * Text field
+     * */
     @FXML
     private TextField typeTxt;
+    /**
+     * Combo Box
+     * */
     @FXML
     private ComboBox<LocalTime> sTimeCombo;
+    /**
+     * Combo Box
+     * */
     @FXML
     private ComboBox<LocalTime> eTimeCombo;
+    /**
+     * Date picker
+     * */
     @FXML
     private DatePicker datePicker;
+    /**
+     * Combo Box
+     * */
     @FXML
     private ComboBox<Users> userCombo;
+    /**
+     * Combo Box
+     * */
     @FXML
     private ComboBox<Customers> customerCombo;
 
     /**
-     * columns and table name for the table
+     * Table Name
      * */
     @FXML
     private TableView<Appointments> appointmentsTableView;
+    /**
+     * Table Column
+     * */
     @FXML
     private TableColumn<AppointmentHelper, Integer> appointmentIdCol;
+    /**
+     * Table Column
+     * */
     @FXML
     private TableColumn<AppointmentHelper, String> titleCol;
+    /**
+     * Table Column
+     * */
     @FXML
     private TableColumn<AppointmentHelper, String> descriptionCol;
+    /**
+     * Table Column
+     * */
     @FXML
     private TableColumn<AppointmentHelper, String> locationCol;
+    /**
+     * Table Column
+     * */
     @FXML
     private TableColumn<AppointmentHelper, LocalDateTime> startCol;
+    /**
+     * Table Column
+     * */
     @FXML
     private TableColumn<AppointmentHelper, LocalDateTime> endCol;
+    /**
+     * Table Column
+     * */
     @FXML
     private TableColumn<AppointmentHelper, String> typeCol;
+    /**
+     * Table Column
+     * */
     @FXML
     private TableColumn<AppointmentHelper, Integer> customerIdCol;
+    /**
+     * Table Column
+     * */
     @FXML
     private TableColumn<AppointmentHelper, Integer> userIdCol;
+    /**
+     * Table Column
+     * */
     @FXML
     private TableColumn<AppointmentHelper, Integer> contactCol;
 

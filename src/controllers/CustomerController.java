@@ -34,58 +34,115 @@ import java.util.ResourceBundle;
 public class CustomerController implements Initializable {
 
     /**
-     * Customer controller form buttons.
+     * Clear Button.
      * */
     @FXML
     private Button clearBtn;
+    /**
+     * Add Button.
+     * */
     @FXML
     private Button addBtn;
+    /**
+     * Update Button.
+     * */
     @FXML
     private Button updateBtn;
+    /**
+     * Delete Button.
+     * */
     @FXML
     private Button deleteBtn;
+    /**
+     * Back Button.
+     * */
     @FXML
     private Button backBtn;
+    /**
+     * Exit Button.
+     * */
     @FXML
     private Button exitBtn;
+    /**
+     * Edit Button.
+     * */
     @FXML
     private Button editBtn;
 
     /**
-     * Text fields and combo boxes for the form.
+     * Text field
      * */
     @FXML
     private TextField customerIdTxt;
+    /**
+     * Text field
+     * */
     @FXML
     private TextField customerNameTxt;
+    /**
+     * Text field
+     * */
     @FXML
     private TextField phoneNumberTxt;
+    /**
+     * Text field
+     * */
     @FXML
     private TextField postalCodeTxt;
+    /**
+     * Combo Box
+     * */
     @FXML
     private ComboBox<Divisions> divisionCombo;
+    /**
+     * Combo Box
+     * */
     @FXML
     private ComboBox<CountryHelper> countryCombo;
+    /**
+     * Text field
+     * */
     @FXML
     private TextField addressTxt;
 
     /**
-     * Columns and name of the table.
+     * Table View
      * */
     @FXML
     private TableView<Customers> customerTableView;
+    /**
+     * Table Column
+     * */
     @FXML
     private TableColumn<CustomerHelper, Integer> customerIdCol;
+    /**
+     * Table Column
+     * */
     @FXML
     private TableColumn<CustomerHelper, String> customerNameCol;
+    /**
+     * Table Column
+     * */
     @FXML
     private TableColumn<CustomerHelper, String> phoneNumberCol;
+    /**
+     * Table Column
+     * */
     @FXML
     private TableColumn<CustomerHelper, String> postalCodeCol;
+    /**
+     * Table Column
+     * */
     @FXML
     private TableColumn<CustomerHelper, Integer> divisionCol;
+    /**
+     * Table Column
+     * */
     @FXML
     private TableColumn<CustomerHelper, Integer> countryCol;
+    /**
+     * Table Column
+     * */
     @FXML
     private TableColumn<CustomerHelper, String> addressCol;
 
