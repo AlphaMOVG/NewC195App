@@ -24,7 +24,9 @@ import java.sql.SQLException;
 import java.time.*;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
+/**
+ * Appointment controller class
+ * */
 public class AppController implements Initializable {
 
     /**
