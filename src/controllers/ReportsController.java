@@ -28,31 +28,98 @@ import java.util.Collections;
  * Lambda #3 assigns key value pairs and filters the appointments by months for the report.
  * */
 public class ReportsController {
-
+    /**
+     * Tableview
+     * */
     @FXML
     private TableView<Appointments> allAppointmentsTable;
+    /**
+     * Table Column
+     * */
     @FXML private TableColumn<?, ?> appointmentContact;
+    /**
+     * Table Column
+     * */
     @FXML private TableColumn<?, ?> appointmentCustomerID;
+    /**
+     * Table Column
+     * */
     @FXML private TableColumn<?, ?> appointmentDescription;
-
+    /**
+     * Table Column
+     * */
     @FXML private TableColumn<?, ?> appointmentEnd;
+    /**
+     * Table Column
+     * */
     @FXML private TableColumn<?, ?> appointmentID;
+    /**
+     * Table Column
+     * */
     @FXML private TableColumn<?, ?> appointmentLocation;
+    /**
+     * Table Column
+     * */
     @FXML private TableColumn<?, ?> appointmentStart;
+    /**
+     * Table Column
+     * */
     @FXML private TableColumn<?, ?> appointmentTitle;
+    /**
+     * Table Column
+     * */
     @FXML private TableColumn<?, ?> appointmentTotalsAppointmentTypeCol;
+    /**
+     * Table Column
+     * */
     @FXML private TableColumn<?, ?> appointmentTotalsByMonth;
+    /**
+     * Table Column
+     * */
     @FXML private TableColumn<?, ?> appointmentTotalsMonthTotal;
+    /**
+     * Table Column
+     * */
     @FXML private TableColumn<?, ?> appointmentTotalsTypeTotalCol;
+    /**
+     * Table Column
+     * */
     @FXML private TableColumn<?, ?> appointmentType;
+    /**
+     * Button
+     * */
     @FXML private Button backToMainMenu;
+    /**
+     * Combo Box
+     * */
     @FXML private ComboBox<String> contactScheduleContactBox;
+    /**
+     * Table Column
+     * */
     @FXML private TableColumn<?, ?> tableContactID;
+    /**
+     * Table View
+     * */
     @FXML private TableView<ReportType> appointmentTotalsAppointmentType;
+    /**
+     * Tab
+     * */
     @FXML private Tab appointmentTotalsTab;
+    /**
+     * Table View
+     * */
     @FXML private TableView<MonthReport> appointmentTotalAppointmentByMonth;
+    /**
+     * Table View
+     * */
     @FXML private TableView<Reports> customerByCountry;
+    /**
+     * Table Column
+     * */
     @FXML private TableColumn<?, ?> countryName;
+    /**
+     * Table Column
+     * */
     @FXML private TableColumn<?, ?> countryCounter;
 
     /**
