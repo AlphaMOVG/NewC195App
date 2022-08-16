@@ -23,6 +23,9 @@ import java.util.Collections;
 
 /**
  * Reports controller
+ * Lambda #1 that adds appointments to the report by the type of appointment that they are.
+ * Lambda #2 that gives the added results of the appointment by the Local date time of months.
+ * Lambda #3 assigns key value pairs and filters the appointments by months for the report.
  * */
 public class ReportsController {
 
@@ -31,6 +34,7 @@ public class ReportsController {
     @FXML private TableColumn<?, ?> appointmentContact;
     @FXML private TableColumn<?, ?> appointmentCustomerID;
     @FXML private TableColumn<?, ?> appointmentDescription;
+
     @FXML private TableColumn<?, ?> appointmentEnd;
     @FXML private TableColumn<?, ?> appointmentID;
     @FXML private TableColumn<?, ?> appointmentLocation;
