@@ -116,4 +116,15 @@ public class CustomerHelper {
         }
     }
 
+    public static ObservableList<Customers> lookUpCustomer(String customerName) throws SQLException {
+
+        ObservableList<Customers> customers = FXCollections.observableArrayList();
+        for (Customers c : CustomerHelper.getAllCustomers()){
+            if(c.getCustomerName().contains(customerName)){
+                customers.add(c);
+            }
+        }
+        return customers;
+    }
+
 }

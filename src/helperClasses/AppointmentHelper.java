@@ -4,6 +4,7 @@ import main.JDBC;
 import models.Appointments;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import models.Customers;
 
 import java.sql.*;
 import java.time.LocalDateTime;
@@ -118,5 +119,16 @@ public class AppointmentHelper {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static ObservableList<Appointments> lookUpAppointment(String appointment) throws SQLException {
+
+        ObservableList<Appointments> customers = FXCollections.observableArrayList();
+        for (Appointments a : AppointmentHelper.getAllAppointments()){
+            if(a.getAppointmentTitle().contains(appointment)){
+                customers.add(a);
+            }
+        }
+        return customers;
     }
 }

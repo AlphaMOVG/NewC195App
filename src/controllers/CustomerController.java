@@ -105,6 +105,9 @@ public class CustomerController implements Initializable {
     @FXML
     private TextField addressTxt;
 
+    @FXML
+    private TextField searchTxt;
+
     /**
      * Table View
      * */
@@ -149,6 +152,30 @@ public class CustomerController implements Initializable {
 
     private Divisions divisions;
     private CountryHelper countryID;
+
+
+    @FXML
+    void onActionSearch(ActionEvent event) throws SQLException {
+        String searchText = searchTxt.getText();
+        ObservableList<Customers> results = null;
+        try {
+            results = CustomerHelper.lookUpCustomer(searchText);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        try {
+            while (results.size() == 0) {
+                int customerID = Integer.parseInt(searchText);
+                results.add((Customers) CustomerHelper.lookUpCustomer(searchText));
+            }
+            customerTableView.setItems(results);
+        } catch (NumberFormatException e) {
+            Alert noParts = new Alert(Alert.AlertType.ERROR);
+            noParts.setTitle("Error Message");
+            noParts.setContentText("Customer was not found");
+            noParts.showAndWait();
+        }
+    }
 
     /**
      * On action event that disables the division combo box if there is no selection in the country combo box.

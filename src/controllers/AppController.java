@@ -138,6 +138,9 @@ public class AppController implements Initializable {
     @FXML
     private ComboBox<Customers> customerCombo;
 
+    @FXML
+    private TextField searchTxt;
+
     /**
      * Table Name
      * */
@@ -267,6 +270,32 @@ public class AppController implements Initializable {
 
         datePicker.setValue(date);
     }
+
+
+
+    @FXML
+    void onActionSearch(ActionEvent event) throws SQLException {
+        String searchText = searchTxt.getText();
+        ObservableList<Appointments> results = null;
+        try {
+            results = AppointmentHelper.lookUpAppointment(searchText);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        try {
+            while (results.size() == 0) {
+                int customerID = Integer.parseInt(searchText);
+                results.add((Appointments) AppointmentHelper.lookUpAppointment(searchText));
+            }
+            appointmentsTableView.setItems(results);
+        } catch (NumberFormatException e) {
+            Alert noParts = new Alert(Alert.AlertType.ERROR);
+            noParts.setTitle("Error Message");
+            noParts.setContentText("Customer was not found");
+            noParts.showAndWait();
+        }
+    }
+
 
 
     /**
