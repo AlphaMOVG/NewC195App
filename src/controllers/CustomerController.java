@@ -153,7 +153,9 @@ public class CustomerController implements Initializable {
     private Divisions divisions;
     private CountryHelper countryID;
 
-
+/**
+ * Search functionality for the customers controller, customers can be searched by their names.
+ * */
     @FXML
     void onActionSearch(ActionEvent event) throws SQLException {
         String searchText = searchTxt.getText();

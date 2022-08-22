@@ -272,7 +272,9 @@ public class AppController implements Initializable {
     }
 
 
-
+    /**
+     * Search functionality for the Appointments controller, Appointments can be searched by its type.
+     * */
     @FXML
     void onActionSearch(ActionEvent event) throws SQLException {
         String searchText = searchTxt.getText();
